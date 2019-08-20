@@ -35,6 +35,6 @@
                 Topics that don't need a category, or don't fit into any other existing category.
             </div>
         </li>
-        @include('Frontend.forum.Category.multi_cat',['category'=>$child, 'parent' => $category])
+        @include('Frontend.forum.Category.reply_cat',['category'=>$child, 'parent' => $category])
     @endforeach
 @endif

@@ -45,8 +45,6 @@ class ForumController extends BackendController
     public function all_topics(Request $request)
     {
         if ($request->isMethod('get')) {
-            $GeneralWebmasterSections = WebmasterSection::where('status', '=', '1')->orderby('row_no', 'asc')->get();
-            $this->data('GeneralWebmasterSections', $GeneralWebmasterSections);
             $forum = ForumTopic::all();
             $this->data('forum', $forum);
             return view($this->backendPagePath . 'Forum.Topic.All_Topics', $this->data);

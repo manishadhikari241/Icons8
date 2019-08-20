@@ -38,7 +38,8 @@
         </a>
 
         <div class="panel ">
-          <span class="header-buttons">
+            @if(!\Illuminate\Support\Facades\Auth::check())
+                <span class="header-buttons">
               <button class="widget-button btn btn-primary  sign-up-button " data-toggle="modal"
                       data-target="#forumregister">
                   <span class="d-button-label">Sign Up</span>
@@ -49,6 +50,16 @@
                     <span class="d-button-label">Log In</span>
                 </button>
             </span>
+            @endif
+            @if(\Illuminate\Support\Facades\Auth::check())
+                <span class="header-buttons">
+              <a href="{{route('voyager.dashboard')}}" class="widget-button btn btn-primary  sign-up-button "
+              >
+                  <span class="d-button-label">{{\Illuminate\Support\Facades\Auth::user()->name}}</span>
+              </a>
+
+            </span>
+            @endif
             <ul role="navigation" class="icons d-header-icons ">
                 <li class="header-dropdown-toggle">
                     <a href="" title="search topics, posts, users, or categories"
@@ -262,16 +273,13 @@
                                 </td>
 
                                 <td class="posters">
-                                    <a href="" class="">
-                                        <img alt="" width="25" height="25"
-                                             src="https://community.icons8.com/letter_avatar_proxy/v2/letter/m/cab0a1/25.png"
-                                             class="avatar" title="mediaattack22 - Original Poster">
-                                    </a>
-                                    <a href="" class="latest">
-                                        <img alt="" width="25" height="25"
-                                             src="https://community.icons8.com/user_avatar/community.icons8.com/elenalo161/25/168_1.png"
-                                             class="avatar latest" title="elenalo161 - Most Recent Poster">
-                                    </a>
+                                    @foreach($value->users as $user)
+                                        <a href="" class="">
+                                            <img alt="" style="height: 25px;width: 25px"
+                                                 src="{{asset('image/'.$user->avatar)}}"
+                                                 class="avatar" title="mediaattack22 - Original Poster">
+                                        </a>
+                                    @endforeach
                                 </td>
 
                                 <td class="num posts" title="This topic has 1 reply">
@@ -377,7 +385,7 @@
                     <div id="loginForm" class="toggleform">
                         <div class="title">Login</div>
                         <div class="description">You can use your account to log in to any of our products</div>
-                        <form action="{{route('login')}}" method="post" class="is-big">
+                        <form action="{{route('voyager.login')}}" method="post" class="is-big">
                             @csrf
                             <input name="email" placeholder="Email" class="" autocomplete="off">
                             <input type="password" name="password" placeholder="Password" class="" autocomplete="off">
@@ -490,6 +498,9 @@
                         toastr.warning(value);
                     });
                     if (data.status == 'success') {
+                        swal(data.status, data.message, data.status);
+                    }
+                    if (data.status == 'error') {
                         swal(data.status, data.message, data.status);
                     }
                 }

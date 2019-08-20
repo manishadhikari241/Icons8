@@ -47,7 +47,7 @@
                 <li><a class="nav-link" href="music-index.html" >Music</a></li>
                 <li><a class="nav-link" href="videos-page.html" >Videos</a></li>
 
-                <li class="is-pull-right"><a class="nav-link " href="forum-index.html" >Forum</a></li>
+                <li class="is-pull-right"><a class="nav-link " href="{{route('forum')}}" >Forum</a></li>
                 <li><a class="nav-link" href="" >Resources</a></li>
                 
 

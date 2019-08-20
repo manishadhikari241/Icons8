@@ -22,16 +22,18 @@
     <link rel="stylesheet" href="{{asset('css/Frontend/responsive.css')}}">
 </head>
 <body>
-
+<?php use Carbon\Carbon; ?>
 
 <div class="forum_layout">
     <header class="header">
-        <a href="../forum-index.html" class="header-logo">
-            <img src="http://www.iconhot.com/icon/png/wood-social-networking/512/blinklist-logo-webtreatsetc.png">
+        <a href="forum-index.html" class="logo">
+            <img src="http://www.iconhot.com/icon/png/wood-social-networking/512/blinklist-logo-webtreatsetc.png"
+                 alt="">
         </a>
 
         <div class="panel ">
-          <span class="header-buttons">
+            @if(!\Illuminate\Support\Facades\Auth::check())
+                <span class="header-buttons">
               <button class="widget-button btn btn-primary  sign-up-button " data-toggle="modal"
                       data-target="#forumregister">
                   <span class="d-button-label">Sign Up</span>
@@ -42,6 +44,16 @@
                     <span class="d-button-label">Log In</span>
                 </button>
             </span>
+            @endif
+            @if(\Illuminate\Support\Facades\Auth::check())
+                <span class="header-buttons">
+              <a href="{{route('voyager.dashboard')}}" class="widget-button btn btn-primary  sign-up-button "
+              >
+                  <span class="d-button-label">{{\Illuminate\Support\Facades\Auth::user()->name}}</span>
+              </a>
+
+            </span>
+            @endif
             <ul role="navigation" class="icons d-header-icons ">
                 <li class="header-dropdown-toggle">
                     <a href="" title="search topics, posts, users, or categories"
@@ -167,6 +179,7 @@
             </div>
         </div>
 
+
     </header>
     <div class="forum-inner">
         <div class="wrap">
@@ -216,8 +229,8 @@
                                                 <div class="topic-avatar">
                                                     <a class="trigger-user-card main-avatar"
                                                        href="../forum-summary.html">
-                                                        <img alt="" width="45" height="45"
-                                                             src="https://community.icons8.com/letter_avatar_proxy/v2/letter/t/f6c823/45.png"
+                                                        <img alt="" style="height: 45px;width: 45px"
+                                                             src="{{asset('storage/'.$forum->users->first()->avatar)}}"
                                                              title="Teengroun.Sun" class="avatar"></a>
                                                     <div class="poster-avatar-extra"></div>
                                                 </div>
@@ -230,7 +243,7 @@
                                                             <div class="post-info post-date">
                                                                 <a class="post-date" href="">
                                                                     <span title="Jun 18, 2019 8:07 am"
-                                                                          class="relative-date">Jun 18</span>
+                                                                          class="relative-date">{{\Illuminate\Support\Carbon::parse($forum->created_at)->format('M d Y')}}</span>
                                                                 </a>
                                                             </div>
 
@@ -241,22 +254,31 @@
                                                             {!! $forum->description !!}
                                                         </div>
                                                         <section class="post-menu-area clearfix">
-                                                            <nav class="post-controls">
-                                                                <button class="widget-button btn-flat show-replies btn-icon-text"
-                                                                        aria-label="1 Reply" title="1 Reply"><span
-                                                                            class="d-button-label">1 Reply</span><i
-                                                                            class="icofont-simple-down"></i></button>
-                                                                <div class="actions">
-                                                                    <div class="like-button">
-                                                                        <button class="widget-button btn-flat toggle-like like btn-icon">
-                                                                            <i class="icofont-heart"></i></button>
+                                                            <form>
+
+                                                                <nav class="post-controls">
+                                                                    <button class="widget-button btn-flat show-replies btn-icon-text"
+                                                                            aria-label="1 Reply" title="1 Reply"><span
+                                                                                class="d-button-label">1 Reply</span><i
+                                                                                class="icofont-simple-down"></i>
+                                                                    </button>
+                                                                    <div class="actions">
+                                                                        <textarea id="desc"></textarea>
+                                                                        <div class="like-button">
+                                                                            <button class="widget-button btn-flat toggle-like like btn-icon">
+                                                                                <i class="icofont-heart"></i></button>
+                                                                        </div>
+                                                                        <button class="btn btn-primary" type="submit">
+                                                                            Comment
+                                                                        </button>
+                                                                        <button class="widget-button btn-flat share  btn-icon"
+                                                                                aria-label="share a link to this post"
+                                                                                title="share a link to this post"><i
+                                                                                    class="icofont-link"></i></button>
                                                                     </div>
-                                                                    <button class="widget-button btn-flat share  btn-icon"
-                                                                            aria-label="share a link to this post"
-                                                                            title="share a link to this post"><i
-                                                                                class="icofont-link"></i></button>
-                                                                </div>
-                                                            </nav>
+                                                                </nav>
+                                                            </form>
+
                                                         </section>
                                                     </div>
                                                     <section class="post-actions"></section>
@@ -273,7 +295,7 @@
                                                                                  src="https://community.icons8.com/letter_avatar_proxy/v2/letter/t/f6c823/45.png"
                                                                                  title="teengroun" class="avatar small"></a>
                                                                         <span title="Jun 18, 2019 8:07 am"
-                                                                              class="relative-date">Jun 18</span>
+                                                                              class="relative-date">{{\Illuminate\Support\Carbon::parse($forum->created_at)->format('M d Y')}}</span>
                                                                     </div>
                                                                 </li>
                                                                 <li>
@@ -1010,6 +1032,19 @@
     toastr.warning("{{ $error }}");
     @endforeach
     @endif
+</script>
+<script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('desc');
+
+</script>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type:"POST",
+            url:{{route('')}}
+        });
+    });
 </script>
 </body>
 </html>
