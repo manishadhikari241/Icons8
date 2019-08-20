@@ -23,7 +23,7 @@ Route::group(['namespace' => 'Frontend'], function () {
         Route::get('topic-filter', 'ForumController@topic_filter')->name('topic-filter');
         Route::get('category-filter', 'ForumController@category_filter')->name('category-filter');
         Route::any('forum-inner/{id}', 'ForumController@forum_inner')->name('forum-inner');
-        Route::post('topic-comment{id}', 'TopicCommentController@comment')->name('topic-comment');
+        Route::post('topic-comment', 'TopicCommentController@comment')->name('topic-comment');
     });
 });
 Auth::routes();

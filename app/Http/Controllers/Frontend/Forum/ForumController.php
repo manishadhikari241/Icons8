@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend\forum;
 
+use App\Model\TopicComments;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\ForumTopic;
@@ -66,6 +67,12 @@ class ForumController extends Controller
     {
         $forum = ForumTopic::where('status', 1)->where('id', $request->id)->first();
         $this->data('forum', $forum);
+        $comment = TopicComments::where('topic_id', $request->id)->get();
+        $replycount = count($comment);
+        $this->data('reply', $replycount);
+        $lastreply = TopicComments::where('topic_id', $request->id)->latest()->first() ? TopicComments::where('topic_id', $request->id)->latest()->first()->created_at : '';
+        $this->data('lastreply', $lastreply);
+        $this->data('comment', $comment);
         return view('Frontend.forum.forum-inner', $this->data);
     }
 

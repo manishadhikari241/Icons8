@@ -5,6 +5,8 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>Icons website</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -20,6 +22,8 @@
     <link rel="stylesheet" href="{{asset('css/Frontend/icofont/icofont.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/Frontend/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/Frontend/responsive.css')}}">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css" rel="stylesheet">
+
 </head>
 <body>
 <?php use Carbon\Carbon; ?>
@@ -181,7 +185,7 @@
 
 
     </header>
-    <div class="forum-inner">
+    <div class="forum-inner" data-id="{{$forum->id}}">
         <div class="wrap">
             <div id="topic-title">
                 <div class="container">
@@ -238,7 +242,8 @@
                                                     <div class="topic-meta-data">
                                                         <div class="names trigger-user-card"><span
                                                                     class="first username"><a
-                                                                        href="">teengroun</a></span></div>
+                                                                        href="">{{$forum->users->first()->name}}</a></span>
+                                                        </div>
                                                         <div class="post-infos">
                                                             <div class="post-info post-date">
                                                                 <a class="post-date" href="">
@@ -268,7 +273,8 @@
                                                                             <button class="widget-button btn-flat toggle-like like btn-icon">
                                                                                 <i class="icofont-heart"></i></button>
                                                                         </div>
-                                                                        <button class="btn btn-primary" type="submit">
+                                                                        <button class="btn btn-primary" id="comment"
+                                                                                type="button">
                                                                             Comment
                                                                         </button>
                                                                         <button class="widget-button btn-flat share  btn-icon"
@@ -309,11 +315,11 @@
                                                                                      class="avatar small">
                                                                             </a>
                                                                             <span title="Jul 19, 2019 12:26 pm"
-                                                                                  class="relative-date">5h</span>
+                                                                                  class="relative-date">{{\Illuminate\Support\Carbon::parse($lastreply)->diffForHumans()}}</span>
                                                                         </div>
                                                                     </a>
                                                                 </li>
-                                                                <li><span class="number">6</span>
+                                                                <li><span class="number">{{$reply}}</span>
                                                                     <h4>replies</h4></li>
                                                                 <li class="secondary"><span class="number">66</span>
                                                                     <h4>views</h4></li>
@@ -356,426 +362,74 @@
                             </div>
                         </div>
 
-
-                        <div class="posts-wrapper">
-                            <div>
-                                <div class="post-stream">
-                                    <div class="topic-post clearfix topic-owner regular">
-                                        <article id="post_1" data-post-id="1471" class="boxed onscreen-post">
-                                            <a href="" class="tabLoc"></a>
-                                            <div class="row">
-                                                <div class="topic-avatar">
-                                                    <a class="trigger-user-card main-avatar"
-                                                       href="../forum-summary.html">
-                                                        <img alt="" width="45" height="45"
-                                                             src="https://community.icons8.com/letter_avatar_proxy/v2/letter/t/f6c823/45.png"
-                                                             title="Teengroun.Sun" class="avatar"></a>
-                                                    <div class="poster-avatar-extra"></div>
-                                                </div>
-                                                <div class="topic-body clearfix">
-                                                    <div class="topic-meta-data">
-                                                        <div class="names trigger-user-card"><span
-                                                                    class="first username"><a
-                                                                        href="">teengroun</a></span></div>
-                                                        <div class="post-infos">
-                                                            <div class="post-info post-date">
-                                                                <a class="post-date" href="">
-                                                                    <span title="Jun 18, 2019 8:07 am"
-                                                                          class="relative-date">Jun 18</span>
-                                                                </a>
+                        @foreach($comment as $value)
+                            <div class="posts-wrapper">
+                                <div>
+                                    <div class="post-stream">
+                                        <div class="topic-post clearfix topic-owner regular">
+                                            <article id="post_1" data-post-id="1471" class="boxed onscreen-post">
+                                                <a href="" class="tabLoc"></a>
+                                                <div class="row">
+                                                    <div class="topic-avatar">
+                                                        <a class="trigger-user-card main-avatar"
+                                                           href="../forum-summary.html">
+                                                            <img alt="" width="45" height="45"
+                                                                 src="https://community.icons8.com/letter_avatar_proxy/v2/letter/t/f6c823/45.png"
+                                                                 title="Teengroun.Sun" class="avatar"></a>
+                                                        <div class="poster-avatar-extra"></div>
+                                                    </div>
+                                                    <div class="topic-body clearfix">
+                                                        <div class="topic-meta-data">
+                                                            <div class="names trigger-user-card"><span
+                                                                        class="first username"><a
+                                                                            href="">{{$value->users->name}}</a></span>
                                                             </div>
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="regular contents">
-                                                        <div class="cooked">
-                                                            <p>hello
-                                                                <br> Lunacy is a amazing software for editing sketch
-                                                                files on Windows, thanks to the developers.
-                                                                <br> When I saw the update, I immediately downloaded
-                                                                version 4.0 to use, but encountered some headaches.
-                                                                <br> When I opened the file stored in version 3.16.4 in
-                                                                version 4.0, a large number of components “disappeared”.
-                                                                <br> They do not disappear from the list of objects on
-                                                                the left, but are invisible in the edit window.
-                                                                <br> I’m not completely sure what kind of components
-                                                                they are, but I’m sure all the characters are missing.
-                                                                <br> BTW,I used extra fonts instead of Windows fonts.
-                                                                <br> I hope I have described my problem clearly. I am
-                                                                waiting for your reply. Thank you again!</p>
-                                                        </div>
-                                                        <section class="post-menu-area clearfix">
-                                                            <nav class="post-controls">
-                                                                <button class="widget-button btn-flat show-replies btn-icon-text"
-                                                                        aria-label="1 Reply" title="1 Reply"><span
-                                                                            class="d-button-label">1 Reply</span><i
-                                                                            class="icofont-simple-down"></i></button>
-                                                                <div class="actions">
-                                                                    <div class="like-button">
-                                                                        <button class="widget-button btn-flat toggle-like like btn-icon">
-                                                                            <i class="icofont-heart"></i></button>
-                                                                    </div>
-                                                                    <button class="widget-button btn-flat share  btn-icon"
-                                                                            aria-label="share a link to this post"
-                                                                            title="share a link to this post"><i
-                                                                                class="icofont-link"></i></button>
-                                                                </div>
-                                                            </nav>
-                                                        </section>
-                                                    </div>
-                                                    <section class="post-actions"></section>
-                                                    <div class="post-links-container"></div>
-                                                    <div class="topic-map">
-                                                        <section class="map map-collapsed">
-
-                                                            <ul class="clearfix">
-                                                                <li>
-                                                                    <h4>created</h4>
-                                                                    <div class="topic-map-post created-at">
-                                                                        <a class="trigger-user-card ">
-                                                                            <img width=20 height=20 alt=""
-                                                                                 src="https://community.icons8.com/letter_avatar_proxy/v2/letter/t/f6c823/45.png"
-                                                                                 title="teengroun" class="avatar small"></a>
-                                                                        <span title="Jun 18, 2019 8:07 am"
-                                                                              class="relative-date">Jun 18</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="">
-                                                                        <h4>last reply</h4>
-                                                                        <div class="topic-map-post last-reply">
-                                                                            <a class="trigger-user-card ">
-                                                                                <img alt="" width="20" height="20"
-                                                                                     src="https://community.icons8.com/letter_avatar_proxy/v2/letter/t/f6c823/20.png"
-                                                                                     title="teengroun"
-                                                                                     class="avatar small">
-                                                                            </a>
-                                                                            <span title="Jul 19, 2019 12:26 pm"
-                                                                                  class="relative-date">5h</span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-                                                                <li><span class="number">6</span>
-                                                                    <h4>replies</h4></li>
-                                                                <li class="secondary"><span class="number">66</span>
-                                                                    <h4>views</h4></li>
-                                                                <li class="secondary"><span class="number">3</span>
-                                                                    <h4>users</h4></li>
-                                                                <li class="avatars">
-                                                                    <div>
-                                                                        <a class="poster trigger-user-card"
-                                                                           title="teengroun"><img alt="" width="32"
-                                                                                                  height="32"
-                                                                                                  src="https://community.icons8.com/letter_avatar_proxy/v2/letter/t/f6c823/45.png"
-                                                                                                  title="teengroun"
-                                                                                                  class="avatar med"><span
-                                                                                    class="post-count">4</span></a>
-                                                                    </div>
-                                                                    <div>
-                                                                        <a class="poster trigger-user-card"
-                                                                           title="Sergey" data-user-card="Sergey"><img
-                                                                                    alt="" width="32" height="32"
-                                                                                    src="https://community.icons8.com/letter_avatar_proxy/v2/letter/t/f6c823/45.png"
-                                                                                    title="Sergey"
-                                                                                    class="avatar med"></a>
-                                                                    </div>
-                                                                    <div>
-                                                                        <a class="poster trigger-user-card"
-                                                                           title="MarinaM" data-user-card="MarinaM"><img
-                                                                                    alt="" width="32" height="32"
-                                                                                    src="https://community.icons8.com/letter_avatar_proxy/v2/letter/t/f6c823/45.png"
-                                                                                    title="MarinaM" class="avatar med"></a>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </section>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="posts-wrapper">
-                            <div>
-                                <div class="post-stream">
-                                    <div class="topic-post clearfix topic-owner regular">
-                                        <article id="post_1" data-post-id="1471" class="boxed onscreen-post">
-                                            <a href="" class="tabLoc"></a>
-                                            <div class="row">
-                                                <div class="topic-avatar">
-                                                    <a class="trigger-user-card main-avatar" href="">
-                                                        <img alt="" width="45" height="45"
-                                                             src="https://community.icons8.com/letter_avatar_proxy/v2/letter/t/f6c823/45.png"
-                                                             title="Teengroun.Sun" class="avatar"></a>
-                                                    <div class="poster-avatar-extra"></div>
-                                                </div>
-                                                <div class="topic-body clearfix">
-                                                    <div class="topic-meta-data">
-                                                        <div class="names trigger-user-card"><span
-                                                                    class="first username"><a
-                                                                        href="">teengroun</a></span></div>
-                                                        <div class="post-infos">
-                                                            <div class="post-info post-date">
-                                                                <a class="post-date" href="">
+                                                            <div class="post-infos">
+                                                                <div class="post-info post-date">
+                                                                    <a class="post-date" href="">
                                                                     <span title="Jun 18, 2019 8:07 am"
-                                                                          class="relative-date">Jun 18</span>
-                                                                </a>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="regular contents">
-                                                        <div class="cooked">
-                                                            <p>hello
-                                                                <br> Lunacy is a amazing software for editing sketch
-                                                                files on Windows, thanks to the developers.
-                                                                <br> When I saw the update, I immediately downloaded
-                                                                version 4.0 to use, but encountered some headaches.
-                                                                <br> When I opened the file stored in version 3.16.4 in
-                                                                version 4.0, a large number of components “disappeared”.
-                                                                <br> They do not disappear from the list of objects on
-                                                                the left, but are invisible in the edit window.
-                                                                <br> I’m not completely sure what kind of components
-                                                                they are, but I’m sure all the characters are missing.
-                                                                <br> BTW,I used extra fonts instead of Windows fonts.
-                                                                <br> I hope I have described my problem clearly. I am
-                                                                waiting for your reply. Thank you again!</p>
-                                                        </div>
-                                                        <section class="post-menu-area clearfix">
-                                                            <nav class="post-controls">
-                                                                <button class="widget-button btn-flat show-replies btn-icon-text"
-                                                                        aria-label="1 Reply" title="1 Reply"><span
-                                                                            class="d-button-label">1 Reply</span><i
-                                                                            class="icofont-simple-down"></i></button>
-                                                                <div class="actions">
-                                                                    <div class="like-button">
-                                                                        <button class="widget-button btn-flat toggle-like like btn-icon">
-                                                                            <i class="icofont-heart"></i></button>
-                                                                    </div>
-                                                                    <button class="widget-button btn-flat share  btn-icon"
-                                                                            aria-label="share a link to this post"
-                                                                            title="share a link to this post"><i
-                                                                                class="icofont-link"></i></button>
-                                                                </div>
-                                                            </nav>
-                                                        </section>
-                                                    </div>
-                                                    <section class="post-actions"></section>
-                                                    <div class="post-links-container"></div>
-                                                    <div class="topic-map">
-                                                        <section class="map map-collapsed">
-
-                                                            <ul class="clearfix">
-                                                                <li>
-                                                                    <h4>created</h4>
-                                                                    <div class="topic-map-post created-at">
-                                                                        <a class="trigger-user-card ">
-                                                                            <img width=20 height=20 alt=""
-                                                                                 src="https://community.icons8.com/letter_avatar_proxy/v2/letter/t/f6c823/45.png"
-                                                                                 title="teengroun" class="avatar small"></a>
-                                                                        <span title="Jun 18, 2019 8:07 am"
-                                                                              class="relative-date">Jun 18</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="">
-                                                                        <h4>last reply</h4>
-                                                                        <div class="topic-map-post last-reply">
-                                                                            <a class="trigger-user-card ">
-                                                                                <img alt="" width="20" height="20"
-                                                                                     src="https://community.icons8.com/letter_avatar_proxy/v2/letter/t/f6c823/20.png"
-                                                                                     title="teengroun"
-                                                                                     class="avatar small">
-                                                                            </a>
-                                                                            <span title="Jul 19, 2019 12:26 pm"
-                                                                                  class="relative-date">5h</span>
-                                                                        </div>
+                                                                          class="relative-date">{{\Illuminate\Support\Carbon::parse($value->created_at)->format('M d Y')}}</span>
                                                                     </a>
-                                                                </li>
-                                                                <li><span class="number">6</span>
-                                                                    <h4>replies</h4></li>
-                                                                <li class="secondary"><span class="number">66</span>
-                                                                    <h4>views</h4></li>
-                                                                <li class="secondary"><span class="number">3</span>
-                                                                    <h4>users</h4></li>
-                                                                <li class="avatars">
-                                                                    <div>
-                                                                        <a class="poster trigger-user-card"
-                                                                           title="teengroun"><img alt="" width="32"
-                                                                                                  height="32"
-                                                                                                  src="https://community.icons8.com/letter_avatar_proxy/v2/letter/t/f6c823/45.png"
-                                                                                                  title="teengroun"
-                                                                                                  class="avatar med"><span
-                                                                                    class="post-count">4</span></a>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="regular contents">
+                                                            <div class="cooked">
+                                                                {!! $value->comment  !!}
+                                                            </div>
+                                                            <section class="post-menu-area clearfix">
+                                                                <nav class="post-controls">
+                                                                    <button class="widget-button btn-flat show-replies btn-icon-text"
+                                                                            aria-label="1 Reply" title="1 Reply"><span
+                                                                                class="d-button-label">1 Reply</span><i
+                                                                                class="icofont-simple-down"></i>
+                                                                    </button>
+                                                                    <div class="actions">
+                                                                        <div class="like-button">
+                                                                            <button class="widget-button btn-flat toggle-like like btn-icon">
+                                                                                <i class="icofont-heart"></i></button>
+                                                                        </div>
+                                                                        <button class="widget-button btn-flat share  btn-icon"
+                                                                                aria-label="share a link to this post"
+                                                                                title="share a link to this post"><i
+                                                                                    class="icofont-link"></i></button>
                                                                     </div>
-                                                                    <div>
-                                                                        <a class="poster trigger-user-card"
-                                                                           title="Sergey" data-user-card="Sergey"><img
-                                                                                    alt="" width="32" height="32"
-                                                                                    src="https://community.icons8.com/letter_avatar_proxy/v2/letter/t/f6c823/45.png"
-                                                                                    title="Sergey"
-                                                                                    class="avatar med"></a>
-                                                                    </div>
-                                                                    <div>
-                                                                        <a class="poster trigger-user-card"
-                                                                           title="MarinaM" data-user-card="MarinaM"><img
-                                                                                    alt="" width="32" height="32"
-                                                                                    src="https://community.icons8.com/letter_avatar_proxy/v2/letter/t/f6c823/45.png"
-                                                                                    title="MarinaM" class="avatar med"></a>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </section>
+                                                                </nav>
+                                                            </section>
+                                                        </div>
+                                                        <section class="post-actions"></section>
+                                                        <div class="post-links-container"></div>
+
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </article>
+                                            </article>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="posts-wrapper">
-                            <div>
-                                <div class="post-stream">
-                                    <div class="topic-post clearfix topic-owner regular">
-                                        <article id="post_1" data-post-id="1471" class="boxed onscreen-post">
-                                            <a href="" class="tabLoc"></a>
-                                            <div class="row">
-                                                <div class="topic-avatar">
-                                                    <a class="trigger-user-card main-avatar"
-                                                       href="../forum-summary.html">
-                                                        <img alt="" width="45" height="45"
-                                                             src="https://community.icons8.com/letter_avatar_proxy/v2/letter/t/f6c823/45.png"
-                                                             title="Teengroun.Sun" class="avatar"></a>
-                                                    <div class="poster-avatar-extra"></div>
-                                                </div>
-                                                <div class="topic-body clearfix">
-                                                    <div class="topic-meta-data">
-                                                        <div class="names trigger-user-card"><span
-                                                                    class="first username"><a
-                                                                        href="">teengroun</a></span></div>
-                                                        <div class="post-infos">
-                                                            <div class="post-info post-date">
-                                                                <a class="post-date" href="">
-                                                                    <span title="Jun 18, 2019 8:07 am"
-                                                                          class="relative-date">Jun 18</span>
-                                                                </a>
-                                                            </div>
+                        @endforeach
 
-                                                        </div>
-                                                    </div>
-                                                    <div class="regular contents">
-                                                        <div class="cooked">
-                                                            <p>hello
-                                                                <br> Lunacy is a amazing software for editing sketch
-                                                                files on Windows, thanks to the developers.
-                                                                <br> When I saw the update, I immediately downloaded
-                                                                version 4.0 to use, but encountered some headaches.
-                                                                <br> When I opened the file stored in version 3.16.4 in
-                                                                version 4.0, a large number of components “disappeared”.
-                                                                <br> They do not disappear from the list of objects on
-                                                                the left, but are invisible in the edit window.
-                                                                <br> I’m not completely sure what kind of components
-                                                                they are, but I’m sure all the characters are missing.
-                                                                <br> BTW,I used extra fonts instead of Windows fonts.
-                                                                <br> I hope I have described my problem clearly. I am
-                                                                waiting for your reply. Thank you again!</p>
-                                                        </div>
-                                                        <section class="post-menu-area clearfix">
-                                                            <nav class="post-controls">
-                                                                <button class="widget-button btn-flat show-replies btn-icon-text"
-                                                                        aria-label="1 Reply" title="1 Reply"><span
-                                                                            class="d-button-label">1 Reply</span><i
-                                                                            class="icofont-simple-down"></i></button>
-                                                                <div class="actions">
-                                                                    <div class="like-button">
-                                                                        <button class="widget-button btn-flat toggle-like like btn-icon">
-                                                                            <i class="icofont-heart"></i></button>
-                                                                    </div>
-                                                                    <button class="widget-button btn-flat share  btn-icon"
-                                                                            aria-label="share a link to this post"
-                                                                            title="share a link to this post"><i
-                                                                                class="icofont-link"></i></button>
-                                                                </div>
-                                                            </nav>
-                                                        </section>
-                                                    </div>
-                                                    <section class="post-actions"></section>
-                                                    <div class="post-links-container"></div>
-                                                    <div class="topic-map">
-                                                        <section class="map map-collapsed">
-
-                                                            <ul class="clearfix">
-                                                                <li>
-                                                                    <h4>created</h4>
-                                                                    <div class="topic-map-post created-at">
-                                                                        <a class="trigger-user-card ">
-                                                                            <img width=20 height=20 alt=""
-                                                                                 src="https://community.icons8.com/letter_avatar_proxy/v2/letter/t/f6c823/45.png"
-                                                                                 title="teengroun" class="avatar small"></a>
-                                                                        <span title="Jun 18, 2019 8:07 am"
-                                                                              class="relative-date">Jun 18</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="">
-                                                                        <h4>last reply</h4>
-                                                                        <div class="topic-map-post last-reply">
-                                                                            <a class="trigger-user-card ">
-                                                                                <img alt="" width="20" height="20"
-                                                                                     src="https://community.icons8.com/letter_avatar_proxy/v2/letter/t/f6c823/20.png"
-                                                                                     title="teengroun"
-                                                                                     class="avatar small">
-                                                                            </a>
-                                                                            <span title="Jul 19, 2019 12:26 pm"
-                                                                                  class="relative-date">5h</span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-                                                                <li><span class="number">6</span>
-                                                                    <h4>replies</h4></li>
-                                                                <li class="secondary"><span class="number">66</span>
-                                                                    <h4>views</h4></li>
-                                                                <li class="secondary"><span class="number">3</span>
-                                                                    <h4>users</h4></li>
-                                                                <li class="avatars">
-                                                                    <div>
-                                                                        <a class="poster trigger-user-card"
-                                                                           title="teengroun"><img alt="" width="32"
-                                                                                                  height="32"
-                                                                                                  src="https://community.icons8.com/letter_avatar_proxy/v2/letter/t/f6c823/45.png"
-                                                                                                  title="teengroun"
-                                                                                                  class="avatar med"><span
-                                                                                    class="post-count">4</span></a>
-                                                                    </div>
-                                                                    <div>
-                                                                        <a class="poster trigger-user-card"
-                                                                           title="Sergey" data-user-card="Sergey"><img
-                                                                                    alt="" width="32" height="32"
-                                                                                    src="https://community.icons8.com/letter_avatar_proxy/v2/letter/t/f6c823/45.png"
-                                                                                    title="Sergey"
-                                                                                    class="avatar med"></a>
-                                                                    </div>
-                                                                    <div>
-                                                                        <a class="poster trigger-user-card"
-                                                                           title="MarinaM" data-user-card="MarinaM"><img
-                                                                                    alt="" width="32" height="32"
-                                                                                    src="https://community.icons8.com/letter_avatar_proxy/v2/letter/t/f6c823/45.png"
-                                                                                    title="MarinaM" class="avatar med"></a>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </section>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </section>
                 </div>
             </div>
@@ -1013,7 +667,13 @@
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/simplebar/4.1.0/simplebar.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+<script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('desc');
+
+</script>
 <script src="{{asset('js/Frontend/app.min.js')}}"></script>
 <script src="{{asset('js/toastr.min.js')}}"></script>
 
@@ -1033,17 +693,42 @@
     @endforeach
     @endif
 </script>
-<script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
-<script>
-    CKEDITOR.replace('desc');
 
-</script>
 <script>
     $(document).ready(function () {
-        $.ajax({
-            type:"POST",
-            url:{{route('')}}
+
+        $('.actions').find('#comment').on('click', function () {
+            let topic_id = $('.forum-inner').attr('data-id');
+            let comment = CKEDITOR.instances['desc'].getData();
+
+            $.ajaxSetup({
+                headers: {"X-CSRF-TOKEN": jQuery(`meta[name="csrf-token"]`).attr("content")}
+            });
+            $.ajax({
+                type: "POST",
+                url: "{{route('topic-comment')}}",
+                data: {
+                    topic_id: topic_id,
+                    comment: comment
+                },
+                success: function (data) {
+                    jQuery.each(data.errors, function (key, value) {
+
+                        toastr.warning(value);
+                    });
+                    if (data.status == 'success') {
+                        swal(data.status, data.message, data.status);
+                    }
+                    if (data.status == 'error') {
+                        swal(data.status, data.message, data.status);
+                    }
+                }
+
+            });
+
         });
+
+
     });
 </script>
 </body>

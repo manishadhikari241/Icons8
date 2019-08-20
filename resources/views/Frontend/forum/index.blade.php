@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -38,6 +38,15 @@
         </a>
 
         <div class="panel ">
+            <form method="post" action="{{route('logout')}}">
+                @csrf
+                <button type="submit" href="{{route('logout')}}" class="widget-button btn btn-primary  login-button
+                   ">
+                    <i class="fa fa-user d-icon d-icon-user" aria-hidden="true"></i>
+                    <span class="d-button-label">logout</span>
+                </button>
+            </form>
+
             @if(!\Illuminate\Support\Facades\Auth::check())
                 <span class="header-buttons">
               <button class="widget-button btn btn-primary  sign-up-button " data-toggle="modal"
@@ -53,8 +62,7 @@
             @endif
             @if(\Illuminate\Support\Facades\Auth::check())
                 <span class="header-buttons">
-              <a href="{{route('voyager.dashboard')}}" class="widget-button btn btn-primary  sign-up-button "
-              >
+              <a href="{{route('voyager.dashboard')}}" class="widget-button btn btn-primary  sign-up-button ">
                   <span class="d-button-label">{{\Illuminate\Support\Facades\Auth::user()->name}}</span>
               </a>
 
@@ -401,6 +409,8 @@
 
                         <form action="{{route('register')}}" method="post" class="is-big">
                             @csrf
+                            <input name="name" placeholder="Username" class="" autocomplete="off">
+
                             <input name="email" placeholder="Email" class="" autocomplete="off">
                             <input type="password" name="password" placeholder="Password" class="" autocomplete="off">
 

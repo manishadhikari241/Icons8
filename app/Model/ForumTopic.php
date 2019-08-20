@@ -17,4 +17,9 @@ class ForumTopic extends Model
     {
         return $this->belongsToMany('App\User', 'topic_user', 'topic_id', 'user_id');
     }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Model\TopicComments', 'topic_id');
+    }
 }
