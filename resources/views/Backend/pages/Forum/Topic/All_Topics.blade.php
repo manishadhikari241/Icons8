@@ -18,16 +18,6 @@
                     <div class="card-header">
                         <h5 class="card-title">All Topics</h5>
 
-                        <div class="card-tools">
-
-                            <button type="button" class="btn btn-tool" data-widget="collapse">
-                                <i class="fa fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-widget="remove">
-                                <i class="fa fa-times"></i>
-                            </button>
-
-                        </div>
                     </div>
                     <div class="card-body">
 
@@ -40,13 +30,16 @@
 
                                         </div>
                                         <div class="box-body">
-                                            <table id="example1" class="table table-bordered table-striped datatable">
+                                            <table id="example1" class="table table-striped table-bordered"
+                                                   style="width:100%">
                                                 <thead>
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Topic</th>
                                                     <th>Category</th>
-                                                    <th>Status</th>
+                                                    <th>Status<br>
+                                                        <small>(Click to approve)</small>
+                                                    </th>
                                                     <th>Created at</th>
                                                     <th class="sorting-false">Action</th>
                                                 </tr>
@@ -57,21 +50,34 @@
                                                         <td>{{++$key}}</td>
                                                         <td>{{$value->topic}}</td>
                                                         <td>{{$value->Categories->name}}</td>
-                                                        <td>@if($value->status =='0')<label class="red">
-                                                                Pending
-                                                            </label>@endif
+                                                        <td>
+                                                            <form method="post"
+                                                                  action="{{route('voyager.topic-status')}}">
+                                                                <input type="hidden" name="status"
+                                                                       value="{{$value->id}}">
+                                                                {{csrf_field()}}
+                                                                @if(($value->status)==0)
+                                                                    <button class="btn btn-danger btn btn-sm" name="inactive"><i
+                                                                                class="fa fa-times"></i>
+                                                                    </button>
+                                                                @else
+                                                                    <button class="btn btn-success btn btn-sm" name="active"><i
+                                                                                class="fa fa-check"></i>
+                                                                    </button>
+                                                                @endif
+                                                            </form>
                                                         </td>
                                                         <td>
                                                             {{$value->created_at}}
                                                         </td>
                                                         <td>
-                                                            <a href=""
+                                                            <a target="__blank" class="btn btn-dark" href="{{route('voyager.show-topic',$value->slug)}}"><i
+                                                                        class="fa fa-eye"></i></a>
+                                                            <a href="{{route('voyager.delete-topic',$value->id)}}"
                                                                onclick="return confirm('Are you sure??')"
-                                                               class="btn btn-sm btn btn-danger"><i
+                                                               class="btn btn-lg btn btn-danger"><i
                                                                         class="fa fa-trash"></i> </a>
-                                                            <a href=""
-                                                               class="btn btn-sm btn btn-primary"><i
-                                                                        class="fa fa-edit"></i> </a>
+
                                                         </td>
                                                     </tr>
                                                 @endforeach

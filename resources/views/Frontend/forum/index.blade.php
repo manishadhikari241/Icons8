@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -29,6 +29,7 @@
 </head>
 <body>
 
+<?php use Carbon\Carbon; ?>
 
 <div class="forum_layout">
     <header class="header">
@@ -38,43 +39,60 @@
         </a>
 
         <div class="panel ">
-            @if(!\Illuminate\Support\Facades\Auth::check())
+            @if(\Illuminate\Support\Facades\Auth::check())
+                <span class="header-buttons">
+              <button class="widget-button btn btn-primary  sign-up-button ">
+
+                  <span class="d-button-label">{{\Illuminate\Support\Facades\Auth::user()->name}}</span>
+              </button>
+
+
+
+
+
+            </span>
+
+            @else
                 <span class="header-buttons">
               <button class="widget-button btn btn-primary  sign-up-button " data-toggle="modal"
                       data-target="#forumregister">
-                  <span class="d-button-label">Sign Up</span>
-              </button>
-                <button class="widget-button btn btn-primary  login-button " data-toggle="modal"
-                        data-target="#forumregister">
-                  <i class="fa fa-user d-icon d-icon-user" aria-hidden="true"></i>
+                  <span class="d-button-label">Sign Up</span> |
                     <span class="d-button-label">Log In</span>
-                </button>
-            </span>
-            @endif
-            @if(\Illuminate\Support\Facades\Auth::check())
-                <span class="header-buttons">
-              <a href="{{route('voyager.dashboard')}}" class="widget-button btn btn-primary  sign-up-button "
-              >
-                  <span class="d-button-label">{{\Illuminate\Support\Facades\Auth::user()->name}}</span>
-              </a>
+              </button>
+
+
+
+
 
             </span>
+
             @endif
             <ul role="navigation" class="icons d-header-icons ">
                 <li class="header-dropdown-toggle">
                     <a href="" title="search topics, posts, users, or categories"
-                       aria-label="search topics, posts, users, or categories" id="search-button"
+                       id="search-button"
                        class="icon btn-flat">
                         <i class="fa fa-search d-icon d-icon-search" aria-hidden="true"></i>
                     </a>
                 </li>
                 <li class="header-dropdown-toggle">
                     <a href="" title="go to another topic list or category"
-                       aria-label="go to another topic list or category"
                        id="toggle-hamburger-menu" class="icon btn-flat">
                         <i class="fa fa-bars d-icon d-icon-bars" aria-hidden="true"></i>
                     </a>
                 </li>
+                @if(\Illuminate\Support\Facades\Auth::check())
+                    <li class="header-dropdown-toggle">
+                        <a href="" class="icon" id="user-setting-button">
+                            <div>
+                                <img alt="" width="32" height="32"
+                                     src="{{asset('storage/'.\Illuminate\Support\Facades\Auth::user()->avatar)}}"
+                                     title="{{\Illuminate\Support\Facades\Auth::user()->name}}" class="avatar">
+                            </div>
+                        </a>
+                    </li>
+                @endif
+
             </ul>
         </div>
         <div class="search-menu">
@@ -184,9 +202,38 @@
 
             </div>
         </div>
-
+        @if(\Illuminate\Support\Facades\Auth::check())
+            <div class="user-setting-panel">
+                <div class="menu-panel">
+                    <div class="menu-link-header">
+                        <ul class="menu-links">
+                            <li>
+                                <a href="{{route('voyager.dashboard')}}" class="widget-link user-activity-link"
+                                   title="{{\Illuminate\Support\Facades\Auth::user()->name}}">
+                                    <i class="fas fa-user"></i>&nbsp;{{\Illuminate\Support\Facades\Auth::user()->name}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <hr>
+                    <div class="logout-link">
+                        <form method="post" action="{{route('logout')}}">
+                            @csrf
+                            <ul class="menu-links">
+                                <li>
+                                    <button type="submit" href="{{route('logout')}}"><a title="logout">
+                                            <i class="fas fa-sign-out-alt"></i>&nbsp;logout
+                                        </a></button>
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @endif
 
     </header>
+
     <div class="list-controls">
         <div class="container">
             <section class="navigation-container">
@@ -255,7 +302,7 @@
                             <tr class="topic-list-item">
                                 <td class="main-link " colspan="1">
                                 <span class="link-top-line">
-                                    <a href="{{route('forum-inner',$value->id)}}"
+                                    <a href="{{route('forum-inner',$value->slug)}}"
                                        class="raw-link raw-topic-link">{{$value->topic}}</a>
                                     <span class="topic-post-badges"></span>
                                 </span>
@@ -265,7 +312,7 @@
                                     <a class="badge-wrapper box" href="">
                                         <span class="badge-category-bg" style="background-color: #AB9364;"></span>
                                         <span style="color: #FFFFFF;" class="badge-category"
-                                              title="All questions related to our Fugue Music.">
+                                              title="All questions related to our {{$value->categories->parent_id ? \App\Model\ForumCategory::where('id',1)->first()->name:''}} {{$value->categories->name}}">
                                         <span class="category-name">{{$value->categories->parent_id ? \App\Model\ForumCategory::where('id',1)->first()->name:''}}</span>&ensp;
                                         <span class="category-name">{{$value->categories->name}}</span>
                                     </span>
@@ -273,18 +320,37 @@
                                 </td>
 
                                 <td class="posters">
-                                    @foreach($value->users as $user)
-                                        <a href="" class="">
-                                            <img alt="" style="height: 25px;width: 25px"
-                                                 src="{{asset('image/'.$user->avatar)}}"
-                                                 class="avatar" title="mediaattack22 - Original Poster">
-                                        </a>
-                                    @endforeach
+                                    @if(isset($value->users))
+                                        @foreach($value->users as $user)
+                                            <a href="" class="">
+                                                <img alt="" style="height: 25px;width: 25px"
+                                                     src="{{asset('storage/'.$user->avatar)}}"
+                                                     class="avatar" title="{{$user->name}}">
+                                            </a>
+                                            @if(\App\Model\TopicComments::where('topic_id',$value->id)->first())
+                                                @foreach(\App\Model\TopicComments::where('topic_id',$value->id)->select('user_id')->distinct()->take(5)->get() as $key=>$comment)
+                                                    <a href="" class="">
+                                                        <img alt="" style="height: 25px;width: 25px"
+                                                             src="{{asset('storage/'.\App\User::where('id',$comment->user_id)->first()->avatar)}}"
+                                                             class="avatar"
+                                                             title="{{\App\User::where('id',$comment->user_id)->first()->name}}">
+                                                    </a>
+                                                @endforeach
+                                            @endif
+
+                                        @endforeach
+                                    @endif
+                                    {{--@if (isset($value->comments))--}}
+                                    {{--@foreach(  $value->comments as $user)--}}
+                                    {{--{{$user->email}}--}}
+                                    {{--@endforeach--}}
+                                    {{--@endif--}}
                                 </td>
 
-                                <td class="num posts" title="This topic has 1 reply">
+                                <td class="num posts"
+                                    title="This topic has {{\App\Model\TopicComments::where('topic_id', $value->id)->get()->isnotEmpty()? count(\App\Model\TopicComments::where('topic_id', $value->id)->get()):'0'}} reply">
                                     <a href="" class="badge-posts ">
-                                        <span class="number">1</span>
+                                        <span class="number">{{\App\Model\TopicComments::where('topic_id', $value->id)->get()->isnotEmpty()? count(\App\Model\TopicComments::where('topic_id', $value->id)->get()):'0'}}</span>
                                     </a>
                                 </td>
 
@@ -292,9 +358,9 @@
                                     <span class="number" title="this topic has been viewed 4 times">4</span></td>
 
                                 <td class="num age "
-                                    title="First post: Jul 17, 2019 9:24 am Posted: Jul 17, 2019 10:13 am">
+                                    title="Posted: {{$value->created_at}}">
                                     <a class="post-activity" href="">
-                                        <span class="relative-date">6h</span>
+                                        <span class="relative-date">{{\App\Model\TopicComments::where('topic_id',$value->id)->first()?\Illuminate\Support\Carbon::parse(\App\Model\TopicComments::where('topic_id',$value->id)->latest()->first()->created_at)->diffForHumans():''}}</span>
                                     </a>
                                 </td>
                             </tr>
@@ -371,56 +437,7 @@
 </div>
 
 
-<div class="modal fade app-modal" id="forumregister" tabindex="-1" role="dialog"
-     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="login-form">
-                <div class="">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div id="loginForm" class="toggleform">
-                        <div class="title">Login</div>
-                        <div class="description">You can use your account to log in to any of our products</div>
-                        <form action="{{route('voyager.login')}}" method="post" class="is-big">
-                            @csrf
-                            <input name="email" placeholder="Email" class="" autocomplete="off">
-                            <input type="password" name="password" placeholder="Password" class="" autocomplete="off">
 
-
-                            <button type="submit" class="submit-button">Login</button>
-                        </form>
-                        <a href="" class="reset-password">Forgot password?</a>
-                        <div class="switch-mode">Don’t have an account yet? <strong>Register</strong></div>
-                    </div>
-                    <div id="registerForm" class="toggleform">
-                        <div class="title">Register</div>
-
-                        <form action="{{route('register')}}" method="post" class="is-big">
-                            @csrf
-                            <input name="email" placeholder="Email" class="" autocomplete="off">
-                            <input type="password" name="password" placeholder="Password" class="" autocomplete="off">
-
-                            <div class="terms">
-                                <input id="login-form-checkbox-terms" type="checkbox">
-                                <label for="login-form-checkbox-terms" class="">Agree to our
-                                    <a href="">Terms and Conditions</a>
-                                </label>
-                            </div>
-                            <button type="submit" class="submit-button">Register</button>
-                        </form>
-                        <a href="" class="reset-password">Forgot password?</a>
-                        <div class="switch-mode">Already have an account? <strong>Login</strong></div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -557,6 +574,13 @@
         });
 
 
+    });
+</script>
+<script>
+    $(window).on('beforeunload', function () {
+        @if(\Illuminate\Support\Facades\Session::has('category_id'))
+        {{\Illuminate\Support\Facades\Session::forget('category_id')}}
+        @endif
     });
 </script>
 </body>

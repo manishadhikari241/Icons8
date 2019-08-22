@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Model\TopicComments;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\WebmasterSection;
 use App\Repositories\Contracts\ForumCategoryRepository;
 use App\Model\ForumCategory;
 use App\Model\ForumTopic;
@@ -40,6 +40,7 @@ class ForumController extends BackendController
                 return redirect()->back()->with('success', 'Categories Added');
             }
         }
+        return false;
     }
 
     public function all_topics(Request $request)
@@ -50,5 +51,46 @@ class ForumController extends BackendController
             return view($this->backendPagePath . 'Forum.Topic.All_Topics', $this->data);
         }
         return false;
+    }
+
+    public function topic_status(Request $request)
+    {
+        $update = ForumTopic::findorfail($request->status);
+
+        if (isset($_POST['active'])) {
+            $update->status = 0;
+        }
+        if (isset($_POST['inactive'])) {
+            $update->status = 1;
+        }
+        $save = $update->update();
+        if ($save) {
+
+            return redirect()->back()->with('success', 'Status Updated');
+        }
+        return false;
+    }
+
+    public function delete_topic(Request $request)
+    {
+        $delete = ForumTopic::findorfail($request->id)->delete();
+        if ($delete) {
+            return redirect()->back()->with('success', 'Topics Deleted');
+        }
+        return false;
+    }
+
+    public function show_topic(Request $request)
+    {
+        $forum = ForumTopic::where('status', 1)->where('slug', $request->slug)->first();
+        $this->data('forum', $forum);
+        $comment = TopicComments::where('topic_id', $forum->id)->get();
+        $replycount = count($comment);
+        $this->data('reply', $replycount);
+        $lastreply = TopicComments::where('topic_id', $forum->id)->latest()->first() ? TopicComments::where('topic_id', $forum->id)->latest()->first()->created_at : '';
+        $this->data('lastreply', $lastreply);
+        $this->data('comment', $comment);
+        return view('Frontend.forum.forum-inner', $this->data);
+
     }
 }
