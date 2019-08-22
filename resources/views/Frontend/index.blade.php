@@ -40,8 +40,6 @@
                         <ul>
                             <li ><a href="photocreator/index.html" >Photo Creator</a></li>
                             <li ><a href="{{route('photo')}}" >Photo library</a></li>
-                            <li ><a href="{{route('photo')}}" >Photo library</a></li>
-                            <li ><a href="{{route('photo')}}" >Photo library</a></li>
                         </ul>
                     </div>
                 </li>
