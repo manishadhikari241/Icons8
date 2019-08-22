@@ -1,4 +1,7 @@
-@extends('backEnd.layout')
+@extends('voyager::master')
+@section('css')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@stop
 @section('content')
 
     <div class="container">
@@ -7,7 +10,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">All Musics</h5>
-                        <a href="{{route('music')}}"><i class="fa fa-backward"></i>Back</a>
+                        <a href="{{route('voyager.music-upload')}}"><i class="fa fa-backward"></i>Back</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -18,6 +21,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Thumbnail</th>
+                                        <th>Music</th>
                                         <th>Music Title</th>
                                         <th>Theme</th>
                                         <th>Tags</th>
@@ -32,6 +36,11 @@
                                         <tr>
                                             <td>{{++$key}}</td>
                                             <td><img src="{{asset('images/music/'.$value->image)}}" width="60px">
+                                            </td>
+                                            <td width="5px">
+                                                <audio controls>
+                                                    <source src="{{asset('/music/'.$value->audio)}}" autoplay>
+                                                </audio>
                                             </td>
                                             <td>{{$value->name}}</td>
                                             <td>
@@ -55,16 +64,16 @@
                                                 @endforeach
                                             </td>
                                             <td>
-                                               {{$value->artists->name}}
+                                                {{$value->artists->name}}
                                             </td>
 
                                             <td>
                                                 <a class="btn btn-outline-danger confirm"
-                                                   href="{{route('delete-music',$value->id)}}"
+                                                   href="{{route('voyager.delete-music',$value->id)}}"
                                                    onclick="return confirm('Confirm Delete?')"><i
                                                             class="fa fa fa-trash"></i></a>
                                                 <a class="btn btn-outline-primary confirm"
-                                                   href="{{route('edit-music',$value->id)}}"
+                                                   href="{{route('voyager.edit-music',$value->id)}}"
                                                 ><i class="fa fa fa-edit"></i></a>
                                             </td>
                                         </tr>

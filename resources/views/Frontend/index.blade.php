@@ -43,6 +43,16 @@
                     <a class="nav-link" href="javascript:void(0)">Photos &nbsp;<i class="icofont-thin-down"></i></a>
                     <div class="nav-dropdown">
                         <ul>
+<<<<<<< HEAD
+                            <li ><a href="photocreator/index.html" >Photo Creator</a></li>
+                            <li ><a href="{{route('photo')}}" >Photo library</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li><a class="nav-link" href="" >Vectors</a></li>
+                <li><a class="nav-link" href="{{route('music')}}" >Music</a></li>
+                <li><a class="nav-link" href="videos-page.html" >Videos</a></li>
+=======
                             <li><a href="photocreator/index.html">Photo Creator</a></li>
                             <li><a href="photo-index.html">Photo library</a></li>
                         </ul>
@@ -54,6 +64,7 @@
 
                 <li class="is-pull-right"><a class="nav-link " href="{{route('forum')}}">Forum</a></li>
                 <li><a class="nav-link" href="">Resources</a></li>
+>>>>>>> e94d5048662a973592801227b4a1ce238c3369bb
 
 
             </ul>
@@ -442,7 +453,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/simplebar/4.1.0/simplebar.min.js"></script>
 
-<script src="js/app.min.js"></script>
+    <script src="{{asset('js/Frontend/app.min.js')}}"></script>
 
 
 <script src="{{asset('js/toastr.min.js')}}"></script>

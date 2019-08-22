@@ -4,15 +4,14 @@ namespace App\Http\Controllers\Backend;
 
 use App\Model\Age;
 use App\Model\BodyType;
-use App\Model\Category;
 use App\Model\Credit;
 use App\Model\Gender;
 use App\Model\Hair;
 use App\Model\Image;
+use App\Model\ImageCategory;
 use App\Model\Race;
 use App\Model\SpecialFeature;
 use App\Model\Tag;
-use App\WebmasterSection;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -22,12 +21,9 @@ class ImageController extends BackendController
 {
     public function categories(Request $request)
     {
-
         // General for all pages
-        $GeneralWebmasterSections = WebmasterSection::where('status', '=', '1')->orderby('row_no', 'asc')->get();
-
         if ($request->isMethod('get')) {
-            $cat = Category::all();
+            $cat = ImageCategory::all();
             $this->data('cat', $cat);
             return view($this->backendcategoryPath . 'category', compact('GeneralWebmasterSections'), $this->data);
         }
@@ -40,7 +36,7 @@ class ImageController extends BackendController
             $data['title'] = $request->name;
             $data['description'] = $request->description;
             $data['status'] = $request->status;
-            if (Category::create($data)) {
+            if (ImageCategory::create($data)) {
                 Session::flash('success', 'Category added');
                 return redirect()->back();
             }
@@ -49,7 +45,7 @@ class ImageController extends BackendController
 
     public function delete_category($id)
     {
-        $find = Category::findorfail($id);
+        $find = ImageCategory::findorfail($id);
         if (DB::table('table_image_category')->where('category_id',$id)->get()->isNotEmpty())
         {
             return redirect()->back()->with('error','Please delete related child category first');
@@ -63,10 +59,9 @@ class ImageController extends BackendController
     public function edit_category(Request $request)
     {
         if ($request->isMethod('get')) {
-            $GeneralWebmasterSections = WebmasterSection::where('status', '=', '1')->orderby('row_no', 'asc')->get();
-            $find = Category::where('id', '=', $request->id)->first();
+            $find = ImageCategory::where('id', '=', $request->id)->first();
             $this->data('find', $find);
-            return view($this->backendcategoryPath . 'edit_category', compact('GeneralWebmasterSections'), $this->data);
+            return view($this->backendcategoryPath . 'edit_category', $this->data);
 
         }
 
@@ -80,7 +75,7 @@ class ImageController extends BackendController
             $data['status'] = $request->status;
 
             $id = $request->id;
-            $update = Category::findorfail($id);
+            $update = ImageCategory::findorfail($id);
             if ($update->update($data)) {
                 return redirect()->back()->with('success', 'Category Updated');
 
@@ -90,7 +85,6 @@ class ImageController extends BackendController
 
     public function genders(Request $request)
     {
-        $GeneralWebmasterSections = WebmasterSection::where('status', '=', '1')->orderby('row_no', 'asc')->get();
 
         if ($request->isMethod('get')) {
             $gen = Gender::all();
@@ -136,7 +130,6 @@ class ImageController extends BackendController
 
     public function races(Request $request)
     {
-        $GeneralWebmasterSections = WebmasterSection::where('status', '=', '1')->orderby('row_no', 'asc')->get();
 
         if ($request->isMethod('get')) {
             $race = Race::all();
@@ -182,7 +175,6 @@ class ImageController extends BackendController
 
     public function ages(Request $request)
     {
-        $GeneralWebmasterSections = WebmasterSection::where('status', '=', '1')->orderby('row_no', 'asc')->get();
 
         if ($request->isMethod('get')) {
             $age = Age::all();
@@ -228,7 +220,6 @@ class ImageController extends BackendController
 
     public function hairs(Request $request)
     {
-        $GeneralWebmasterSections = WebmasterSection::where('status', '=', '1')->orderby('row_no', 'asc')->get();
 
         if ($request->isMethod('get')) {
             $hair = Hair::all();
@@ -274,7 +265,6 @@ class ImageController extends BackendController
 
     public function body_types(Request $request)
     {
-        $GeneralWebmasterSections = WebmasterSection::where('status', '=', '1')->orderby('row_no', 'asc')->get();
 
         if ($request->isMethod('get')) {
             $body = BodyType::all();
@@ -320,8 +310,6 @@ class ImageController extends BackendController
 
     public function special_features(Request $request)
     {
-        $GeneralWebmasterSections = WebmasterSection::where('status', '=', '1')->orderby('row_no', 'asc')->get();
-
         if ($request->isMethod('get')) {
             $special = SpecialFeature::all();
             $this->data('special', $special);
@@ -366,7 +354,6 @@ class ImageController extends BackendController
 
     public function tags(Request $request)
     {
-        $GeneralWebmasterSections = WebmasterSection::where('status', '=', '1')->orderby('row_no', 'asc')->get();
 
         if ($request->isMethod('get')) {
             $tags = Tag::all();
@@ -412,7 +399,6 @@ class ImageController extends BackendController
 
     public function credits(Request $request)
     {
-        $GeneralWebmasterSections = WebmasterSection::where('status', '=', '1')->orderby('row_no', 'asc')->get();
 
         if ($request->isMethod('get')) {
             $credits = Credit::all();
@@ -465,7 +451,6 @@ class ImageController extends BackendController
     public function image_upload(Request $request)
     {
         if ($request->isMethod('get')) {
-            $GeneralWebmasterSections = WebmasterSection::where('status', '=', '1')->orderby('row_no', 'asc')->get();
 
             $upload = Image::all();
             $this->data('photos', $upload);
@@ -483,7 +468,7 @@ class ImageController extends BackendController
             $this->data('special', $spe);
             $tags = Tag::all();
             $this->data('tag', $tags);
-            $cat = Category::where('status', '=', 1)->get();
+            $cat = ImageCategory::where('status', '=', 1)->get();
             $this->data('cat', $cat);
             $credit = Credit::all();
             $this->data('credits', $credit);
@@ -498,7 +483,8 @@ class ImageController extends BackendController
                 'image_type' => 'required',
                 'description' => 'required',
                 'image' => 'required',
-                'tags' => 'required'
+                'tags' => 'required',
+                'category'=>'required'
             ]);
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
@@ -559,7 +545,6 @@ class ImageController extends BackendController
     public function show_image(Request $request)
     {
         if ($request->isMethod('get')) {
-            $GeneralWebmasterSections = WebmasterSection::where('status', '=', '1')->orderby('row_no', 'asc')->get();
 
             $image = Image::all();
             $this->data('image', $image);
@@ -571,7 +556,6 @@ class ImageController extends BackendController
     public function edit_image(Request $request)
     {
         if ($request->isMethod('get')) {
-            $GeneralWebmasterSections = WebmasterSection::where('status', '=', '1')->orderby('row_no', 'asc')->get();
             $img = Image::where('id', '=', $request->id)->first();
             $this->data('img', $img);
             $gen = Gender::all();
@@ -588,7 +572,7 @@ class ImageController extends BackendController
             $this->data('special', $spe);
             $tags = Tag::all();
             $this->data('tag', $tags);
-            $cat = Category::where('status', '=', 1)->get();
+            $cat = ImageCategory::all();
             $this->data('cat', $cat);
             $credit = Credit::all();
             $this->data('credits', $credit);

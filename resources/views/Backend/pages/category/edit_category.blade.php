@@ -1,4 +1,7 @@
-@extends('backEnd.layout')
+@extends('voyager::master')
+@section('css')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@stop
 @section('content')
     <div class="col-md-12">
         <div class="card">
@@ -8,7 +11,7 @@
             <!-- /.card-header -->
             <div class="card-body">
 
-                <form method="POST" action="{{route('category-edit')}}"
+                <form method="POST" action="{{route('voyager.category-edit')}}"
                       accept-charset="UTF-8" class=""
                       enctype="multipart/form-data">
                     @csrf

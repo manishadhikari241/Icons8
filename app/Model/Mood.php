@@ -19,4 +19,9 @@ class Mood extends Model
     }
 
     protected $fillable = ['name'];
+
+    public function musics()
+    {
+        return $this->belongsToMany('App\Model\Music','music_mood','mood_id','music_id');
+    }
 }
