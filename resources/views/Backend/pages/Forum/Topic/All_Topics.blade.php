@@ -1,37 +1,17 @@
-@extends('backEnd.layout')
+@extends('voyager::master')
+
+
+@section('css')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@stop
+
+
 @section('content')
-    <example-component></example-component>
-<category></category>
+
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8">
 
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">Add New</h5>
-
-                        <div class="card-tools">
-
-                            <button type="button" class="btn btn-tool" data-widget="collapse">
-                                <i class="fa fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-widget="remove">
-                                <i class="fa fa-times"></i>
-                            </button>
-
-                        </div>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-
-                    </div>
-
-                    <!-- ./card-body -->
-
-                    <!-- /.card-footer -->
-                </div>
-            </div>
 
             <div class="col-md-12">
                 <div class="card">
@@ -128,5 +108,6 @@
             <!-- /.col -->
         </div>
     </div>
+@stop
 
-@endsection
+

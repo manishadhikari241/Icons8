@@ -11,11 +11,9 @@
 |
 */
 
-\Illuminate\Support\Facades\Auth::routes();
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
-
 Route::group(['namespace' => 'Frontend'], function () {
     Route::get('/', 'PageController@index')->name('index');
 
@@ -25,5 +23,9 @@ Route::group(['namespace' => 'Frontend'], function () {
         Route::get('topic-filter', 'ForumController@topic_filter')->name('topic-filter');
         Route::get('category-filter', 'ForumController@category_filter')->name('category-filter');
         Route::any('forum-inner/{id}', 'ForumController@forum_inner')->name('forum-inner');
+        Route::post('topic-comment{id}', 'TopicCommentController@comment')->name('topic-comment');
     });
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

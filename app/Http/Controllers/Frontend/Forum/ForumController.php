@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend\forum;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\ForumTopic;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -20,6 +21,13 @@ class ForumController extends Controller
     public function new_topic(Request $request)
     {
         if ($request->ajax()) {
+
+            if (!Auth::check()) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Please login to continue'
+                ]);
+            }
             $validator = Validator::make($request->all(), [
                 'category' => 'required',
                 'title' => 'required|min:3|max:200',
@@ -37,6 +45,7 @@ class ForumController extends Controller
             $data['description'] = $request->detail;
 
             $create = ForumTopic::create($data);
+            $create->users()->attach(Auth::user()->id);
             if ($create) {
                 {
                     return response()->json([
@@ -57,7 +66,7 @@ class ForumController extends Controller
     {
         $forum = ForumTopic::where('status', 1)->where('id', $request->id)->first();
         $this->data('forum', $forum);
-        return view('icons/forum.forum-inner', $this->data);
+        return view('Frontend.forum.forum-inner', $this->data);
     }
 
     public function topic_filter(Request $request)
@@ -74,7 +83,7 @@ class ForumController extends Controller
             $final = $forum->get();
 
             $this->data('forum', $final);
-            return view('icons/forum.latest_filter', $this->data);
+            return view('Frontend.forum.latest_filter', $this->data);
         }
 
         return false;
@@ -87,7 +96,7 @@ class ForumController extends Controller
 
             $topic = ForumTopic::where('category_id', $request->category_id)->where('status', 1)->get();
             $this->data('topic', $topic);
-            return view('icons.forum.category_filter', $this->data);
+            return view('Frontend.forum.category_filter', $this->data);
         }
 
         return false;
