@@ -13,9 +13,14 @@
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
+
 });
 Route::group(['namespace' => 'Frontend'], function () {
     Route::get('/', 'PageController@index')->name('index');
+    Route::get('/musics', 'PageController@music')->name('music');
+    Route::get('/photos', 'PageController@photo')->name('photo');
+    Route::any('/search', 'PageController@search_results')->name('search-result');
+
 
     Route::group(['namespace' => 'Forum'], function () {
         Route::any('/forum', 'ForumController@index')->name('forum');

@@ -19,4 +19,9 @@ class Theme extends Model
     }
 
     protected $fillable = ['name'];
+
+    public function musics()
+    {
+        return $this->belongsToMany('App\Model\Music','music_theme','theme_id','music_id');
+    }
 }

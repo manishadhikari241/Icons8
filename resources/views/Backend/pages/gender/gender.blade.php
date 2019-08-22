@@ -1,4 +1,7 @@
-@extends('backEnd.layout')
+@extends('voyager::master')
+@section('css')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@stop
 @section('content')
 
 
@@ -12,7 +15,7 @@
                     <!-- /.card-header -->
                     <div class="card-body">
 
-                        <form method="POST" action="{{route('genders')}}"
+                        <form method="POST" action="{{route('voyager.genders')}}"
                               accept-charset="UTF-8" class=""
                               enctype="multipart/form-data">
                             @csrf
@@ -71,10 +74,10 @@
                                     <td>{{++$key}}</td>
                                     <td>{{$value->name}}</td>
                                     <td>
-                                        <a href="{{route('gender-delete',$value->id)}}"
+                                        <a href="{{route('voyager.gender-delete',$value->id)}}"
                                            onclick="return confirm('Confirm Delete?')"
                                            class="btn btn-sm btn btn-danger"><i class="fa fa-trash"></i> </a>
-                                        <a href="{{route('gender-edit',$value->id)}}" data-toggle="modal"
+                                        <a href="{{route('voyager.gender-edit',$value->id)}}" data-toggle="modal"
                                            data-target="#myEditModal{{ $value->id }}"
                                            class="btn btn-sm btn btn-primary"><i
                                                     class="fa fa-edit"></i> </a>
@@ -92,7 +95,7 @@
                                             </div>
                                             <div class="card-body">
 
-                                                <form method="POST" action="{{route('gender-edit')}}"
+                                                <form method="POST" action="{{route('voyager.gender-edit')}}"
                                                       accept-charset="UTF-8" class=""
                                                       enctype="multipart/form-data">
                                                     @csrf

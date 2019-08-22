@@ -19,8 +19,6 @@ class MusicController extends BackendController
 {
     public function themes(Request $request)
     {
-        $GeneralWebmasterSections = WebmasterSection::where('status', '=', '1')->orderby('row_no', 'asc')->get();
-
         if ($request->isMethod('get')) {
             $themes = Theme::all();
             $this->data('theme', $themes);
@@ -65,8 +63,6 @@ class MusicController extends BackendController
 
     public function genre(Request $request)
     {
-        $GeneralWebmasterSections = WebmasterSection::where('status', '=', '1')->orderby('row_no', 'asc')->get();
-
         if ($request->isMethod('get')) {
             $gen = Genre::all();
             $this->data('genre', $gen);
@@ -111,9 +107,6 @@ class MusicController extends BackendController
 
     public function mood(Request $request)
     {
-
-        $GeneralWebmasterSections = WebmasterSection::where('status', '=', '1')->orderby('row_no', 'asc')->get();
-
         if ($request->isMethod('get')) {
             $mood = Mood::all();
             $this->data('mood', $mood);
@@ -158,8 +151,6 @@ class MusicController extends BackendController
 
     public function artist(Request $request)
     {
-        $GeneralWebmasterSections = WebmasterSection::where('status', '=', '1')->orderby('row_no', 'asc')->get();
-
         if ($request->isMethod('get')) {
             $art = Artist::all();
             $this->data('artist', $art);
@@ -196,6 +187,11 @@ class MusicController extends BackendController
     public function delete_artist($id)
     {
         $del = Artist::findorfail($id);
+        if(DB::table('musics')->where('artist_id',$id)->get()->isNotEmpty())
+        {
+            return redirect()->back()->with('error','Please delete related music first');
+
+        }
         if ($del->delete()) {
             Session::flash('success', 'Music artist deleted');
             return redirect()->back();
@@ -204,8 +200,6 @@ class MusicController extends BackendController
 
     public function music(Request $request)
     {
-        $GeneralWebmasterSections = WebmasterSection::where('status', '=', '1')->orderby('row_no', 'asc')->get();
-
         if ($request->isMethod('get')) {
             $mus = Music::all();
             $this->data('music', $mus);
@@ -228,7 +222,8 @@ class MusicController extends BackendController
                 'themes' => 'required',
                 'tag' => 'required',
                 'genres' => 'required',
-                'moods' => 'required'
+                'moods' => 'required',
+                'audio' => 'required',
             ]);
             $data['name'] = $request->name;
             if ($request->hasFile('image')) {
@@ -237,6 +232,13 @@ class MusicController extends BackendController
                 $destinationPath = public_path('/images/music/');
                 $image->move($destinationPath, $name);
                 $data['image'] = $name;
+            }
+            if ($request->hasFile('audio')) {
+                $audio = $request->file('audio');
+                $file = time() . '.' . $audio->getClientOriginalExtension();
+                $destinationPath = public_path('/music/');
+                $audio->move($destinationPath, $file);
+                $data['audio'] = $file;
             }
             $data['artist_id'] = $request->artist;
             $create = Music::create($data);
@@ -264,7 +266,6 @@ class MusicController extends BackendController
     public function show_music(Request $request)
     {
         if ($request->isMethod('get')) {
-            $GeneralWebmasterSections = WebmasterSection::where('status', '=', '1')->orderby('row_no', 'asc')->get();
 
             $music = Music::all();
             $this->data('music', $music);
@@ -277,7 +278,7 @@ class MusicController extends BackendController
     {
         $id = $request->id;
         $find = Music::findorfail($id);
-        if ($this->delete_file($id) && $find->delete()) {
+        if ($this->delete_file($id) && $this->delete_mp3($id) && $find->delete()) {
             Session::flash('success', 'Music deleted');
             return redirect()->back();
         }
@@ -294,10 +295,21 @@ class MusicController extends BackendController
         return true;
     }
 
+    public function delete_mp3($id)
+    {
+        $find=Music::findorfail($id);
+        $file=$find->audio;
+        $deletePath=public_path('music/',$file);
+        if (file_exists($deletePath)&& is_file($deletePath))
+        {
+            unlink($deletePath);
+        }
+        return true;
+    }
+
     public function edit_music(Request $request)
     {
         if ($request->isMethod('get')) {
-            $GeneralWebmasterSections = WebmasterSection::where('status', '=', '1')->orderby('row_no', 'asc')->get();
 
             $music = Music::where('id', '=', $request->id)->first();
             $this->data('music', $music);
@@ -330,6 +342,14 @@ class MusicController extends BackendController
                 $destinationPath = public_path('/images/music/');
                 $image->move($destinationPath, $name);
                 $data['image'] = $name;
+            }
+            if ($request->hasFile('audio')) {
+                $this->delete_mp3($id);
+                $audio = $request->file('audio');
+                $name = time() . '.' . $audio->getClientOriginalExtension();
+                $destinationPath = public_path('/music/');
+                $audio->move($destinationPath, $name);
+                $data['audio'] = $name;
             }
             $data['artist_id'] = $request->artist;
             $find = Music::findorfail($id);

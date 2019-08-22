@@ -1,8 +1,10 @@
-@extends('backEnd.layout')
+@extends('voyager::master')
+@section('css')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@stop
 @section('content')
 
-
-    <div class="container-fluid">
+<div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -12,7 +14,7 @@
                     <!-- /.card-header -->
                     <div class="card-body">
 
-                        <form method="POST" action="{{route('mood')}}"
+                        <form method="POST" action="{{route('voyager.mood')}}"
                               accept-charset="UTF-8" class=""
                               enctype="multipart/form-data">
                             @csrf
@@ -68,10 +70,10 @@
                                     <td>{{++$key}}</td>
                                     <td>{{$value->name}}</td>
                                     <td>
-                                        <a href="{{route('delete-music-mood',$value->id)}}"
+                                        <a href="{{route('voyager.delete-music-mood',$value->id)}}"
                                            onclick="return confirm('Confirm Delete?')"
                                            class="btn btn-sm btn btn-danger"><i class="fa fa-trash"></i> </a>
-                                        <a href="{{route('edit-music-mood',$value->id)}}" data-toggle="modal"
+                                        <a href="{{route('voyager.edit-music-mood',$value->id)}}" data-toggle="modal"
                                            data-target="#myEditModal{{ $value->id }}"
                                            class="btn btn-sm btn btn-primary"><i
                                                     class="fa fa-edit"></i> </a>
@@ -89,7 +91,7 @@
                                             </div>
                                             <div class="card-body">
 
-                                                <form method="POST" action="{{route('edit-music-mood')}}"
+                                                <form method="POST" action="{{route('voyager.edit-music-mood')}}"
                                                       accept-charset="UTF-8" class=""
                                                       enctype="multipart/form-data">
                                                     @csrf

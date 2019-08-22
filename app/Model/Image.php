@@ -21,7 +21,7 @@ class Image extends Model
 
     public function categories()
     {
-        return $this->belongsToMany('App\Model\Category', 'table_image_category', 'image_id');
+        return $this->belongsToMany('App\Model\ImageCategory', 'table_image_category', 'image_id','category_id');
     }
 
     public function tags()

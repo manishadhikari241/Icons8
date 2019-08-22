@@ -20,4 +20,9 @@ class Genre extends Model
 
     protected $fillable = ['name'];
 
+    public function musics()
+    {
+        return $this->belongsToMany('App\Model\Music','music_genre','genre_id','music_id');
+    }
+
 }

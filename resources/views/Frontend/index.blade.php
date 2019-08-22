@@ -39,12 +39,12 @@
                     <div class="nav-dropdown">
                         <ul>
                             <li ><a href="photocreator/index.html" >Photo Creator</a></li>
-                            <li ><a href="photo-index.html" >Photo library</a></li>
+                            <li ><a href="{{route('photo')}}" >Photo library</a></li>
                         </ul>
                     </div>
                 </li>
                 <li><a class="nav-link" href="" >Vectors</a></li>
-                <li><a class="nav-link" href="music-index.html" >Music</a></li>
+                <li><a class="nav-link" href="{{route('music')}}" >Music</a></li>
                 <li><a class="nav-link" href="videos-page.html" >Videos</a></li>
 
                 <li class="is-pull-right"><a class="nav-link " href="{{route('forum')}}" >Forum</a></li>
@@ -442,7 +442,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/simplebar/4.1.0/simplebar.min.js"></script>
 
-<script src="js/app.min.js"></script>
+    <script src="{{asset('js/Frontend/app.min.js')}}"></script>
 
 </body>
 </html>
