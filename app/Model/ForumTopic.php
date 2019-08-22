@@ -3,10 +3,21 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class ForumTopic extends Model
 {
-    protected $fillable = ['topic', 'category_id', 'status', 'description'];
+    protected $fillable = ['topic', 'category_id', 'status', 'description','slug'];
+
+    use HasSlug;
+
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('topic')
+            ->saveSlugsTo('slug');
+    }
 
     public function Categories()
     {

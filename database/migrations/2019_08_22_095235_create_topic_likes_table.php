@@ -3,9 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Support\Facades\DB;
 
-class CreateTopicCommentsTable extends Migration
+class CreateTopicLikesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +13,9 @@ class CreateTopicCommentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('topic_comments', function (Blueprint $table) {
+        Schema::create('topic_likes', function (Blueprint $table) {
             $table->Increments('id');
-            $table->integer('topic_id')->unsigned();
-            $table->longText('comment');
+            $table->integer('likes')->default(0);
             $type = DB::connection()->getDoctrineColumn('users', 'id')->getType()->getName();
             if ($type == 'bigint') {
                 $table->bigInteger('user_id')->unsigned()->index();
@@ -25,7 +23,9 @@ class CreateTopicCommentsTable extends Migration
                 $table->integer('user_id')->unsigned()->index();
             }
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('topic_id')->unsigned();
             $table->foreign('topic_id')->references('id')->on('forum_topics')->onDelete('cascade')->onUpdate('cascade');
+
             $table->timestamps();
         });
     }
@@ -37,6 +37,6 @@ class CreateTopicCommentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('topic_comments');
+        Schema::dropIfExists('topic_likes');
     }
 }

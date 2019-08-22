@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend\forum;
 
 use App\Model\TopicComments;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\ForumTopic;
@@ -15,6 +16,7 @@ class ForumController extends Controller
     public function index()
     {
         $forum = ForumTopic::where('status', '=', 1)->get();
+
         $this->data('forum', $forum);
         return view('Frontend.forum.index', $this->data);
     }
@@ -65,12 +67,28 @@ class ForumController extends Controller
 
     public function forum_inner(Request $request)
     {
-        $forum = ForumTopic::where('status', 1)->where('id', $request->id)->first();
+        $forum = ForumTopic::where('status', 1)->where('slug', $request->slug)->first();
         $this->data('forum', $forum);
-        $comment = TopicComments::where('topic_id', $request->id)->get();
+        $comment = TopicComments::where('topic_id', $forum->id)->get();
         $replycount = count($comment);
         $this->data('reply', $replycount);
-        $lastreply = TopicComments::where('topic_id', $request->id)->latest()->first() ? TopicComments::where('topic_id', $request->id)->latest()->first()->created_at : '';
+        $lastreply = TopicComments::where('topic_id', $forum->id)->latest()->first() ? TopicComments::where('topic_id', $forum->id)->latest()->first()->created_at : null;
+        foreach ($comment as $value) {
+            $user_id[] = $value->users->id;
+        }
+        foreach ($comment as $value) {
+            $user_avatar[] = $value->users->id;
+        }
+        if (isset($user_avatar)) {
+            $user_av = array_unique($user_avatar);
+            $user_commented =User::whereIn('id', $user_av)->take(20)->get();
+            $this->data('user_commented', $user_commented);
+        }
+        if (isset($user_id)) {
+            $totaluser = count(array_unique($user_id));
+            $this->data('total_user', $totaluser);
+        }
+
         $this->data('lastreply', $lastreply);
         $this->data('comment', $comment);
         return view('Frontend.forum.forum-inner', $this->data);
@@ -88,7 +106,7 @@ class ForumController extends Controller
             }
 
             $final = $forum->get();
-
+//Session::forget('category_id');
             $this->data('forum', $final);
             return view('Frontend.forum.latest_filter', $this->data);
         }

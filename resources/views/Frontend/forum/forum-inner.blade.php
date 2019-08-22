@@ -36,43 +36,60 @@
         </a>
 
         <div class="panel ">
-            @if(!\Illuminate\Support\Facades\Auth::check())
+            @if(\Illuminate\Support\Facades\Auth::check())
+                <span class="header-buttons">
+              <button class="widget-button btn btn-primary  sign-up-button ">
+
+                  <span class="d-button-label">{{\Illuminate\Support\Facades\Auth::user()->name}}</span>
+              </button>
+
+
+
+
+
+            </span>
+
+            @else
                 <span class="header-buttons">
               <button class="widget-button btn btn-primary  sign-up-button " data-toggle="modal"
                       data-target="#forumregister">
-                  <span class="d-button-label">Sign Up</span>
-              </button>
-                <button class="widget-button btn btn-primary  login-button " data-toggle="modal"
-                        data-target="#forumregister">
-                  <i class="fa fa-user d-icon d-icon-user" aria-hidden="true"></i>
+                  <span class="d-button-label">Sign Up</span> |
                     <span class="d-button-label">Log In</span>
-                </button>
-            </span>
-            @endif
-            @if(\Illuminate\Support\Facades\Auth::check())
-                <span class="header-buttons">
-              <a href="{{route('voyager.dashboard')}}" class="widget-button btn btn-primary  sign-up-button "
-              >
-                  <span class="d-button-label">{{\Illuminate\Support\Facades\Auth::user()->name}}</span>
-              </a>
+              </button>
+
+
+
+
 
             </span>
+
             @endif
             <ul role="navigation" class="icons d-header-icons ">
                 <li class="header-dropdown-toggle">
                     <a href="" title="search topics, posts, users, or categories"
-                       aria-label="search topics, posts, users, or categories" id="search-button"
+                       id="search-button"
                        class="icon btn-flat">
                         <i class="fa fa-search d-icon d-icon-search" aria-hidden="true"></i>
                     </a>
                 </li>
                 <li class="header-dropdown-toggle">
                     <a href="" title="go to another topic list or category"
-                       aria-label="go to another topic list or category"
                        id="toggle-hamburger-menu" class="icon btn-flat">
                         <i class="fa fa-bars d-icon d-icon-bars" aria-hidden="true"></i>
                     </a>
                 </li>
+                @if(\Illuminate\Support\Facades\Auth::check())
+                    <li class="header-dropdown-toggle">
+                        <a href="" class="icon" id="user-setting-button">
+                            <div>
+                                <img alt="" width="32" height="32"
+                                     src="{{asset('storage/'.\Illuminate\Support\Facades\Auth::user()->avatar)}}"
+                                     title="{{\Illuminate\Support\Facades\Auth::user()->name}}" class="avatar">
+                            </div>
+                        </a>
+                    </li>
+                @endif
+
             </ul>
         </div>
         <div class="search-menu">
@@ -182,7 +199,35 @@
 
             </div>
         </div>
-
+        @if(\Illuminate\Support\Facades\Auth::check())
+            <div class="user-setting-panel">
+                <div class="menu-panel">
+                    <div class="menu-link-header">
+                        <ul class="menu-links">
+                            <li>
+                                <a href="{{route('voyager.dashboard')}}" class="widget-link user-activity-link"
+                                   title="{{\Illuminate\Support\Facades\Auth::user()->name}}">
+                                    <i class="fas fa-user"></i>&nbsp;{{\Illuminate\Support\Facades\Auth::user()->name}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <hr>
+                    <div class="logout-link">
+                        <form method="post" action="{{route('logout')}}">
+                            @csrf
+                            <ul class="menu-links">
+                                <li>
+                                    <button type="submit" href="{{route('logout')}}"><a title="logout">
+                                            <i class="fas fa-sign-out-alt"></i>&nbsp;logout
+                                        </a></button>
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @endif
 
     </header>
     <div class="forum-inner" data-id="{{$forum->id}}">
@@ -235,7 +280,8 @@
                                                        href="../forum-summary.html">
                                                         <img alt="" style="height: 45px;width: 45px"
                                                              src="{{asset('storage/'.$forum->users->first()->avatar)}}"
-                                                             title="Teengroun.Sun" class="avatar"></a>
+                                                             title="{{$forum->users->first()->name}}"
+                                                             class="avatar"></a>
                                                     <div class="poster-avatar-extra"></div>
                                                 </div>
                                                 <div class="topic-body clearfix">
@@ -247,7 +293,7 @@
                                                         <div class="post-infos">
                                                             <div class="post-info post-date">
                                                                 <a class="post-date" href="">
-                                                                    <span title="Jun 18, 2019 8:07 am"
+                                                                    <span title="{{$forum->created_at}}"
                                                                           class="relative-date">{{\Illuminate\Support\Carbon::parse($forum->created_at)->format('M d Y')}}</span>
                                                                 </a>
                                                             </div>
@@ -259,31 +305,42 @@
                                                             {!! $forum->description !!}
                                                         </div>
                                                         <section class="post-menu-area clearfix">
-                                                            <form>
 
-                                                                <nav class="post-controls">
-                                                                    <button class="widget-button btn-flat show-replies btn-icon-text"
-                                                                            aria-label="1 Reply" title="1 Reply"><span
-                                                                                class="d-button-label">1 Reply</span><i
-                                                                                class="icofont-simple-down"></i>
+                                                            <nav class="post-controls">
+                                                                <button class="widget-button btn-flat show-replies btn-icon-text"
+                                                                        aria-label="1 Reply"
+                                                                        title="{{$reply}} Reply"><span
+                                                                            class="d-button-label">{{$reply}}
+                                                                        Reply</span><i
+                                                                            class="icofont-simple-down"></i>
+                                                                </button>
+                                                                <div class="actions">
+                                                                    {{--<textarea id="desc"></textarea>--}}
+                                                                    <button class="incrementLike">
+                                                                        <span>{{count(\App\Model\TopicLike::where('topic_id',$forum->id)->get())}}</span>
                                                                     </button>
-                                                                    <div class="actions">
-                                                                        <textarea id="desc"></textarea>
-                                                                        <div class="like-button">
-                                                                            <button class="widget-button btn-flat toggle-like like btn-icon">
-                                                                                <i class="icofont-heart"></i></button>
-                                                                        </div>
-                                                                        <button class="btn btn-primary" id="comment"
-                                                                                type="button">
-                                                                            Comment
-                                                                        </button>
-                                                                        <button class="widget-button btn-flat share  btn-icon"
-                                                                                aria-label="share a link to this post"
-                                                                                title="share a link to this post"><i
-                                                                                    class="icofont-link"></i></button>
+                                                                    <div class="like_topic like-button">
+                                                                        <button id="like-topic"
+                                                                                class="widget-button btn-flat toggle-{{\Illuminate\Support\Facades\Auth::check()?\App\Model\TopicLike::where('topic_id',$forum->id)->where('user_id',\Illuminate\Support\Facades\Auth::user()->id)->first()?'like':'':'unlike'}} like btn-icon"
+                                                                                data-id="{{$forum->id}}">
+                                                                            <i class="icofont-heart"></i></button>
                                                                     </div>
-                                                                </nav>
-                                                            </form>
+                                                                    {{--<button class="btn btn-primary" id="comment"--}}
+                                                                    {{--type="button">--}}
+                                                                    {{--Comment--}}
+                                                                    {{--</button>--}}
+                                                                    <button class="widget-button btn-flat share  btn-icon"
+                                                                            aria-label="share a link to this post"
+                                                                            title="share a link to this post"><i
+                                                                                class="icofont-link"></i></button>
+                                                                    <button class="widget-button btn-flat reply create"
+                                                                            title="begin composing a reply to this post"
+                                                                            id="create-topic">
+                                                                        <i class="fas fa-reply"></i>
+                                                                        <span class="d-button-label">Reply</span>
+                                                                    </button>
+                                                                </div>
+                                                            </nav>
 
                                                         </section>
                                                     </div>
@@ -298,9 +355,10 @@
                                                                     <div class="topic-map-post created-at">
                                                                         <a class="trigger-user-card ">
                                                                             <img width=20 height=20 alt=""
-                                                                                 src="https://community.icons8.com/letter_avatar_proxy/v2/letter/t/f6c823/45.png"
-                                                                                 title="teengroun" class="avatar small"></a>
-                                                                        <span title="Jun 18, 2019 8:07 am"
+                                                                                 src="{{asset('storage/'.$forum->users->first()->avatar)}}"
+                                                                                 title="{{$forum->users->first()->name}}"
+                                                                                 class="avatar small"></a>
+                                                                        <span title="{{$forum->created_at}}"
                                                                               class="relative-date">{{\Illuminate\Support\Carbon::parse($forum->created_at)->format('M d Y')}}</span>
                                                                     </div>
                                                                 </li>
@@ -310,12 +368,12 @@
                                                                         <div class="topic-map-post last-reply">
                                                                             <a class="trigger-user-card ">
                                                                                 <img alt="" width="20" height="20"
-                                                                                     src="https://community.icons8.com/letter_avatar_proxy/v2/letter/t/f6c823/20.png"
-                                                                                     title="teengroun"
+                                                                                     src="{{asset('storage/'.$forum->users->first()->avatar)}}"
+                                                                                     title="{{$forum->users->first()->name}}"
                                                                                      class="avatar small">
                                                                             </a>
-                                                                            <span title="Jul 19, 2019 12:26 pm"
-                                                                                  class="relative-date">{{\Illuminate\Support\Carbon::parse($lastreply)->diffForHumans()}}</span>
+                                                                            <span title="{{isset($lastreply)?$lastreply:'no replies'}}"
+                                                                                  class="relative-date">{{isset($lastreply)?\Illuminate\Support\Carbon::parse($lastreply)->diffForHumans():'0 Replies'}}</span>
                                                                         </div>
                                                                     </a>
                                                                 </li>
@@ -323,33 +381,26 @@
                                                                     <h4>replies</h4></li>
                                                                 <li class="secondary"><span class="number">66</span>
                                                                     <h4>views</h4></li>
-                                                                <li class="secondary"><span class="number">3</span>
+                                                                <li class="secondary"><span
+                                                                            class="number">{{isset($total_user)?$total_user:'0'}}</span>
                                                                     <h4>users</h4></li>
                                                                 <li class="avatars">
-                                                                    <div>
-                                                                        <a class="poster trigger-user-card"
-                                                                           title="teengroun"><img alt="" width="32"
-                                                                                                  height="32"
-                                                                                                  src="https://community.icons8.com/letter_avatar_proxy/v2/letter/t/f6c823/45.png"
-                                                                                                  title="teengroun"
-                                                                                                  class="avatar med"><span
-                                                                                    class="post-count">4</span></a>
-                                                                    </div>
-                                                                    <div>
-                                                                        <a class="poster trigger-user-card"
-                                                                           title="Sergey" data-user-card="Sergey"><img
-                                                                                    alt="" width="32" height="32"
-                                                                                    src="https://community.icons8.com/letter_avatar_proxy/v2/letter/t/f6c823/45.png"
-                                                                                    title="Sergey"
-                                                                                    class="avatar med"></a>
-                                                                    </div>
-                                                                    <div>
-                                                                        <a class="poster trigger-user-card"
-                                                                           title="MarinaM" data-user-card="MarinaM"><img
-                                                                                    alt="" width="32" height="32"
-                                                                                    src="https://community.icons8.com/letter_avatar_proxy/v2/letter/t/f6c823/45.png"
-                                                                                    title="MarinaM" class="avatar med"></a>
-                                                                    </div>
+                                                                    @if(isset($user_commented))
+                                                                        @foreach($user_commented as $value)
+                                                                            <div>
+                                                                                <a class="poster trigger-user-card"
+                                                                                   title="{{$value->name}}"><img alt=""
+                                                                                                                 width="32"
+                                                                                                                 height="32"
+                                                                                                                 src="{{asset('storage/'.$value->avatar)}}"
+                                                                                                                 title="{{$value->name}}"
+                                                                                                                 class="avatar med"><span
+                                                                                            class="post-count">{{isset($value->comments)?count($value->comments):0}}</span></a>
+                                                                            </div>
+
+                                                                        @endforeach
+                                                                    @endif
+
                                                                 </li>
                                                             </ul>
                                                         </section>
@@ -373,8 +424,8 @@
                                                     <div class="topic-avatar">
                                                         <a class="trigger-user-card main-avatar"
                                                            href="../forum-summary.html">
-                                                            <img alt="" width="45" height="45"
-                                                                 src="https://community.icons8.com/letter_avatar_proxy/v2/letter/t/f6c823/45.png"
+                                                            <img alt="" style="height: 45px;width: 45px"
+                                                                 src="{{asset('storage/'.$value->users->avatar)}}"
                                                                  title="Teengroun.Sun" class="avatar"></a>
                                                         <div class="poster-avatar-extra"></div>
                                                     </div>
@@ -602,6 +653,29 @@
     </div>
 </div>
 
+<div id="reply-control" class="">
+    <div class="reply-area">
+        <div class="composer-fields">
+            <div class="reply-to">
+                <button title="minimize the composer panel" class="toggler">
+                    <i class="fa fa-chevron-down d-icon d-icon-chevron-down"></i>
+                </button>
+                <div class="clearfix"></div>
+            </div>
+
+        </div>
+        <div class="toolbar-visible"><textarea id="desc"></textarea></div>
+        <div class="reply_comment submit-panel">
+            <div class="save-or-cancel">
+                <button class="btn" id="comment">
+                    <i class="fas fa-reply"></i>
+                    <span class="">Reply</span>
+                </button>
+                <a href="" class="cancel">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="modal fade app-modal" id="forumregister" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -617,7 +691,8 @@
                     <div id="loginForm" class="toggleform">
                         <div class="title">Login</div>
                         <div class="description">You can use your account to log in to any of our products</div>
-                        <form class="is-big">
+                        <form action="{{route('voyager.login')}}" method="post" class="is-big">
+                            @csrf
                             <input name="email" placeholder="Email" class="" autocomplete="off">
                             <input type="password" name="password" placeholder="Password" class="" autocomplete="off">
 
@@ -630,7 +705,10 @@
                     <div id="registerForm" class="toggleform">
                         <div class="title">Register</div>
 
-                        <form class="is-big">
+                        <form action="{{route('register')}}" method="post" class="is-big">
+                            @csrf
+                            <input name="name" placeholder="Username" class="" autocomplete="off">
+
                             <input name="email" placeholder="Email" class="" autocomplete="off">
                             <input type="password" name="password" placeholder="Password" class="" autocomplete="off">
 
@@ -697,7 +775,7 @@
 <script>
     $(document).ready(function () {
 
-        $('.actions').find('#comment').on('click', function () {
+        $('.reply_comment').find('#comment').on('click', function () {
             let topic_id = $('.forum-inner').attr('data-id');
             let comment = CKEDITOR.instances['desc'].getData();
 
@@ -728,7 +806,36 @@
 
         });
 
+        $('#like-topic').click(function () {
+            let topic_id = $('#like-topic').attr('data-id');
+            $.ajax({
+                headers: {"X-CSRF-TOKEN": jQuery(`meta[name="csrf-token"]`).attr("content")},
+                type: "POST",
+                url: "{{route('like-topic')}}",
+                data: {
+                    topic_id: topic_id,
+                },
+                success: function (data) {
+                    if (data.status == 'error') {
+                        toastr.warning(data.message);
+                    }
+                    if (data.status == 'success') {
+                        // swal(data.status, data.message, data.status);
+                        $('.incrementLike span').html(data.topic_id);
 
+                        $("#like-topic").switchClass("toggle-unlike", "toggle-like like");
+
+
+                    }
+                    if (data.status == 'Unliked') {
+                        $('.incrementLike span').html(data.topic_id);
+                        $("#like-topic").switchClass("widget-button btn-flat toggle-like like btn-icon", "widget-button btn-flat toggle-unlike like btn-icon");
+
+
+                    }
+                }
+            });
+        });
     });
 </script>
 </body>
