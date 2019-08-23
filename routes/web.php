@@ -27,7 +27,7 @@ Route::group(['namespace' => 'Frontend'], function () {
         Route::post('new-topic', 'ForumController@new_topic')->name('new-topic');
         Route::get('topic-filter', 'ForumController@topic_filter')->name('topic-filter');
         Route::get('category-filter', 'ForumController@category_filter')->name('category-filter');
-        Route::any('forum-inner/{slug}', 'ForumController@forum_inner')->name('forum-inner');
+        Route::any('forum-inner/{slug?}', 'ForumController@forum_inner')->name('forum-inner');
         Route::post('topic-comment', 'TopicCommentController@comment')->name('topic-comment');
         Route::post('like-topic','LikeController@like_topic')->name('like-topic');
     });
