@@ -30,6 +30,8 @@ Route::group(['namespace' => 'Frontend'], function () {
         Route::any('forum-inner/{slug}', 'ForumController@forum_inner')->name('forum-inner');
         Route::post('topic-comment', 'TopicCommentController@comment')->name('topic-comment');
         Route::post('like-topic','LikeController@like_topic')->name('like-topic');
+        Route::post('like-coment','LikeController@like_comment')->name('like-comment');
+        ROute::get('forum-autosuggest','SearchController@autosuggest')->name('forum-autosuggest');
     });
 });
 Auth::routes();

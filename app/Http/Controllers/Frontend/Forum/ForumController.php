@@ -34,7 +34,7 @@ class ForumController extends Controller
             $validator = Validator::make($request->all(), [
                 'category' => 'required',
                 'title' => 'required|min:3|max:200',
-                'detail' => 'required|min:2|max:500',
+                'detail' => 'required|min:2|max:5000',
 
             ], ['category.required' => 'Please choose Category', 'detail.requires' => 'please provide description']);
 
