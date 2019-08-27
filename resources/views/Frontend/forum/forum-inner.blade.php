@@ -543,7 +543,8 @@
                                                                 </li>
                                                                 <li><span class="number">{{$reply}}</span>
                                                                     <h4>replies</h4></li>
-                                                                <li class="secondary"><span class="number">66</span>
+                                                                <li class="secondary"><span
+                                                                            class="number">{{$forum->counts->first()->count}}</span>
                                                                     <h4>views</h4></li>
                                                                 <li class="secondary"><span
                                                                             class="number">{{isset($total_user)?$total_user:'0'}}</span>
@@ -551,7 +552,7 @@
                                                                 <li class="avatars">
                                                                     @if(isset($user_commented))
                                                                         @foreach($user_commented as $value)
-                                                               
+
                                                                             <div>
                                                                                 <a class="poster trigger-user-card"
                                                                                    title="{{$value->name}}"><img alt=""
@@ -674,147 +675,76 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="topic-list-item">
-                            <td class="main-link " colspan="1">
+                        @foreach($suggested as $value)
+                            <tr class="topic-list-item">
+                                <td class="main-link " colspan="1">
                                 <span class="link-top-line">
-                                    <a href="" class="raw-link raw-topic-link">Doubts on the use of your music for a full-length documentary.</a>
+                                    <a href="{{route('forum-inner',$value->slug)}}"
+                                       class="raw-link raw-topic-link">{{$value->topic}}</a>
                                     <span class="topic-post-badges"></span>
                                 </span>
-                            </td>
+                                </td>
 
-                            <td class="category">
-                                <a class="badge-wrapper box" href="">
-                                    <span class="badge-category-bg" style="background-color: #AB9364;"></span>
-                                    <span style="color: #FFFFFF;" class="badge-category"
-                                          title="All questions related to our Fugue Music.">
-                                        <span class="category-name">Music</span>
+                                <td class="category">
+                                    <a class="badge-wrapper box" href="">
+                                        <span class="badge-category-bg" style="background-color: #AB9364;"></span>
+                                        <span style="color: #FFFFFF;" class="badge-category"
+                                              title="All questions related to our {{$value->categories->parent_id ? \App\Model\ForumCategory::where('id',1)->first()->name:''}} {{$value->categories->name}}">
+                                        <span class="category-name">{{$value->categories->parent_id ? \App\Model\ForumCategory::where('id',1)->first()->name:''}}</span>&ensp;
+                                        <span class="category-name">{{$value->categories->name}}</span>
                                     </span>
-                                </a>
-                            </td>
+                                    </a>
+                                </td>
 
-                            <td class="posters">
-                                <a href="" class="">
-                                    <img alt="" width="25" height="25"
-                                         src="https://community.icons8.com/letter_avatar_proxy/v2/letter/m/cab0a1/25.png"
-                                         class="avatar" title="mediaattack22 - Original Poster">
-                                </a>
-                                <a href="" class="latest">
-                                    <img alt="" width="25" height="25"
-                                         src="https://community.icons8.com/user_avatar/community.icons8.com/elenalo161/25/168_1.png"
-                                         class="avatar latest" title="elenalo161 - Most Recent Poster">
-                                </a>
-                            </td>
+                                <td class="posters">
+                                    @if(isset($value->users))
+                                        @foreach($value->users as $user)
+                                            <a href="" class="">
+                                                <img alt="" style="height: 25px;width: 25px"
+                                                     src="{{asset('storage/'.$user->avatar)}}"
+                                                     class="avatar" title="{{$user->name}}">
+                                            </a>
+                                            @if(\App\Model\TopicComments::where('topic_id',$value->id)->first())
+                                                @foreach(\App\Model\TopicComments::where('topic_id',$value->id)->select('user_id')->distinct()->take(5)->get() as $key=>$comment)
+                                                    <a href="" class="">
+                                                        <img alt="" style="height: 25px;width: 25px"
+                                                             src="{{asset('storage/'.\App\User::where('id',$comment->user_id)->first()->avatar)}}"
+                                                             class="avatar"
+                                                             title="{{\App\User::where('id',$comment->user_id)->first()->name}}">
+                                                    </a>
+                                                @endforeach
+                                            @endif
 
-                            <td class="num posts" title="This topic has 1 reply">
-                                <a href="" class="badge-posts ">
-                                    <span class="number">1</span>
-                                </a>
-                            </td>
+                                        @endforeach
+                                    @endif
+                                    {{--@if (isset($value->comments))--}}
+                                    {{--@foreach(  $value->comments as $user)--}}
+                                    {{--{{$user->email}}--}}
+                                    {{--@endforeach--}}
+                                    {{--@endif--}}
+                                </td>
 
-                            <td class="num views ">
-                                <span class="number" title="this topic has been viewed 4 times">4</span></td>
+                                <td class="num posts"
+                                    title="This topic has {{\App\Model\TopicComments::where('topic_id', $value->id)->get()->isnotEmpty()? count(\App\Model\TopicComments::where('topic_id', $value->id)->get()):'0'}} reply">
+                                    <a href="" class="badge-posts ">
+                                        <span class="number">{{\App\Model\TopicComments::where('topic_id', $value->id)->get()->isnotEmpty()? count(\App\Model\TopicComments::where('topic_id', $value->id)->get()):'0'}}</span>
+                                    </a>
+                                </td>
 
-                            <td class="num age "
-                                title="First post: Jul 17, 2019 9:24 am Posted: Jul 17, 2019 10:13 am">
-                                <a class="post-activity" href="">
-                                    <span class="relative-date">6h</span>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr class="topic-list-item">
-                            <td class="main-link " colspan="1">
-                                <span class="link-top-line">
-                                    <a href="" class="raw-link raw-topic-link">Doubts on the use of your music for a full-length documentary.</a>
-                                    <span class="topic-post-badges"></span>
-                                </span>
-                            </td>
+                                <td class="num views ">
+                                    <span class="number" title="this topic has been viewed 4 times">4</span></td>
 
-                            <td class="category">
-                                <a class="badge-wrapper box" href="">
-                                    <span class="badge-category-bg" style="background-color: #AB9364;"></span>
-                                    <span style="color: #FFFFFF;" class="badge-category"
-                                          title="All questions related to our Fugue Music.">
-                                        <span class="category-name">Music</span>
-                                    </span>
-                                </a>
-                            </td>
+                                <td class="num age "
+                                    title="Posted: {{$value->created_at}}">
+                                    <a class="post-activity" href="">
+                                        <span class="relative-date">{{\App\Model\TopicComments::where('topic_id',$value->id)->first()?\Illuminate\Support\Carbon::parse(\App\Model\TopicComments::where('topic_id',$value->id)->latest()->first()->created_at)->diffForHumans():''}}</span>
+                                    </a>
+                                </td>
+                            </tr>
 
-                            <td class="posters">
-                                <a href="" class="">
-                                    <img alt="" width="25" height="25"
-                                         src="https://community.icons8.com/letter_avatar_proxy/v2/letter/m/cab0a1/25.png"
-                                         class="avatar" title="mediaattack22 - Original Poster">
-                                </a>
-                                <a href="" class="latest">
-                                    <img alt="" width="25" height="25"
-                                         src="https://community.icons8.com/user_avatar/community.icons8.com/elenalo161/25/168_1.png"
-                                         class="avatar latest" title="elenalo161 - Most Recent Poster">
-                                </a>
-                            </td>
+                        @endforeach
 
-                            <td class="num posts" title="This topic has 1 reply">
-                                <a href="" class="badge-posts ">
-                                    <span class="number">1</span>
-                                </a>
-                            </td>
 
-                            <td class="num views ">
-                                <span class="number" title="this topic has been viewed 4 times">4</span></td>
-
-                            <td class="num age "
-                                title="First post: Jul 17, 2019 9:24 am Posted: Jul 17, 2019 10:13 am">
-                                <a class="post-activity" href="">
-                                    <span class="relative-date">6h</span>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr class="topic-list-item">
-                            <td class="main-link " colspan="1">
-                                <span class="link-top-line">
-                                    <a href="" class="raw-link raw-topic-link">Doubts on the use of your music for a full-length documentary.</a>
-                                    <span class="topic-post-badges"></span>
-                                </span>
-                            </td>
-
-                            <td class="category">
-                                <a class="badge-wrapper box" href="">
-                                    <span class="badge-category-bg" style="background-color: #AB9364;"></span>
-                                    <span style="color: #FFFFFF;" class="badge-category"
-                                          title="All questions related to our Fugue Music.">
-                                        <span class="category-name">Music</span>
-                                    </span>
-                                </a>
-                            </td>
-
-                            <td class="posters">
-                                <a href="" class="">
-                                    <img alt="" width="25" height="25"
-                                         src="https://community.icons8.com/letter_avatar_proxy/v2/letter/m/cab0a1/25.png"
-                                         class="avatar" title="mediaattack22 - Original Poster">
-                                </a>
-                                <a href="" class="latest">
-                                    <img alt="" width="25" height="25"
-                                         src="https://community.icons8.com/user_avatar/community.icons8.com/elenalo161/25/168_1.png"
-                                         class="avatar latest" title="elenalo161 - Most Recent Poster">
-                                </a>
-                            </td>
-
-                            <td class="num posts" title="This topic has 1 reply">
-                                <a href="" class="badge-posts ">
-                                    <span class="number">1</span>
-                                </a>
-                            </td>
-
-                            <td class="num views ">
-                                <span class="number" title="this topic has been viewed 4 times">4</span></td>
-
-                            <td class="num age "
-                                title="First post: Jul 17, 2019 9:24 am Posted: Jul 17, 2019 10:13 am">
-                                <a class="post-activity" href="">
-                                    <span class="relative-date">6h</span>
-                                </a>
-                            </td>
-                        </tr>
                         </tbody>
                     </table>
                 </div>

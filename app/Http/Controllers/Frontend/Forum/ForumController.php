@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend\forum;
 
 use App\Model\TopicComments;
+use App\Model\TopicVisit;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -68,6 +69,25 @@ class ForumController extends Controller
     public function forum_inner(Request $request)
     {
         $forum = ForumTopic::where('status', 1)->where('slug', $request->slug)->first();
+        $check = TopicVisit::where('topic_id', $forum->id)->first();
+        if (!$check) {
+            $viewcount = TopicVisit::updateorcreate(['topic_id' => $forum->id], [
+                'topic_id' => $forum->id,
+                'ip_address' => $_SERVER['REMOTE_ADDR'],
+                'count' => 1
+            ]);
+        }
+        if (!Session::has('ip')) {
+            $check2 = TopicVisit::where('topic_id', $forum->id)->first();
+            if ($check2) {
+                $update = TopicVisit::where('topic_id', $forum->id)->where('ip_address', $_SERVER['REMOTE_ADDR'])
+                    ->update(['count' => $check2->count + 1]);
+
+            }
+        }
+        Session::put('ip', $_SERVER['REMOTE_ADDR']);
+
+
         $this->data('forum', $forum);
         $comment = TopicComments::where('topic_id', $forum->id)->get();
         $replycount = count($comment);
@@ -81,7 +101,7 @@ class ForumController extends Controller
         }
         if (isset($user_avatar)) {
             $user_av = array_unique($user_avatar);
-            $user_commented =User::whereIn('id', $user_av)->take(20)->get();
+            $user_commented = User::whereIn('id', $user_av)->take(20)->get();
             $this->data('user_commented', $user_commented);
         }
         if (isset($user_id)) {
@@ -91,10 +111,13 @@ class ForumController extends Controller
 
         $this->data('lastreply', $lastreply);
         $this->data('comment', $comment);
+
+        $suggested = ForumTopic::where('category_id', $forum->category_id)->where('id', '!=', $forum->id)->get();
+        $this->data('suggested', $suggested);
         return view('Frontend.forum.forum-inner', $this->data);
     }
 
-    public function topic_filter(Request $request)
+    public function latest_filter(Request $request)
     {
         if ($request->ajax()) {
             $forum = ForumTopic::where('status', 1)->latest();
@@ -126,5 +149,29 @@ class ForumController extends Controller
 
         return false;
     }
+
+    public function topic_filter(Request $request)
+    {
+        if ($request->ajax()) {
+            $forum = ForumTopic::withCount('comments')
+                ->orderBy('comments_count', 'desc');
+
+            $final = $forum->get();
+            /* another method
+             *          $forum = ForumTopic::with('comments')
+                ->get()->sortBy(function ($forum) {
+                    return $forum->comments->count();
+                },$options=SORT_REGULAR,true);
+
+            $final = $forum;
+             * */
+
+            $this->data('forum', $final);
+            return view('Frontend.forum.latest_filter', $this->data);
+        }
+
+        return false;
+    }
+
 
 }

@@ -273,9 +273,10 @@
             <div class="menu-panel">
                 <div class="general-links">
                     <ul class="menu-links ">
-                        <li><a class="widget-link latest-topics-link" href="/latest"
-                               title="topics with recent posts"><span class="d-label">Latest</span></a></li>
-                        <li><a class="widget-link top-topics-link" href="/top"
+                        <li class="latest_filter"><a class="widget-link latest-topics-link" href="javascript:void(0)"
+                                                     title="topics with recent posts"><span
+                                        class="d-label">Latest</span></a></li>
+                        <li class="top_filter"><a class="widget-link top-topics-link" href="javascript:void(0)"
                                title="the most active topics in the last year, month, week or day"><span
                                         class="d-label">Top</span></a></li>
                         <li><a class="widget-link badge-link" href="/badges" title="Badges"><span
@@ -292,76 +293,20 @@
                     <a href="" class="d-link categories-link">Categories</a>
                 </div>
                 <ul class="category-links ">
-                    <li class="category-link "><a class="badge-wrapper box" href=""><span class="badge-category-bg"
-                                                                                          style="background-color: #AB9364;"></span><span
-                                    style="color: #FFFFFF;" class="badge-category clear-badge"><span
-                                        class="category-name">Uncategorized</span></span></a><b
-                                class="topics-count">4</b></li>
-                    <li class="category-link "><a class="badge-wrapper box" href=""><span class="badge-category-bg"
-                                                                                          style="background-color: #808281;"></span><span
-                                    style="color: #FFFFFF;" class="badge-category clear-badge"
-                                    title="Discussion about this site, its organization, how it works, and how we can improve it."><span
-                                        class="category-name">Site Feedback</span></span></a><b
-                                class="topics-count">2</b></li>
-                    <li class="category-link "><a class="badge-wrapper box" href=""><span class="badge-category-bg"
-                                                                                          style="background-color: #0E76BD;"></span><span
-                                    style="color: #FFFFFF;" class="badge-category clear-badge"><span
-                                        class="category-name">Icons</span></span></a><b class="topics-count">43</b></li>
-                    <li class="category-link "><a class="badge-wrapper box" href=""><span class="badge-category-bg"
-                                                                                          style="background-color: #25AAE2;"></span><span
-                                    style="color: #FFFFFF;" class="badge-category clear-badge"><span
-                                        class="category-name">Windows app</span></span></a><b class="topics-count">3</b>
-                    </li>
-                    <li class="category-link "><a class="badge-wrapper box" href=""><span class="badge-category-bg"
-                                                                                          style="background-color: #AB9364;"></span><span
-                                    style="color: #FFFFFF;" class="badge-category clear-badge"
-                                    title="This category for the Lunacy questions, bug reports, and announcements."><span
-                                        class="category-name">Lunacy</span></span></a><b class="topics-count">139</b>
-                    </li>
-                    <li class="category-link "><a class="badge-wrapper box" href=""><span
-                                    class="badge-category-parent-bg" style="background-color: #25AAE2;"></span><span
-                                    class="badge-category-bg" style="background-color: #AB9364;"></span><span
-                                    style="color: #FFFFFF;" class="badge-category clear-badge"><span
-                                        class="category-name">Icons</span></span></a><b class="topics-count">3</b></li>
-                    <li class="category-link "><a class="badge-wrapper box" href=""><span class="badge-category-bg"
-                                                                                          style="background-color: #ED207B;"></span><span
-                                    style="color: #FFFFFF;" class="badge-category clear-badge"><span
-                                        class="category-name">API</span></span></a><b class="topics-count">2</b></li>
-                    <li class="category-link "><a class="badge-wrapper box" href=""><span
-                                    class="badge-category-parent-bg" style="background-color: #ED207B;"></span><span
-                                    class="badge-category-bg" style="background-color: #F1592A;"></span><span
-                                    style="color: #FFFFFF;" class="badge-category clear-badge"><span
-                                        class="category-name">Search</span></span></a><b class="topics-count">1</b></li>
-                    <li class="category-link "><a class="badge-wrapper box" href=""><span
-                                    class="badge-category-parent-bg" style="background-color: #ED207B;"></span><span
-                                    class="badge-category-bg" style="background-color: #0E76BD;"></span><span
-                                    style="color: #FFFFFF;" class="badge-category clear-badge"><span
-                                        class="category-name">Icons</span></span></a><b class="topics-count">3</b></li>
-                    <li class="category-link "><a class="badge-wrapper box" href=""><span class="badge-category-bg"
-                                                                                          style="background-color: #12A89D;"></span><span
-                                    style="color: #FFFFFF;" class="badge-category clear-badge"><span
-                                        class="category-name">Ouch</span></span></a><b class="topics-count">4</b></li>
-                    <li class="category-link "><a class="badge-wrapper box" href=""><span class="badge-category-bg"
-                                                                                          style="background-color: #AB9364;"></span><span
-                                    style="color: #FFFFFF;" class="badge-category clear-badge"
-                                    title="All questions related to our Fugue Music."><span
-                                        class="category-name">Music</span></span></a><b class="topics-count">7</b></li>
-                    <li class="category-link "><a class="badge-wrapper box" href=""><span
-                                    class="badge-category-parent-bg" style="background-color: #AB9364;"></span><span
-                                    class="badge-category-bg" style="background-color: #B3B5B4;"></span><span
-                                    style="color: #FFFFFF;" class="badge-category clear-badge"
-                                    title="The place for people who are interested in Lunacy improvement"><span
-                                        class="category-name">Lunacy - alpha version</span></span></a><b
-                                class="topics-count">8</b></li>
-                    <li class="category-link "><a class="badge-wrapper box" href=""><span class="badge-category-bg"
-                                                                                          style="background-color: #AB9364;"></span><span
-                                    style="color: #FFFFFF;" class="badge-category clear-badge"><span
-                                        class="category-name">Photo</span></span></a><b class="topics-count">3</b></li>
-                    <li class="category-link"><a class="badge-wrapper box" href=""><span class="badge-category-bg"
-                                                                                         style="background-color: #AB9364;"></span><span
-                                    style="color: #FFFFFF;" class="badge-category clear-badge"><span
-                                        class="category-name">Mac app</span></span></a><b class="topics-count">4</b>
-                    </li>
+                    @foreach($categorycomp as $value)
+                        <li  class="cat-filter category-link "  cat_id="{{$value->id}}">
+                            <a class="badge-wrapper box" href="javascript:void(0)"><span class="badge-category-bg"
+                                                                       style="background-color: #AB9364;"></span><span
+                                        style="color: #FFFFFF;" class="badge-category clear-badge"><span
+                                            class="category-name">{{$value->name}}</span></span></a><b
+                                    class="topics-count">{{\App\Model\ForumTopic::where('category_id',$value->id)->first()?count(\App\Model\ForumTopic::where('category_id',$value->id)->get()):''}}</b>
+
+
+                        </li>
+                        @include('Frontend.forum.Category.responsive_cat',['category'=>$value])
+
+
+                    @endforeach
                 </ul>
 
             </div>
@@ -415,7 +360,7 @@
                                     <span class="category-name" cat_id="{{$value->id}}">{{$value->name}}</span>
                                 </span>
                                     </span>
-                                    <span class="topic-count">× 4</span>
+                                    <span class="topic-count">× {{\App\Model\ForumTopic::where('category_id',$value->id)->first()?count(\App\Model\ForumTopic::where('category_id',$value->id)->get()):''}}</span>
                                 </div>
 
                                 <div class="category-desc">
@@ -430,12 +375,11 @@
                 </div>
 
                 <ul id="navigation-bar" class="nav nav-pills">
-                    <li title="topics with recent posts" id="latest_filter" class=""><a
+                    <li title="topics with recent posts" id="" class="latest_filter"><a
                                 href="javascript:void(0)">Latest</a></li>
-                    <li title="the most active topics in the last year, month, week or day" class=""><a href="">Top</a>
+                    <li  title="the most active topics in the last year, month, week or day" class="top_filter"><a href="javascript:void(0)">Top</a>
                     </li>
-                    <li title="all topics grouped by category" class=""><a href="/categories">Categories</a>
-                    </li>
+
                 </ul>
 
                 <button id="create-topic" class="btn btn-default btn btn-icon-text ">
@@ -519,7 +463,9 @@
                                 </td>
 
                                 <td class="num views ">
-                                    <span class="number" title="this topic has been viewed 4 times">4</span></td>
+                                    <span class="number"
+                                          title="this topic has been viewed 4 times">{{$value->counts->first()?$value->counts->first()->count:''}}</span>
+                                </td>
 
                                 <td class="num age "
                                     title="Posted: {{$value->created_at}}">
@@ -745,8 +691,27 @@
     $(document).ready(function () {
 
 
-        $('#latest_filter').on('click', function () {
+        $('.latest_filter').on('click', function () {
             $(this).toggleClass('active');
+            $('.top_filter').removeClass('active');
+
+            $.ajaxSetup({
+                headers: {"X-CSRF-TOKEN": jQuery(`meta[name="csrf-token"]`).attr("content")}
+            });
+            $.ajax({
+                type: "GET",
+                url: "{{route('latest-filter')}}",
+
+                success: function (result) {
+                    $('#filtered').replaceWith($('#filtered').html(result));
+
+                }
+
+            });
+        });
+        $('.top_filter').on('click', function () {
+            $(this).toggleClass('active');
+            $('.latest_filter').removeClass('active');
 
             $.ajaxSetup({
                 headers: {"X-CSRF-TOKEN": jQuery(`meta[name="csrf-token"]`).attr("content")}
@@ -812,7 +777,7 @@
                                         name: obj.topic,
                                         category: obj.name,
                                         slug: obj.slug,
-                                        description:obj.description
+                                        description: obj.description
                                     };
                                 }));
                             }
@@ -829,9 +794,9 @@
 
                                 '<span class="product-details">' +
                                 '<span class="product-title">' +
-                                '<span><strong>' + suggestion.name + '</strong></span>' + '<button class="btn btn-danger btn btn-sm">' + suggestion.category +'</button>' +
+                                '<span><strong>' + suggestion.name + '</strong></span>' + '<button class="btn btn-danger btn btn-sm">' + suggestion.category + '</button>' +
                                 '</span>' +
-                                '<span class="badge-category"> ' + (suggestion.description.substring(200,0)) + ' </span>' +
+                                '<span class="badge-category"> ' + (suggestion.description.substring(200, 0)) + ' </span>' +
                                 '</span>' +
                                 '</a>' +
                                 '</div>'
