@@ -1,18 +1,23 @@
-@extends('backEnd.layout')
+@extends('voyager::master')
+
+
+@section('css')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@stop
+
+
 @section('content')
-
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">Edit Icon Upload</h5>
-                        <a href="{{route('show-icon')}}"><i class="fa fa-image"></i>View Icons</a>
+                        <a href="{{route('voyager.show-icon')}}"><i class="fa fa-image"></i>View Icons</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <form method="POST" action="{{route('edit-icon-upload')}}"
+                        <form method="POST" action="{{route('voyager.edit-icon-upload')}}"
                               accept-charset="UTF-8" class=""
                               enctype="multipart/form-data">
                             @csrf
@@ -97,7 +102,7 @@
                                                     multiple="multiple">
                                                 @foreach($style as $value)
                                                     <option @if($icon->styles()->where('icon_id',$icon->id)->where('style_id',$value->id)->first()) selected @endif  value="{{$value->id}}">{{$value->name}}</option>
-                                                    @include('dashboard.pages.icons.category_dropdown',['category'=>$value])
+                                                    @include('Backend.pages.icons.category_dropdown',['category'=>$value])
                                                 @endforeach
                                             </select>
 

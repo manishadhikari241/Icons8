@@ -1,9 +1,14 @@
-@extends('backEnd.layout')
+@extends('voyager::master')
+
+
+@section('css')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@stop
 @section('content')
 
 
     <div class="container">
-        <form method="post" class="form-group" action="{{route('icon-style')}}" enctype="multipart/form-data">
+        <form method="post" class="form-group" action="{{route('voyager.icon-style')}}" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-md-5">
@@ -27,7 +32,7 @@
                                             <option value="0">Select Parent Category</option>
                                             @foreach($styles as $value)
                                                 <option value="{{$value->id}}">{{$value->name}}</option>
-                                                @include('dashboard.pages.icons.category_dropdown',['category'=>$value])
+                                                @include('Backend.pages.icons.category_dropdown',['category'=>$value])
                                             @endforeach
                                         </select>
 
@@ -84,11 +89,11 @@
                                 <td><img src="{{asset('images/icons/styles/'.$value->image)}} " width="80px"></td>
                                 <td>
                                     <a class="btn btn-danger confirm"
-                                    href="{{route('icon-style-delete',$value->id)}}"
+                                    href="{{route('voyager.icon-style-delete',$value->id)}}"
                                     onclick="return confirm('Delete all categories?')"><i
                                     class="fa fa fa-trash"></i></a>
                                     <a class="btn btn-outline-primary confirm"
-                                    href="{{route('edit-icon-style',$value->id)}}"
+                                    href="{{route('voyager.edit-icon-style',$value->id)}}"
                                     ><i class="fa fa fa-edit"></i></a>
                                 </td>
                                 </tbody>

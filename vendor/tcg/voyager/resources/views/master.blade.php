@@ -9,6 +9,7 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
 
     <!-- Favicon -->
     <?php $admin_favicon = Voyager::setting('admin.icon_image', ''); ?>
@@ -138,6 +139,25 @@ if (starts_with(app('VoyagerAuth')->user()->avatar, 'http://') || starts_with(ap
     @endforeach
     @endif
 </script>
+<script src="{{asset('js/select2.min.js')}}"></script>
+<script>
+    $(document).ready(function () {
+        $('#tags').select2();
+        $('#cat').select2();
+        $('#gen').select2();
+        $('#age').select2();
+        $('#race').select2();
+        $('#hair').select2();
+        $('#body').select2();
+        $('#special').select2();
+        $('#credits').select2();
+        $('#models').select2();
+        $('#trends').select2();
+        $('#categories').select2();
+        $('#styles').select2();
+    });
+</script>
+
 <script>
     @if(Session::has('alerts'))
         let alerts = {!! json_encode(Session::get('alerts')) !!};
@@ -164,6 +184,11 @@ if (starts_with(app('VoyagerAuth')->user()->avatar, 'http://') || starts_with(ap
     $(document).ready( function () {
         $('#example1').DataTable();
     } );
+</script>
+<script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('desc');
+
 </script>
 @include('voyager::media.manager')
 @yield('javascript')

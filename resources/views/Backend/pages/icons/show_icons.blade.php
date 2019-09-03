@@ -1,4 +1,9 @@
-@extends('backEnd.layout')
+@extends('voyager::master')
+
+
+@section('css')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@stop
 @section('content')
 
     <div class="container">
@@ -7,7 +12,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">All Icons</h5>
-                        <a href="{{route('icon-upload')}}"><i class="fa fa-backward"></i>Back</a>
+                        <a href="{{route('voyager.icon-upload')}}"><i class="fa fa-backward"></i>Back</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -21,8 +26,7 @@
                                         <th>Title</th>
                                         <th>Description</th>
                                         <th>Category</th>
-                                        <th>Tags</th>
-                                        <th>Trends</th>
+                                            <th>Trends</th>
                                         <th>Styles</th>
                                         <th class="sorting-false">Action</th>
                                     </tr>
@@ -40,11 +44,7 @@
                                                     {{$key->title}},
                                                 @endforeach
                                             </td>
-                                            <td>
-                                                @foreach($value->tags as $item)
-                                                    {{$item->name}},
-                                                @endforeach
-                                            </td>
+
                                             <td>
                                                @foreach($value->trends as $try)
                                                    {{$try->category}},
@@ -58,11 +58,11 @@
 
                                             <td>
                                                 <a class="btn btn-outline-danger confirm"
-                                                   href="{{route('icon-upload-delete',$value->id)}}"
+                                                   href="{{route('voyager.icon-upload-delete',$value->id)}}"
                                                    onclick="return confirm('Confirm Delete?')"><i
                                                             class="fa fa fa-trash"></i></a>
                                                 <a class="btn btn-outline-primary confirm"
-                                                   href="{{route('edit-icon-upload',$value->id)}}"
+                                                   href="{{route('voyager.edit-icon-upload',$value->id)}}"
                                                 ><i class="fa fa fa-edit"></i></a>
                                             </td>
                                         </tr>

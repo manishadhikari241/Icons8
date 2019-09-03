@@ -31,9 +31,16 @@ Route::group(['namespace' => 'Frontend'], function () {
         Route::get('top-filter', 'ForumController@top_filter')->name('top-filter');
         Route::any('forum-inner/{slug}', 'ForumController@forum_inner')->name('forum-inner');
         Route::post('topic-comment', 'TopicCommentController@comment')->name('topic-comment');
-        Route::post('like-topic','LikeController@like_topic')->name('like-topic');
-        Route::post('like-coment','LikeController@like_comment')->name('like-comment');
-        ROute::get('forum-autosuggest','SearchController@autosuggest')->name('forum-autosuggest');
+        Route::post('like-topic', 'LikeController@like_topic')->name('like-topic');
+        Route::post('like-coment', 'LikeController@like_comment')->name('like-comment');
+        ROute::get('forum-autosuggest', 'SearchController@autosuggest')->name('forum-autosuggest');
+    });
+
+    Route::group(['namespace' => 'Icons'], function () {
+        Route::get('/icons', 'IconsController@index')->name('icons-index');
+        Route::get('inner-icons/{slug}', 'IconsController@inner_icons')->name('inner-icons');
+        Route::get('category-click-icons', 'IconsController@category_click_icons')->name('category-click-icons');
+        Route::post('add-to-collection-icons', 'CartControllerIcons@add_to_collection_icons')->name('add-to-collection-icons');
     });
 });
 Auth::routes();

@@ -1,18 +1,22 @@
-@extends('backEnd.layout')
+@extends('voyager::master')
+
+
+@section('css')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@stop
+
 @section('content')
-
-
-    <div class="container-fluid">
+<div class="container-fluid">
         <div class="row">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">Icon Upload</h5>
-                        <a href="{{route('show-icon')}}"><i class="fa fa-image"></i>View Icons</a>
+                        <a href="{{route('voyager.show-icon')}}"><i class="fa fa-image"></i>View Icons</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <form method="POST" action="{{route('icon-upload')}}"
+                        <form method="POST" action="{{route('voyager.icon-upload')}}"
                               accept-charset="UTF-8" class=""
                               enctype="multipart/form-data">
                             @csrf
@@ -41,17 +45,17 @@
                                         <h6 class="box-title">Icon Tags:</h6>
                                     </div>
                                     <!-- /.box-header -->
-                                    <div class="box-body">
-                                        <div class="form-group mb-none">
-                                            <select class="form-control" name="tags[]" id="tags"
-                                                    multiple="multiple">
-                                                @foreach($tag as $value)
-                                                    <option value="{{$value->id}}">{{$value->name}}</option>
-                                                @endforeach
-                                            </select>
+                                    {{--<div class="box-body">--}}
+                                        {{--<div class="form-group mb-none">--}}
+                                            {{--<select class="form-control" name="tags[]" id="tags"--}}
+                                                    {{--multiple="multiple">--}}
+                                                {{--@foreach($tag as $value)--}}
+                                                    {{--<option value="{{$value->id}}">{{$value->name}}</option>--}}
+                                                {{--@endforeach--}}
+                                            {{--</select>--}}
 
-                                        </div>
-                                    </div>
+                                        {{--</div>--}}
+                                    {{--</div>--}}
 
                                     <div class="box-header with-border">
                                         <h6 class="box-title">Icon Trends:</h6>
@@ -95,7 +99,7 @@
                                                     multiple="multiple">
                                                 @foreach($style as $value)
                                                     <option value="{{$value->id}}">{{$value->name}}</option>
-                                                    @include('dashboard.pages.icons.category_dropdown',['category'=>$value])
+                                                    @include('Backend.pages.icons.category_dropdown',['category'=>$value])
                                                 @endforeach
                                             </select>
 
@@ -119,4 +123,4 @@
             <!-- /.col -->
 
 
-@endsection
+@stop

@@ -28,11 +28,27 @@ Route::group(['as' => 'voyager.'], function () {
             Route::get('delete-topic/{id}', 'ForumController@delete_topic')->name('delete-topic');
             Route::get('show-topic/{slug}', 'ForumController@show_topic')->name('show-topic');
             Route::any('/add-category-forum', 'ForumController@add_category_forum')->name('add-category-forum');
+            Route::any('forum', 'ForumController@index')->name('forum');
 
+        });
+        Route::Group(['prefix' => 'Icons'], function () {
+            Route::any('/icon-category', 'IconController@category')->name('category');
+            Route::any('/icon-tags', 'IconController@icon_tags')->name('icon-tags');
+            Route::any('/icon-trend', 'IconController@icon_trend')->name('icon-trend');
+            Route::any('/icon-style', 'IconController@icon_style')->name('icon-style');
+            Route::any('/icon-upload', 'IconController@icon_upload')->name('icon-upload');
+            Route::any('/show-icon', 'IconController@show_icon')->name('show-icon');
+            Route::any('edit-icon-category/{id?}', 'IconController@edit_icon_category')->name('edit-icon-category');
+            Route::any('edit-icon-trend/{id?}', 'IconController@edit_icon_trend')->name('edit-icon-trend');
+            Route::any('edit-icon-style/{id?}', 'IconController@edit_icon_style')->name('edit-icon-style');
+            Route::any('edit-icon-upload/{id?}', 'IconController@edit_icon_upload')->name('edit-icon-upload');
+            Route::any('delete-icon-category/{id?}', 'IconController@delete_icon_category')->name('icon-category-delete');
+            Route::any('delete-icon-trend/{id?}', 'IconController@delete_icon_trend')->name('icon-trend-delete');
+            Route::any('delete-icon-style/{id?}', 'IconController@delete_icon_style')->name('icon-style-delete');
+            Route::any('delete-icon-upload/{id?}', 'IconController@delete_icon_upload')->name('icon-upload-delete');
         });
 
 
-        Route::any('forum', 'ForumController@index')->name('forum');
     });
     $namespacePrefix = '\\' . config('voyager.controllers.namespace') . '\\';
 

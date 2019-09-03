@@ -37,7 +37,7 @@
             <nav>
                 <ul class="nav-list">
 
-                    <li><a class="nav-link" href="icons.html">Icons</a></li>
+                    <li><a class="nav-link" href="Icons/icons.blade.php">Icons</a></li>
                     <li class="nav-item has-dropdown">
                         <a class="nav-link" href="javascript:void(0)">Photos &nbsp;<i class="icofont-thin-down"></i></a>
                         <div class="nav-dropdown">
