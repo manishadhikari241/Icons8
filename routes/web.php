@@ -19,7 +19,17 @@ Route::group(['namespace' => 'Frontend'], function () {
     Route::get('/', 'PageController@index')->name('index');
     Route::get('/musics', 'PageController@music')->name('music');
     Route::get('/photos', 'PageController@photo')->name('photo');
+    Route::get('/pixie-editor', 'PageController@editor')->name('editor');
+    Route::get('/filtered-modal/{id?}', 'PageController@filtered_modal')->name('filtered-modal');
+    Route::get('/modal/{id?}', 'PageController@modal')->name('modal');
     Route::any('/search', 'PageController@search_results')->name('search-result');
+    Route::get( '/download/{id}', 'PageController@download')->name('download');
+
+    Route::post('/orders', 'PageController@image_orders')->name('photo-order');
+    Route::post('/photo-filter', 'PageController@photo_filter')->name('photo-filter');
+
+
+
 
 
     Route::group(['namespace' => 'Forum'], function () {

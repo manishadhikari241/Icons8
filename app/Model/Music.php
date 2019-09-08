@@ -38,6 +38,6 @@ class Music extends Model
     }
     public function tags()
     {
-        return $this->belongsToMany('App\Model\Tag','music_tags','music_id','tag_id');
+        return $this->belongsToMany('App\Model\MusicTag','pivot_music_tags','music_id','tag_id');
     }
 }

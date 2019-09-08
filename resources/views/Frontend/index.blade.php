@@ -38,7 +38,7 @@
                     <a class="nav-link" href="javascript:void(0)" >Photos &nbsp;<i class="icofont-thin-down"></i></a>
                     <div class="nav-dropdown">
                         <ul>
-                            <li ><a href="photocreator/index.html" >Photo Creator</a></li>
+                            <li ><a href="{{route('editor')}}" >Photo Creator</a></li>
                             <li ><a href="{{route('photo')}}" >Photo library</a></li>
                         </ul>
                     </div>

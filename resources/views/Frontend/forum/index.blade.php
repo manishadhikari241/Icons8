@@ -46,10 +46,6 @@
                   <span class="d-button-label">{{\Illuminate\Support\Facades\Auth::user()->name}}</span>
               </button>
 
-
-
-
-
             </span>
 
             @else
@@ -59,11 +55,6 @@
                   <span class="d-button-label">Sign Up</span> |
                     <span class="d-button-label">Log In</span>
               </button>
-
-
-
-
-
             </span>
 
             @endif
@@ -436,6 +427,58 @@
     </div>
 </div>
 
+<div class="modal fade app-modal" id="forumregister" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="login-form">
+                <div class="">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="loginForm" class="toggleform">
+                        <div class="title">Login</div>
+                        <div class="description">You can use your account to log in to any of our products</div>
+                        <form action="{{route('voyager.login')}}" method="post" class="is-big">
+                            @csrf
+                            <input name="email" placeholder="Email" class="" autocomplete="off">
+                            <input type="password" name="password" placeholder="Password" class="" autocomplete="off">
+
+
+                            <button type="submit" class="submit-button">Login</button>
+                        </form>
+                        <a href="" class="reset-password">Forgot password?</a>
+                        <div class="switch-mode">Don’t have an account yet? <strong>Register</strong></div>
+                    </div>
+                    <div id="registerForm" class="toggleform">
+                        <div class="title">Register</div>
+
+                        <form action="{{route('register')}}" method="post" class="is-big">
+                            @csrf
+                            <input name="name" placeholder="Username" class="" autocomplete="off">
+
+                            <input name="email" placeholder="Email" class="" autocomplete="off">
+                            <input type="password" name="password" placeholder="Password" class="" autocomplete="off">
+
+                            <div class="terms">
+                                <input id="login-form-checkbox-terms" type="checkbox">
+                                <label for="login-form-checkbox-terms" class="">Agree to our
+                                    <a href="">Terms and Conditions</a>
+                                </label>
+                            </div>
+                            <button type="submit" class="submit-button">Register</button>
+                        </form>
+                        <a href="" class="reset-password">Forgot password?</a>
+                        <div class="switch-mode">Already have an account? <strong>Login</strong></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 
 
