@@ -10,6 +10,12 @@ class ImageCategory extends Model
 {
     use HasSlug;
 
+    protected $map=['status'=>'manis'];
+    protected $hidden=['status'];
+    protected $appends=['status'];
+
+
+
     public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()

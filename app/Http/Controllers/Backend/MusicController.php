@@ -6,6 +6,7 @@ use App\Model\Artist;
 use App\Model\Genre;
 use App\Model\Mood;
 use App\Model\Music;
+use App\Model\MusicTag;
 use App\Model\Tag;
 use App\Model\Theme;
 use Illuminate\Http\Request;
@@ -17,6 +18,51 @@ use Illuminate\Support\Facades\Session;
 
 class MusicController extends BackendController
 {
+    public function tags(Request $request)
+    {
+
+        if ($request->isMethod('get')) {
+            $tags = MusicTag::all();
+            $this->data('tags', $tags);
+            return view($this->backendtagPath . 'music_tags', $this->data);
+        }
+        if ($request->isMethod('post')) {
+            $request->validate([
+                'name' => 'required|unique:music_tags,name',
+            ]);
+            $data['name'] = $request->name;
+            if (MusicTag::create($data)) {
+                Session::flash('success', 'Tags added');
+                return redirect()->back();
+            }
+        }
+    }
+
+    public function delete_tags($id)
+    {
+        $find = MusicTag::findorfail($id);
+        if ($find->delete()) {
+            Session::flash('success', 'Tags deleted');
+            return redirect()->back();
+        }
+    }
+
+    public function edit_tags(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            $request->validate([
+                'name' => 'required'
+            ]);
+            $data['name'] = $request->name;
+            $id = $request->id;
+            $find = MusicTag::findorfail($id);
+            if ($find->update($data)) {
+                Session::flash('success', 'Tag updated');
+                return redirect()->back();
+            }
+        }
+    }
+
     public function themes(Request $request)
     {
         if ($request->isMethod('get')) {
@@ -203,7 +249,7 @@ class MusicController extends BackendController
         if ($request->isMethod('get')) {
             $mus = Music::all();
             $this->data('music', $mus);
-            $tags = Tag::all();
+            $tags = MusicTag::all();
             $this->data('tag', $tags);
             $theme = Theme::all();
             $this->data('theme', $theme);
@@ -243,7 +289,7 @@ class MusicController extends BackendController
             $data['artist_id'] = $request->artist;
             $create = Music::create($data);
             foreach ($request->tag as $value) {
-                DB::table('music_tags')->insert(['music_id' => $create->id, 'tag_id' => $value]);
+                DB::table('pivot_music_tags')->insert(['music_id' => $create->id, 'tag_id' => $value]);
             }
             foreach ($request->themes as $value) {
                 DB::table('music_theme')->insert(['music_id' => $create->id, 'theme_id' => $value]);
@@ -315,7 +361,7 @@ class MusicController extends BackendController
             $this->data('music', $music);
             $art = Artist::all();
             $this->data('artist', $art);
-            $tag = Tag::all();
+            $tag = MusicTag::all();
             $this->data('tag', $tag);
             $theme = Theme::all();
             $this->data('theme', $theme);

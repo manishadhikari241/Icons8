@@ -64,7 +64,11 @@ class IconController extends BackendController
             $this->data('style', $id);
             $all = IconStyle::all();
             $this->data('parent', $all);
+<<<<<<< HEAD
             return view($this->backendiconPath . 'edit_icon_style',$this->data);
+=======
+            return view($this->backendiconPath . 'edit_icon_style', $this->data);
+>>>>>>> BibekReloaded
         }
         if ($request->isMethod('post')) {
             $request->validate([
@@ -123,7 +127,11 @@ class IconController extends BackendController
         if ($request->isMethod('get')) {
             $cat = IconCategory::all();
             $this->data('cat', $cat);
+<<<<<<< HEAD
             return view($this->backendiconPath . 'category', $this->data);
+=======
+            return view($this->backendiconPath . 'category',$this->data);
+>>>>>>> BibekReloaded
         }
         if ($request->isMethod('post')) {
             $request->validate([
@@ -153,7 +161,11 @@ class IconController extends BackendController
         if ($request->isMethod('get')) {
             $id = IconCategory::where('id', '=', $request->id)->first();
             $this->data('icon', $id);
+<<<<<<< HEAD
             return view($this->backendiconPath . 'edit_icon_category', $this->data);
+=======
+            return view($this->backendiconPath . 'edit_icon_category',$this->data);
+>>>>>>> BibekReloaded
         }
         if ($request->isMethod('post')) {
             $request->validate([
@@ -205,7 +217,11 @@ class IconController extends BackendController
         if ($request->isMethod('get')) {
             $trend = IconTrend::all();
             $this->data('trend', $trend);
+<<<<<<< HEAD
             return view($this->backendiconPath . 'trends',  $this->data);
+=======
+            return view($this->backendiconPath . 'trends', $this->data);
+>>>>>>> BibekReloaded
         }
         if ($request->isMethod('post')) {
             $request->validate([
@@ -282,7 +298,10 @@ class IconController extends BackendController
 
     public function icon_upload(Request $request)
     {
+<<<<<<< HEAD
 
+=======
+>>>>>>> BibekReloaded
         if ($request->isMethod('get')) {
             $icon = IconUpload::all();
             $this->data('icon', $icon);
@@ -294,7 +313,11 @@ class IconController extends BackendController
             $this->data('cat', $cat);
             $style = IconStyle::all();
             $this->data('style', $style);
+<<<<<<< HEAD
             return view($this->backendiconPath . 'icon_upload', $this->data);
+=======
+            return view($this->backendiconPath . 'icon_upload',$this->data);
+>>>>>>> BibekReloaded
         }
         if ($request->isMethod('post')) {
             $request->validate([
@@ -340,7 +363,10 @@ class IconController extends BackendController
     public function show_icon(Request $request)
     {
         if ($request->isMethod('get')) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> BibekReloaded
             $icon = IconUpload::all();
             $this->data('icon', $icon);
             return view($this->backendiconPath . 'show_icons', $this->data);
@@ -362,7 +388,11 @@ class IconController extends BackendController
             $this->data('cat', $cat);
             $style = IconStyle::all();
             $this->data('style', $style);
+<<<<<<< HEAD
             return view($this->backendiconPath . 'edit_icon_upload', $this->data);
+=======
+            return view($this->backendiconPath . 'edit_icon_upload',$this->data);
+>>>>>>> BibekReloaded
         }
 
         if ($request->isMethod('post')) {
