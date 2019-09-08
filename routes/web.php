@@ -41,6 +41,9 @@ Route::group(['namespace' => 'Frontend'], function () {
         Route::get('inner-icons/{slug}', 'IconsController@inner_icons')->name('inner-icons');
         Route::get('category-click-icons', 'IconsController@category_click_icons')->name('category-click-icons');
         Route::post('add-to-collection-icons', 'CartControllerIcons@add_to_collection_icons')->name('add-to-collection-icons');
+        Route::get('trend-filter', 'IconsController@trend_filter')->name('trend-filter');
+        Route::get('icons-search','IconSearchController@autocomplete')->name('icons-search');
+        Route::get('pack-page/{category_slug}','IconsController@pack_page')->name('pack-page');
     });
 });
 Auth::routes();

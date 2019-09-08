@@ -252,7 +252,7 @@
                 <div class="app-expand-wrap">
                     <div class="app-expand is-open">
                         <div class="toggle"><i class="icofont-thin-down"></i></div>
-                        <div class="title">Styles<span class="count">{{count($iconstyle)}}</span></div>
+                        {{--<div class="title">Styles<span class="count">{{count($iconstyle)}}</span></div>--}}
                         <div class="content" style="">
                             <div class="platform-filter app-left-sidebar-platforms">
                                 <div>
@@ -292,7 +292,7 @@
                     </div>
                     <div class="app-expand is-open">
                         <div class="toggle"><i class="icofont-thin-down"></i></div>
-                        <div class="title">Trends<span class="count">{{count($trends)}}</span></div>
+                        {{--<div class="title">Trends<span class="count">{{count($trends)}}</span></div>--}}
                         <div class="content" style="">
                             <div class="platform-filter app-left-sidebar-platforms">
                                 <div>
@@ -352,7 +352,7 @@
                     <div class="app-header">
                         <div class="box-header">
                             <div class="title-wrap">
-                                <h1 class="app-title no-wrap">{{$style}}</h1></div>
+                                {{--<h1 class="app-title no-wrap">{{$style}}</h1></div>--}}
                             <div class="app-page-subtitle is-small is-left">
                                 <p>Our iOS icon pack follows the <a
                                             href="https://developer.apple.com/ios/human-interface-guidelines/icons-and-images/custom-icons/">guidelines</a>
@@ -369,34 +369,40 @@
                         </div>
                     </div>
                 </div>
-                <div class="icon-new-page">
+                <div class="pack-page">
                     <div class="app-page-section custom-padding">
-                        <div class="preview-grid" id="category_click_icons">
-                            @foreach($categories as $value)
-                                @if(\App\Model\IconCategory::where('id',$value->id)->first())
-                                    <a href="{{route('pack-page',$value->slug)}}" data-id="{{$value->id}}"
-                                       class="category_click preview-grid-item">
-                                        <div class="badge is-right">Free SVG</div>
-                                        <div class="preview-icons-grid">
-                                            @foreach(\App\Model\IconCategory::where('id',$value->id)->first()->icons->take(8) as $icons)
-
-                                                <div class="preview-icons-item">
-                                                    <div class="app-icon is-ios7"><img data-id="{{$value->id}}" alt=""
-                                                                                       style="height: 50px; width: 50px;"
-                                                                                       src="{{asset('images/icons/icon_upload/'.$icons->image)}}">
-                                                    </div>
+                        <div class="page-scroll">
+                            <div>
+                                <h6 class="app-page-section-title">ABC Warriors Characters</h6>
+                                <div class="icons-grid">
+                                    <div class="set is-labels-shown">
+                                        @foreach($icons as $value)
+                                            <div class="icon">
+                                                <a href="" class="icons-link">
+                                                    <div class="app-icon"><img alt=""
+                                                                               data-id="{{$value->id}}"
+                                                                               src="{{asset('images/icons/icon_upload/'.$value->image)}}"
+                                                                               style="height: 50px; width: 50px;"></div>
+                                                </a>
+                                                <div class="icon-title">
+                                                    <span class="heart"><i class="icofont-heart"></i></span>
+                                                    <span>{{$value->name}}</span>
                                                 </div>
-                                            @endforeach
+                                                <div class="to-collection">
+                                                <span class="basket"><i class="icofont-trash"></i></span>
+                                                <span class="red-title">Remove</span>
+                                                </div>
+                                                <div class="to-collection" data-id="{{$value->id}}">
+                                                    <span class="plus">+&nbsp;</span><span class="add-to-collection">Collection</span>
+                                                </div>
 
-                                        </div>
-                                        <div class="preview-grid-title">{{$value->title}}</div>
-                                    </a>
-                                @endif
-                            @endforeach
-                            <div class="preview-grid-item is-empty"></div>
-                            <div class="preview-grid-item is-empty"></div>
-                            <div class="preview-grid-item is-empty"></div>
-                            <div class="preview-grid-item is-empty"></div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
@@ -482,6 +488,104 @@
     });
 
 </script>
+    <script>
+        $('.to-collection').on('click', function () {
+            let icon_id = $(this).attr('data-id');
+
+            $.ajax({
+                headers: {"X-CSRF-TOKEN": jQuery(`meta[name="csrf-token"]`).attr("content")},
+                url: "{{route('add-to-collection-icons')}}",
+                type: "POST",
+                data: {
+                    icon_id: icon_id,
+                },
+                success: function (data) {
+
+                }
+            });
+        });
+        $('.icon').on('click', '.to-collection', function () {
+            console.log('clickaa');
+            var parent = $(this).parents('.icon');
+            parent.toggleClass('is-selected');
+            var imgurl = parent.find('img').attr('src');
+            var data_id = parent.find('img').attr('data-id');
+
+            if (parent.hasClass('is-selected')) {
+                parent.find('.icon-title').prepend(`<span class="heart" style="color:#28b351"><i class="icofont-heart"></i></span>`);
+                parent.find('.to-collection').remove();
+                parent.append(`<div class="to-collection"><span class="basket"  style="color:red"><i class="icofont-trash"></i></span>
+                            <span class="red-title"  style="color:red">Remove</span>
+                        </div>`)
+                $('.wrap-icon').append(`<div class="app-icon icon" style="width: 32px; height: 32px;">
+                               <img alt="Mongrol icon" src="${imgurl}" >
+                             </div>`);
+
+                totalitem();
+                collectionWorkspace(imgurl, data_id);
+
+            } else {
+                parent.find('.icon-title span:first-child').remove();
+                parent.find('.to-collection').remove();
+                parent.append(`<div class="to-collection">
+                        <span class="plus">+&nbsp;</span>
+                        <span>Collection</span>
+                        </div>`);
+                var c = $('.wrap-icon').find('.app-icon');
+                c.each(function () {
+                    if ($(this).children('img').attr('src') === imgurl) {
+                        $(this).remove();
+                        totalitem();
+                    }
+                });
+
+                var cw = $('.collection-sidebar .icons ').find('.icon');
+                cw.each(function () {
+                    if ($(this).find('img').attr('src') === imgurl) {
+                        $(this).remove();
+                        totalitem();
+                    }
+                });
+            }
+
+        });
+        var totalitem = function () {
+            var n = $('.wrap-icon .app-icon').length;
+            $('.recent-collection .info span').text(n);
+
+        };
+
+
+        var collectionWorkspace = function (a, b) {
+            $('.collection-sidebar .icons').append(`<div class="icon">
+                                    <div class="app-icon ">
+                                        <img class="download" data-id="${b}" alt="Mongrol icon" style="height: 50px; width: 50px;"
+                                             src="${a}" >
+                                    </div>
+
+                                    <div class="download remove">
+                                        <i class="icofont-trash"></i>
+                                    </div>
+                                </div>`)
+        }
+
+        $('.collection-sidebar ').on('click', '.remove', function () {
+            console.log('click');
+            $(this).parent().remove();
+            totalitem();
+        })
+        $('.collection-sidebar ').on('click', '.download', function () {
+            console.log($(this).data('id'));
+
+        })
+
+        $('.close-collection').on('click', function () {
+            $(this).parent().removeClass('is-active');
+        })
+
+
+
+    </script>
 <script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
 <script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.min.js"></script>
 <script>
@@ -539,6 +643,5 @@
 
 
 </script>
-{{--<script src="{{asset('js/app.js')}}"></script>--}}
 </body>
 </html>

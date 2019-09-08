@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Model\Genre;
+use App\Model\IconCategory;
 use App\Model\ImageCategory;
 use App\Model\Mood;
 use App\Model\Music;
@@ -16,7 +17,9 @@ class PageController extends Controller
     public function index(Request $request)
     {
         if ($request->isMethod('get')) {
-            return view('Frontend.index');
+            $category = IconCategory::all();
+            $this->data('icon_category', $category);
+            return view('Frontend.index', $this->data);
         }
         return false;
     }
@@ -57,48 +60,45 @@ class PageController extends Controller
                     ->join('themes', 'themes.id', '=', 'music_theme.theme_id')
                     ->join('music_mood', 'music_mood.music_id', '=', 'musics.id')
                     ->join('moods', 'moods.id', '=', 'music_mood.mood_id')
-                    ->where('themes.id',$id)->where('moods.id',$mood_id)
+                    ->where('themes.id', $id)->where('moods.id', $mood_id)
                     ->select('musics.*')->get();
-                $this->data('theme_mood',$music);
+                $this->data('theme_mood', $music);
             }
-            if ($request->has('theme') && $request->has('genre'))
-            {
+            if ($request->has('theme') && $request->has('genre')) {
                 $id = $request->theme;
                 $gen_id = $request->genre;
-                $song=Music::join('music_theme', 'music_theme.music_id', '=', 'musics.id')
+                $song = Music::join('music_theme', 'music_theme.music_id', '=', 'musics.id')
                     ->join('themes', 'themes.id', '=', 'music_theme.theme_id')
                     ->join('music_genre', 'music_genre.music_id', '=', 'musics.id')
                     ->join('genres', 'genres.id', '=', 'music_genre.genre_id')
-                    ->where('themes.id',$id)->where('genres.id',$gen_id)
+                    ->where('themes.id', $id)->where('genres.id', $gen_id)
                     ->select('musics.*')->get();
-                $this->data('theme_genre',$song);
+                $this->data('theme_genre', $song);
             }
-            if ($request->has('genre') && $request->has('mood'))
-            {
+            if ($request->has('genre') && $request->has('mood')) {
                 $mood_id = $request->mood;
                 $gen_id = $request->genre;
-                $aud=Music::join('music_genre', 'music_genre.music_id', '=', 'musics.id')
+                $aud = Music::join('music_genre', 'music_genre.music_id', '=', 'musics.id')
                     ->join('genres', 'genres.id', '=', 'music_genre.genre_id')
                     ->join('music_mood', 'music_mood.music_id', '=', 'musics.id')
                     ->join('moods', 'moods.id', '=', 'music_mood.mood_id')
-                    ->where('moods.id',$mood_id)->where('genres.id',$gen_id)
+                    ->where('moods.id', $mood_id)->where('genres.id', $gen_id)
                     ->select('musics.*')->get();
-                $this->data('mood_genre',$aud);
+                $this->data('mood_genre', $aud);
             }
-            if ($request->has('theme') && $request->has('genre') && $request->has('mood'))
-            {
+            if ($request->has('theme') && $request->has('genre') && $request->has('mood')) {
                 $id = $request->theme;
                 $mood_id = $request->mood;
                 $gen_id = $request->genre;
-                $audio=Music::join('music_genre', 'music_genre.music_id', '=', 'musics.id')
+                $audio = Music::join('music_genre', 'music_genre.music_id', '=', 'musics.id')
                     ->join('genres', 'genres.id', '=', 'music_genre.genre_id')
                     ->join('music_mood', 'music_mood.music_id', '=', 'musics.id')
                     ->join('moods', 'moods.id', '=', 'music_mood.mood_id')
                     ->join('music_theme', 'music_theme.music_id', '=', 'musics.id')
                     ->join('themes', 'themes.id', '=', 'music_theme.theme_id')
-                    ->where('moods.id',$mood_id)->where('genres.id',$gen_id)->where('themes.id',$id)
+                    ->where('moods.id', $mood_id)->where('genres.id', $gen_id)->where('themes.id', $id)
                     ->select('musics.*')->get();
-                $this->data('theme_gen_mood',$audio);
+                $this->data('theme_gen_mood', $audio);
             }
 
             $filter = $mus->get();
@@ -121,14 +121,12 @@ class PageController extends Controller
 
     public function search_results(Request $request)
     {
-        if ($request->ajax())
-        {
-            if ($request->has('search'))
-            {
+        if ($request->ajax()) {
+            if ($request->has('search')) {
 
                 $query = $request->search;
-                if ($query==null){
-                    $this->data('val','');
+                if ($query == null) {
+                    $this->data('val', '');
                     return view('Frontend.search.searchable', $this->data);
                 }
                 $result = explode(',', $query);
@@ -137,8 +135,8 @@ class PageController extends Controller
                         $query->where('musics.name', 'like', '%' . $search . '%');
                     }
                 });
-                $ser=$pro->get();
-                $this->data('ser',$ser);
+                $ser = $pro->get();
+                $this->data('ser', $ser);
                 return view('Frontend.search.searchable', $this->data);
 
             }
