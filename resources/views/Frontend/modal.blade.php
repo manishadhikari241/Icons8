@@ -23,7 +23,7 @@
                         <div class="photo-controls">
                             <a href="{{route('download',$image->id)}}" class="btn is-download">Download</a>
                             <div class="btn is-like">
-                                <span>Free</span>
+                                <span href="{{route('editor')}}">Recompose</span>
                             </div>
                         </div>
                     @elseif($image->image_type==1)
@@ -39,7 +39,7 @@
                                 <span class="btn-icon">
                                     <i class="icofont-heart"></i>
                                 </span>
-                                <span>Premium</span>
+                                <span href="{{route('editor')}}">Recompose</span>
                             </div>
                         </div>
                     @endif
