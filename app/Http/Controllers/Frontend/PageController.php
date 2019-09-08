@@ -6,12 +6,10 @@ use App\Model\Age;
 use App\Model\BodyType;
 use App\Model\Gender;
 use App\Model\Genre;
-<<<<<<< HEAD
+
 use App\Model\IconCategory;
-=======
 use App\Model\Hair;
 use App\Model\Image;
->>>>>>> BibekReloaded
 use App\Model\ImageCategory;
 use App\Model\Mood;
 use App\Model\Music;
