@@ -43,7 +43,7 @@
                                                 {{\Illuminate\Support\Carbon::parse($value->created_at)->format('M d y')}}
                                             </td>
                                             <td>
-                                                <a href="{{route('voyager.order-download',$value->id)}}" class="btn-primary">Download</a>
+                                                <a href="{{route('order-download',$value->id)}}" class="btn-primary">Download</a>
                                             </td>
                                         </tr>
                                     @endforeach

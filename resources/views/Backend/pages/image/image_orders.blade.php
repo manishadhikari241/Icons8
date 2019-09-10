@@ -48,7 +48,7 @@
                                             </td>
                                             <td>
                                                 <a class="btn btn-outline-danger confirm"
-                                                   href="{{route('voyager.upload-delete',$value->id)}}"
+                                                   href="{{route('upload-delete',$value->id)}}"
                                                    onclick="return confirm('Confirm Delete?')"><i
                                                             class="fa fa fa-trash"></i></a>
                                             </td>
