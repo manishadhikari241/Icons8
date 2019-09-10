@@ -151,12 +151,12 @@ trait AuthenticatesUsers
      * @return \Illuminate\Http\Response
      */
     public function logout(Request $request)
-    {
+    {dd('ok');
         $this->guard()->logout();
 
         $request->session()->invalidate();
 
-        return $this->loggedOut($request) ?: redirect('/');
+        return $this->loggedOut($request) ?: redirect('/home');
     }
 
     /**

@@ -16,7 +16,7 @@
                     <!-- /.card-header -->
                     <div class="card-body">
 
-                        <form method="POST" action="{{route('voyager.category')}}"
+                        <form method="POST" action="{{route('category')}}"
                               accept-charset="UTF-8" class=""
                               enctype="multipart/form-data">
                             @csrf
@@ -94,10 +94,10 @@
                                     <td>{{$value->title}}</td>
                                     <td>{!! $value->description !!}</td>
                                     <td>
-                                        <a href="{{route('voyager.icon-category-delete',$value->id)}}"
+                                        <a href="{{route('icon-category-delete',$value->id)}}"
                                            onclick="return confirm('Confirm Delete?')"
                                            class="btn btn-sm btn btn-danger"><i class="fa fa-trash"></i> </a>
-                                        <a href="{{route('voyager.edit-icon-category',$value->id)}}"
+                                        <a href="{{route('edit-icon-category',$value->id)}}"
                                            class="btn btn-sm btn btn-primary"><i
                                                     class="fa fa-edit"></i> </a>
                                     </td>

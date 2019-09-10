@@ -41,13 +41,10 @@
                     <a class="nav-link" href="javascript:void(0)">Photos &nbsp;<i class="icofont-thin-down"></i></a>
                     <div class="nav-dropdown">
                         <ul>
-<<<<<<< HEAD
-                            <li><a href="photocreator/index.html">Photo Creator</a></li>
-                            <li><a href="{{route('photo')}}">Photo library</a></li>
-=======
+
                             <li ><a href="{{route('editor')}}" >Photo Creator</a></li>
                             <li ><a href="{{route('photo')}}" >Photo library</a></li>
->>>>>>> BibekReloaded
+
                         </ul>
                     </div>
                 </li>
@@ -55,7 +52,7 @@
                 <li><a class="nav-link" href="{{route('music')}}">Music</a></li>
                 <li><a class="nav-link" href="videos-page.html">Videos</a></li>
 
-                <li class="is-pull-right"><a class="nav-link " href="{{route('forum')}}">Forum</a></li>
+                <li class="is-pull-right"><a class="nav-link " href="{{route('forum-index')}}">Forum</a></li>
                 <li><a class="nav-link" href="">Resources</a></li>
 
 

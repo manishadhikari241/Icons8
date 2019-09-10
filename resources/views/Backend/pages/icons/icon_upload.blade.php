@@ -12,11 +12,11 @@
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">Icon Upload</h5>
-                        <a href="{{route('voyager.show-icon')}}"><i class="fa fa-image"></i>View Icons</a>
+                        <a href="{{route('show-icon')}}"><i class="fa fa-image"></i>View Icons</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <form method="POST" action="{{route('voyager.icon-upload')}}"
+                        <form method="POST" action="{{route('icon-upload')}}"
                               accept-charset="UTF-8" class=""
                               enctype="multipart/form-data">
                             @csrf

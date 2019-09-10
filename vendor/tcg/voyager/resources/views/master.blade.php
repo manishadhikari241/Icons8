@@ -8,8 +8,7 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- Favicon -->
     <?php $admin_favicon = Voyager::setting('admin.icon_image', ''); ?>
@@ -23,7 +22,6 @@
 
     <!-- App CSS -->
     <link rel="stylesheet" href="{{ voyager_asset('css/app.css') }}">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 
     @yield('css')
     @if(config('voyager.multilingual.rtl'))
@@ -121,6 +119,33 @@ if (starts_with(app('VoyagerAuth')->user()->avatar, 'http://') || starts_with(ap
 
 
 <script type="text/javascript" src="{{ voyager_asset('js/app.js') }}"></script>
+
+<script>
+    @if(Session::has('alerts'))
+        let alerts = {!! json_encode(Session::get('alerts')) !!};
+        helpers.displayAlerts(alerts, toastr);
+    @endif
+
+    @if(Session::has('message'))
+
+    // TODO: change Controllers to use AlertsMessages trait... then remove this
+    var alertType = {!! json_encode(Session::get('alert-type', 'info')) !!};
+    var alertMessage = {!! json_encode(Session::get('message')) !!};
+    var alerter = toastr[alertType];
+
+    if (alerter) {
+        alerter(alertMessage);
+    } else {
+        toastr.error("toastr alert-type " + alertType + " is unknown");
+    }
+    @endif
+</script>
+@include('voyager::media.manager')
+@yield('javascript')
+@stack('javascript')
+@if(!empty(config('voyager.additional_js')))<!-- Additional Javascript -->
+    @foreach(config('voyager.additional_js') as $js)<script type="text/javascript" src="{{ asset($js) }}"></script>@endforeach
+@endif
 <script src="{{asset('js/toastr.min.js')}}"></script>
 
 <script>
@@ -157,29 +182,6 @@ if (starts_with(app('VoyagerAuth')->user()->avatar, 'http://') || starts_with(ap
         $('#styles').select2();
     });
 </script>
-
-<script>
-    @if(Session::has('alerts'))
-        let alerts = {!! json_encode(Session::get('alerts')) !!};
-        helpers.displayAlerts(alerts, toastr);
-    @endif
-
-    @if(Session::has('message'))
-
-    // TODO: change Controllers to use AlertsMessages trait... then remove this
-    var alertType = {!! json_encode(Session::get('alert-type', 'info')) !!};
-    var alertMessage = {!! json_encode(Session::get('message')) !!};
-    var alerter = toastr[alertType];
-
-    if (alerter) {
-        alerter(alertMessage);
-    } else {
-        toastr.error("toastr alert-type " + alertType + " is unknown");
-    }
-    @endif
-</script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 <script>
     $(document).ready( function () {
         $('#example1').DataTable();
@@ -188,14 +190,6 @@ if (starts_with(app('VoyagerAuth')->user()->avatar, 'http://') || starts_with(ap
 <script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
 <script>
     CKEDITOR.replace('desc');
-
 </script>
-@include('voyager::media.manager')
-@yield('javascript')
-@stack('javascript')
-@if(!empty(config('voyager.additional_js')))<!-- Additional Javascript -->
-    @foreach(config('voyager.additional_js') as $js)<script type="text/javascript" src="{{ asset($js) }}"></script>@endforeach
-@endif
-
 </body>
 </html>

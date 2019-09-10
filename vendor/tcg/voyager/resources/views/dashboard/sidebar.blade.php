@@ -11,7 +11,7 @@
                             <img src="{{ Voyager::image($admin_logo_img) }}" alt="Logo Icon">
                         @endif
                     </div>
-                    <div class="title">{{Voyager::setting('admin.title', 'Icons')}}</div>
+                    <div class="title">{{Voyager::setting('admin.title', 'VOYAGER')}}</div>
                 </a>
             </div><!-- .navbar-header -->
 
@@ -23,14 +23,19 @@
                     <h4>{{ ucwords(app('VoyagerAuth')->user()->name) }}</h4>
                     <p>{{ app('VoyagerAuth')->user()->email }}</p>
 
-                    <a href="{{ route('voyager.profile') }}" class="btn btn-primary">{{ __('voyager::generic.profile') }}</a>
+                    <a href="{{ route('voyager.profile') }}"
+                       class="btn btn-primary">{{ __('voyager::generic.profile') }}</a>
                     <div style="clear:both"></div>
                 </div>
             </div>
 
         </div>
         <div id="adminmenu">
-            <admin-menu :items="{{ menu('admin', '_json') }}"></admin-menu>
+            @if (app('VoyagerAuth')->user()->hasRole('user'))
+                {{\TCG\Voyager\Models\Menu::display('User','bootstrap')}}
+            @else
+                <admin-menu :items="{{ menu('admin', '_json') }}"></admin-menu>
+            @endif
         </div>
     </nav>
 </div>
