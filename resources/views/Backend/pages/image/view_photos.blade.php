@@ -10,7 +10,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">All Photos</h5>
-                        <a href="{{route('voyager.image-orders')}}"><i class="fa fa-backward"></i>Back</a>
+                        <a href="{{route('image-orders')}}"><i class="fa fa-backward"></i>Back</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
