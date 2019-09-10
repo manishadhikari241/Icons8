@@ -298,7 +298,7 @@ class PageController extends Controller
 
     }
 
-    public function editor($id)
+    public function editor()
     {
         return view('Frontend.pixie');
     }
