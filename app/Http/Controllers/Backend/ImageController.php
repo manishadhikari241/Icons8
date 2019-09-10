@@ -17,6 +17,7 @@ use App\Model\Race;
 use App\Model\SpecialFeature;
 use App\Model\Tag;
 use App\User;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -916,6 +917,20 @@ class ImageController extends BackendController
             }
         }
         return false;
+    }
+
+    public function generate_PDF($id)
+    {
+        $img = OrderUpload::where('id', $id)->firstOrFail();
+//        dd($img);
+        $pdf= PDF::loadview($this->backendimagePath .'pdf',$img);
+//         $pdf=new PDF();
+//
+//         $file=$pdf->loadView($this->backendimagePath . 'invoice',['title' => 'Welcome to HDTuto.com']);
+//         dd($file)
+        return $pdf->download('invoice.pdf');
+//    $pdf=PDF::class;
+//    $pdf->load
     }
 }
 
