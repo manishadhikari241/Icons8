@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="470f2d7f-c77c-4c24-b315-25cff73b2a34" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
+=======
+<<<<<<< HEAD
+    <list default="true" id="87163bd6-592c-4c58-b59f-a8ba35d6d9b5" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+=======
+    <list default="true" id="307a93b1-e8a6-421f-b2b2-3348fdd06415" name="Default" comment="" />
+>>>>>>> 55cdba1164d4d445adbaa0f51a5ef928fcfda23d
+>>>>>>> 7b8bc09ddc24f85e4aa1fbcd00031fb4a50dc3f4
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,6 +28,9 @@
     <favorites_list name="icons8" />
   </component>
   <component name="FileEditorManager">
+<<<<<<< HEAD
+    <leaf />
+=======
     <leaf>
       <file leaf-file-name="composer.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/composer.json">
@@ -77,6 +90,7 @@
         </entry>
       </file>
     </leaf>
+>>>>>>> 55cdba1164d4d445adbaa0f51a5ef928fcfda23d
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -275,6 +289,7 @@
       </pane>
     </panes>
   </component>
+<<<<<<< HEAD
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_package_manager_path" value="yarn" />
@@ -284,6 +299,34 @@
       <recent name="C:\xampppp\htdocs\icons8\database\migrations" />
     </key>
   </component>
+=======
+<<<<<<< HEAD
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../icons8" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\test\public\js" />
+      <recent name="C:\xampp\htdocs\test\resources\views\Backend" />
+      <recent name="C:\xampp\htdocs\test\app\Providers" />
+      <recent name="C:\xampp\htdocs\test\app" />
+      <recent name="C:\xampp\htdocs\test\app\Http\Controllers\Frontend" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\test\resources\views\Frontend" />
+      <recent name="C:\xampp\htdocs\test\app\Http\Controllers\Frontend\Forum" />
+      <recent name="C:\xampp\htdocs\test\public\image" />
+      <recent name="C:\xampp\htdocs\test\app\Http\Controllers\Backend" />
+    </key>
+  </component>
+=======
+>>>>>>> 55cdba1164d4d445adbaa0f51a5ef928fcfda23d
+>>>>>>> 7b8bc09ddc24f85e4aa1fbcd00031fb4a50dc3f4
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -307,29 +350,70 @@
       <option name="presentableId" value="Default" />
       <updated>1566108236146</updated>
       <workItem from="1566108237369" duration="13029000" />
+<<<<<<< HEAD
+      <workItem from="1566188662675" duration="20471000" />
+      <workItem from="1566277470089" duration="20562000" />
+      <workItem from="1566363082344" duration="21407000" />
+      <workItem from="1566450740676" duration="18521000" />
+      <workItem from="1566480692420" duration="14000" />
+=======
       <workItem from="1566188662675" duration="2908000" />
       <workItem from="1566278539251" duration="1211000" />
       <workItem from="1566279867960" duration="1478000" />
+<<<<<<< HEAD
       <workItem from="1566536702206" duration="158000" />
+=======
+>>>>>>> 55cdba1164d4d445adbaa0f51a5ef928fcfda23d
+>>>>>>> 7b8bc09ddc24f85e4aa1fbcd00031fb4a50dc3f4
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="23487000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+=======
+<<<<<<< HEAD
+    <option name="totallyTimeSpent" value="94004000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="-7" width="1295" height="704" extended-state="6" />
+=======
+    <option name="totallyTimeSpent" value="19263000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
+>>>>>>> 55cdba1164d4d445adbaa0f51a5ef928fcfda23d
+>>>>>>> 7b8bc09ddc24f85e4aa1fbcd00031fb4a50dc3f4
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" />
+<<<<<<< HEAD
       <window_info anchor="bottom" id="Version Control" />
+=======
+<<<<<<< HEAD
+      <window_info id="npm" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49959514" weight="0.32922536" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2769231" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="right" id="Database" order="3" />
+=======
+>>>>>>> 7b8bc09ddc24f85e4aa1fbcd00031fb4a50dc3f4
       <window_info id="npm" side_tool="true" />
       <window_info anchor="bottom" id="Terminal" visible="true" weight="0.11601307" />
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49878347" visible="true" weight="0.2655068" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="right" id="Database" />
+<<<<<<< HEAD
+=======
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32843137" />
+>>>>>>> 55cdba1164d4d445adbaa0f51a5ef928fcfda23d
+>>>>>>> 7b8bc09ddc24f85e4aa1fbcd00031fb4a50dc3f4
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" sideWeight="0.50121653" side_tool="true" weight="0.24962178" />
@@ -362,6 +446,46 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
+<<<<<<< HEAD
+=======
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-415" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/voyager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3540" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bootstrap/app.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-408" />
+      </provider>
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/vendor/tcg/voyager/src/Http/Controllers/VoyagerController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="51" column="42" selection-start-line="51" selection-start-column="42" selection-end-line="51" selection-end-column="42" />
+=======
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="11" column="16" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
+>>>>>>> 55cdba1164d4d445adbaa0f51a5ef928fcfda23d
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/tcg/voyager/resources/views/menus/browse.blade.php" />
+    <entry file="file://$PROJECT_DIR$/resources/views/welcome.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="87" selection-start-line="87" selection-end-line="87" />
+        </state>
+      </provider>
+    </entry>
+>>>>>>> 7b8bc09ddc24f85e4aa1fbcd00031fb4a50dc3f4
     <entry file="file://$PROJECT_DIR$/vendor/tcg/voyager/docs/core-concepts/compass.md" />
     <entry file="file://$PROJECT_DIR$/vendor/tcg/voyager/docs/core-concepts/settings.md" />
     <entry file="file://$PROJECT_DIR$/vendor/tcg/voyager/src/Http/Controllers/VoyagerAuthController.php" />
@@ -509,8 +633,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/Frontend/forum/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="95">
+          <caret line="417" column="33" lean-forward="true" selection-start-line="417" selection-start-column="33" selection-end-line="417" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Frontend/Forum/ForumController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="92" column="41" selection-start-line="92" selection-start-column="41" selection-end-line="92" selection-end-column="41" />
+=======
         <state relative-caret-position="-1168">
           <caret line="339" column="42" lean-forward="true" selection-start-line="339" selection-start-column="42" selection-end-line="339" selection-end-column="42" />
+>>>>>>> 55cdba1164d4d445adbaa0f51a5ef928fcfda23d
         </state>
       </provider>
     </entry>
@@ -521,6 +657,14 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/resources/views/Frontend/photo-index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-22716" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Model/TopicLike.php">
+=======
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Backend/ForumController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="584">
@@ -542,7 +686,12 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/.env">
+=======
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Backend/ImageController.php">
+>>>>>>> 55cdba1164d4d445adbaa0f51a5ef928fcfda23d
+>>>>>>> 7b8bc09ddc24f85e4aa1fbcd00031fb4a50dc3f4
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="13" column="10" selection-start-line="13" selection-start-column="10" selection-end-line="13" selection-end-column="10" />
@@ -581,5 +730,58 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Frontend/Forum/LikeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="43" column="42" lean-forward="true" selection-start-line="43" selection-start-column="42" selection-end-line="43" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/Frontend/forum/forum-inner.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="377">
+          <caret line="844" selection-start-line="844" selection-end-line="844" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="26" column="31" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_08_22_063333_create_comment_likes_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="69" selection-start-line="15" selection-start-column="69" selection-end-line="15" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="30" selection-start-line="4" selection-start-column="30" selection-end-line="4" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+=======
+>>>>>>> 55cdba1164d4d445adbaa0f51a5ef928fcfda23d
   </component>
 </project>

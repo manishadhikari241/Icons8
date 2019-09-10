@@ -18,4 +18,9 @@ class IconCategory extends Model
     }
 
     protected $fillable = ['title', 'description', 'image'];
+
+    public function icons()
+    {
+        return $this->belongsToMany('App\Model\IconUpload','icons_category','category_id','icon_id');
+    }
 }

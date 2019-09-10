@@ -1,7 +1,12 @@
-@extends('backEnd.layout')
+@extends('voyager::master')
+
+
+@section('css')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@stop
+
+
 @section('content')
-
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-8">
@@ -97,7 +102,7 @@
                                                     multiple="multiple">
                                                 @foreach($style as $value)
                                                     <option @if($icon->styles()->where('icon_id',$icon->id)->where('style_id',$value->id)->first()) selected @endif  value="{{$value->id}}">{{$value->name}}</option>
-                                                    @include('dashboard.pages.icons.category_dropdown',['category'=>$value])
+                                                    @include('Backend.pages.icons.category_dropdown',['category'=>$value])
                                                 @endforeach
                                             </select>
 

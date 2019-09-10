@@ -14,7 +14,7 @@ class CreateImageCategoriesTable extends Migration
     public function up()
     {
         Schema::create('image_categories', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('title');
             $table->string('slug');
             $table->boolean('status')->default(0);

@@ -9,13 +9,21 @@ use App\Model\Gender;
 use App\Model\Hair;
 use App\Model\Image;
 use App\Model\ImageCategory;
+use App\Model\Order;
+use App\Model\OrderAssign;
+use App\Model\OrderUpload;
+use App\Model\PhotoLog;
 use App\Model\Race;
 use App\Model\SpecialFeature;
 use App\Model\Tag;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
+use TCG\Voyager\Models\Role;
 
 class ImageController extends BackendController
 {
@@ -30,7 +38,7 @@ class ImageController extends BackendController
 
         if ($request->isMethod('post')) {
             $request->validate([
-                'name' => 'required',
+                'name' => 'required|unique:image_categories,title',
                 'description' => 'required'
             ]);
             $data['title'] = $request->name;
@@ -46,9 +54,8 @@ class ImageController extends BackendController
     public function delete_category($id)
     {
         $find = ImageCategory::findorfail($id);
-        if (DB::table('table_image_category')->where('category_id',$id)->get()->isNotEmpty())
-        {
-            return redirect()->back()->with('error','Please delete related child category first');
+        if (DB::table('table_image_category')->where('category_id', $id)->get()->isNotEmpty()) {
+            return redirect()->back()->with('error', 'Please delete related child category first');
         }
         if ($find->delete()) {
             Session::flash('success', 'Category deleted successfully');
@@ -67,7 +74,7 @@ class ImageController extends BackendController
 
         if ($request->isMethod('post')) {
             $request->validate([
-                'name' => 'required',
+                'name' => 'required|unique:image_categories,title,' . $request->name,
                 'description' => 'required'
             ]);
             $data['title'] = $request->name;
@@ -93,7 +100,7 @@ class ImageController extends BackendController
         }
         if ($request->isMethod('post')) {
             $request->validate([
-                'name' => 'required'
+                'name' => 'required|unique:genders,name',
             ]);
             $data['name'] = $request->name;
             if (Gender::create($data)) {
@@ -116,7 +123,7 @@ class ImageController extends BackendController
     {
         if ($request->isMethod('post')) {
             $request->validate([
-                'name' => 'required'
+                'name' => 'required|unique:genders,name' . $request->name,
             ]);
             $data['name'] = $request->name;
             $id = $request->id;
@@ -138,7 +145,7 @@ class ImageController extends BackendController
         }
         if ($request->isMethod('post')) {
             $request->validate([
-                'name' => 'required'
+                'name' => 'required|unique:races,name'
             ]);
             $data['name'] = $request->name;
             if (Race::create($data)) {
@@ -161,7 +168,7 @@ class ImageController extends BackendController
     {
         if ($request->isMethod('post')) {
             $request->validate([
-                'name' => 'required'
+                'name' => 'required|unique:races,name' . $request->name,
             ]);
             $data['name'] = $request->name;
             $id = $request->id;
@@ -183,7 +190,7 @@ class ImageController extends BackendController
         }
         if ($request->isMethod('post')) {
             $request->validate([
-                'name' => 'required'
+                'name' => 'required|unique:ages,name',
             ]);
             $data['name'] = $request->name;
             if (Age::create($data)) {
@@ -228,7 +235,7 @@ class ImageController extends BackendController
         }
         if ($request->isMethod('post')) {
             $request->validate([
-                'name' => 'required'
+                'name' => 'required|unique:hairs,name',
             ]);
             $data['name'] = $request->name;
             if (Hair::create($data)) {
@@ -273,7 +280,7 @@ class ImageController extends BackendController
         }
         if ($request->isMethod('post')) {
             $request->validate([
-                'name' => 'required'
+                'name' => 'required|unique:body_types,name',
             ]);
             $data['name'] = $request->name;
             if (BodyType::create($data)) {
@@ -317,7 +324,7 @@ class ImageController extends BackendController
         }
         if ($request->isMethod('post')) {
             $request->validate([
-                'name' => 'required'
+                'name' => 'required|unique:special_features,name',
             ]);
             $data['name'] = $request->name;
             if (SpecialFeature::create($data)) {
@@ -362,7 +369,7 @@ class ImageController extends BackendController
         }
         if ($request->isMethod('post')) {
             $request->validate([
-                'name' => 'required'
+                'name' => 'required|unique:tags,name',
             ]);
             $data['name'] = $request->name;
             if (Tag::create($data)) {
@@ -484,7 +491,7 @@ class ImageController extends BackendController
                 'description' => 'required',
                 'image' => 'required',
                 'tags' => 'required',
-                'category'=>'required'
+                'category' => 'required'
             ]);
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
@@ -576,7 +583,7 @@ class ImageController extends BackendController
             $this->data('cat', $cat);
             $credit = Credit::all();
             $this->data('credits', $credit);
-            return view($this->backendimagePath . 'edit_image', compact('GeneralWebmasterSections'), $this->data);
+            return view($this->backendimagePath . 'edit_image', $this->data);
 
         }
 
@@ -616,8 +623,8 @@ class ImageController extends BackendController
             $hair = $edit->hairs()->sync($request->hair);
             $body = $edit->bodytypes()->sync($request->body_type);
             $special = $edit->specials()->sync($request->special_feature);
-            $photo=$edit->photos()->sync($request->photographer);
-            $model=$edit->models()->sync($request->model);
+            $photo = $edit->photos()->sync($request->photographer);
+            $model = $edit->models()->sync($request->model);
 
             $update = $edit->update($data);
             if ($update) {
@@ -646,6 +653,255 @@ class ImageController extends BackendController
             Session::flash('success', 'Image deleted');
             return redirect()->back();
         }
+    }
+
+    public function show_orders(Request $request)
+    {
+        if ($request->isMethod('get')) {
+
+            $upload = OrderUpload::all();
+//            $unique = $order->unique('user_id');
+            $this->data('upload', $upload);
+            $order = Order::all();
+            $this->data('order', $order);
+            return view($this->backendimagePath . 'image_orders', $this->data);
+
+        }
+    }
+
+    public function image_details(Request $request)
+    {
+        if ($request->isMethod('get')) {
+            $id = $request->id;
+            $img = User::where('id', '=', $id)->first()->images;
+            $this->data('img', $img);
+            return view($this->backendimagePath . 'view_photos', $this->data);
+
+        }
+    }
+
+    public function latest_orders(Request $request)
+    {
+        if ($request->isMethod('get')) {
+            $order = Order::all();
+            $this->data('order', $order);
+            $user = User::where('role_id', '!=', 2)->where('role_id', '!=', 1)->get();
+            $this->data('users', $user);
+            return view($this->backendimagePath . 'latest_orders', $this->data);
+        }
+    }
+
+    public function order_status(Request $request)
+    {
+        $id = $request->id;
+        $assign = Order::findorfail($id);
+        if ($_POST['status'] == 0) {
+            $assign->status = 0;
+        }
+        if ($_POST['status'] == 1) {
+            $assign->status = 1;
+        }
+        if ($_POST['status'] == 2) {
+            $assign->status = 2;
+        }
+        $save = $assign->update();
+        if ($save) {
+            Session::flash('success', 'Order status changed');
+            return redirect()->back();
+        }
+    }
+
+    public function assign_status(Request $request)
+    {
+        $id = $request->id;
+        $assign = OrderAssign::findorfail($id);
+        if ($_POST['status'] == 0) {
+            $assign->status = 0;
+        }
+        if ($_POST['status'] == 1) {
+            $assign->status = 1;
+        }
+        if ($_POST['status'] == 2) {
+            $assign->status = 2;
+        }
+        $save = $assign->update();
+        if ($save) {
+            Session::flash('success', 'Assignment status changed');
+            return redirect()->back();
+        }
+
+    }
+
+    public function delete_order(Request $request)
+    {
+        $id = $request->id;
+        $find = Order::findorfail($id);
+        if ($find->delete()) {
+            Session::flash('success', 'Order deleted successfully');
+            return redirect()->back();
+        }
+    }
+
+    public function order_assign(Request $request)
+    {
+        if ($request->ajax()) {
+            $data['user_id'] = $request->user_id;
+            $data['order_id'] = $request->order_id;
+            $data['status'] = 0;
+
+            if ($request->user_id == 0) {
+                $find = OrderAssign::where('order_id', $request->order_id)->first()->users->name;
+                $remove = OrderAssign::where('order_id', $request->order_id)->delete();
+                if ($remove) {
+
+                    $logs = PhotoLog::create([
+                        'type' => 'Cancelled',
+                        'description' => 'Order Assignment Removed from ' . $find,
+                        'user_id' => null,
+                        'ip_address' => $_SERVER['REMOTE_ADDR'],
+                        'order_id' => $request->order_id
+                    ]);
+                    return response()->json([
+                        'message' => 'Assignment Removed'
+                    ]);
+                }
+            }
+
+            if (OrderAssign::where('order_id', $request->order_id)->where('user_id', '!=', $request->user_id)) {
+                $var = OrderAssign::where('order_id', $request->order_id)->where('user_id', '!=', $request->user_id)
+                    ->update($data);
+                if ($var) {
+                    $logs = PhotoLog::create([
+                        'type' => Role::where('id', \TCG\Voyager\Models\User::where('id', $request->user_id)->first()->role_id)->first()->name,
+                        'description' => 'Order Assigned to ' . \TCG\Voyager\Models\User::where('id', $request->user_id)->first()->name,
+                        'user_id' => $request->user_id,
+                        'ip_address' => $_SERVER['REMOTE_ADDR'],
+                        'order_id' => $request->order_id
+                    ]);
+                    return response()->json([
+                        'message' => 'Assignment changed'
+                    ]);
+                }
+            }
+            $create = OrderAssign::updateorcreate(['order_id' => $request->order_id], $data);
+            if ($create) {
+                $logs = PhotoLog::create([
+                    'type' => Role::where('id', \TCG\Voyager\Models\User::where('id', $request->user_id)->first()->role_id)->first()->name,
+                    'description' => 'Order Assigned to ' . \TCG\Voyager\Models\User::where('id', $request->user_id)->first()->name,
+                    'user_id' => $request->user_id,
+                    'ip_address' => $_SERVER['REMOTE_ADDR'],
+                    'order_id' => $request->order_id
+                ]);
+                return response()->json([
+                    'message' => 'Order assigned succesfully'
+                ]);
+            }
+        }
+        if ($request->isMethod('get')) {
+            if (Auth::user()->role_id != 1) {
+                $assign = OrderAssign::where('user_id', '=', Auth::user()->id)->get();
+            } else {
+                $assign = OrderAssign::all();
+            }
+            $this->data('order', $assign);
+            return view($this->backendimagePath . 'order_assign', $this->data);
+        }
+    }
+
+    public function assign_delete(Request $request)
+    {
+        $id = $request->id;
+        $find = OrderAssign::findorfail($id);
+        if ($find->delete()) {
+            Session::flash('success', 'Assigment deleted');
+            return redirect()->back();
+        }
+    }
+
+    public function image_modal($id)
+    {
+        $image = Order::where('id', '=', $id)->first();
+        $this->data('image', $image);
+        return view($this->backendimagePath . 'image_modal', $this->data);
+    }
+
+    public function order_upload(Request $request)
+    {
+        if ($request->isMethod('get')) {
+            $upload = OrderUpload::all();
+            $this->data('upload', $upload);
+            $order = Order::where('status', '=', 1)->get();
+            $this->data('order', $order);
+            return view($this->backendimagePath . 'order_upload', $this->data);
+        }
+        if ($request->isMethod('post')) {
+            $request->validate([
+                'image' => 'required',
+            ]);
+            $data['message'] = $request->message;
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $name = time() . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('/images/order_upload/');
+                $image->move($destinationPath, $name);
+                $data['image'] = $name;
+            }
+            $data['order_id'] = $request->order_id;
+            if (OrderUpload::create($data)) {
+                $order = Order::where('id', '=', $request->order_id)->update(['status' => 2]);
+                $assign = OrderAssign::where('order_id', '=', $request->order_id)->update(['status' => 2]);
+                Session::flash('success', 'Order uploaded successfully');
+                return redirect()->back();
+            }
+        }
+    }
+
+    public function show_order(Request $request)
+    {
+        if ($request->isMethod('get')) {
+            $upload = OrderUpload::join('orders', 'orders.id', '=', 'order_uploads.order_id')->where('orders.user_id', '=', Auth::user()->id)->get();
+            $this->data('upload', $upload);
+            return view($this->backendimagePath . 'show_orders', $this->data);
+        }
+    }
+
+    public function order_download($id)
+    {
+        $img = OrderUpload::where('id', $id)->firstOrFail();
+        $path = public_path('images/order_upload/' . $img->image);
+        $headers = array(
+            'Content-Type:image/jpeg',
+        );
+        return response()->download($path, $img
+            ->original_filename, $headers);
+    }
+
+    public function upload_delete($id)
+    {
+        $find = OrderUpload::findorfail($id);
+        if ($find->delete()) {
+            Session::flash('success', 'Upload deleted');
+            return redirect()->back();
+        }
+    }
+
+    public function image_log(Request $request)
+    {
+        if ($request->isMethod('get')) {
+            $photolog = PhotoLog::latest()->get();
+            $this->data('logs', $photolog);
+            return view($this->backendimagePath . 'logs', $this->data);
+        }
+        if ($request->isMethod('post')) {
+            $validator= Validator::make($request->all(),[
+               'delete'=>'required'
+            ],['delete.required'=>'Please Select'])->validate();
+            $log_delete = PhotoLog::whereIn('id', $request->delete)->delete();
+            if ($log_delete) {
+                return redirect()->back()->with('success', 'Logs Deleted');
+            }
+        }
+        return false;
     }
 }
 

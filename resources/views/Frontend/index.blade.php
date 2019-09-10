@@ -22,8 +22,6 @@
     <link rel="stylesheet" href="{{asset('css/Frontend/icofont/icofont.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/Frontend/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/Frontend/responsive.css')}}">
-    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css" rel="stylesheet">
-
 
 </head>
 <body>
@@ -38,33 +36,24 @@
         <nav>
             <ul class="nav-list">
 
-                <li><a class="nav-link" href="icons.html">Icons</a></li>
+                <li><a class="nav-link" href="{{route('icons-index')}}">Icons</a></li>
                 <li class="nav-item has-dropdown">
                     <a class="nav-link" href="javascript:void(0)">Photos &nbsp;<i class="icofont-thin-down"></i></a>
                     <div class="nav-dropdown">
                         <ul>
-<<<<<<< HEAD
-                            <li ><a href="photocreator/index.html" >Photo Creator</a></li>
+
+                            <li ><a href="{{route('editor')}}" >Photo Creator</a></li>
                             <li ><a href="{{route('photo')}}" >Photo library</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li><a class="nav-link" href="" >Vectors</a></li>
-                <li><a class="nav-link" href="{{route('music')}}" >Music</a></li>
-                <li><a class="nav-link" href="videos-page.html" >Videos</a></li>
-=======
-                            <li><a href="photocreator/index.html">Photo Creator</a></li>
-                            <li><a href="photo-index.html">Photo library</a></li>
+
                         </ul>
                     </div>
                 </li>
                 <li><a class="nav-link" href="">Vectors</a></li>
-                <li><a class="nav-link" href="music-index.html">Music</a></li>
+                <li><a class="nav-link" href="{{route('music')}}">Music</a></li>
                 <li><a class="nav-link" href="videos-page.html">Videos</a></li>
 
-                <li class="is-pull-right"><a class="nav-link " href="{{route('forum')}}">Forum</a></li>
+                <li class="is-pull-right"><a class="nav-link " href="{{route('forum-index')}}">Forum</a></li>
                 <li><a class="nav-link" href="">Resources</a></li>
->>>>>>> e94d5048662a973592801227b4a1ce238c3369bb
 
 
             </ul>
@@ -188,26 +177,9 @@
                 <i class="icofont-thin-right"></i>
             </button>
             <div class="app-tabs-header" style="padding-bottom: 20px;">
-                <div class="app-tabs-item is-active">Material</div>
-                <div class="app-tabs-item">IOS Glyphs</div>
-                <div class="app-tabs-item">Windows 10</div>
-                <div class="app-tabs-item">Color</div>
-                <div class="app-tabs-item">IOS Icons</div>
-                <div class="app-tabs-item">Office</div>
-                <div class="app-tabs-item">Cute Color</div>
-                <div class="app-tabs-item">Blue UI</div>
-                <div class="app-tabs-item">Dotted</div>
-                <div class="app-tabs-item">Gradient Line</div>
-                <div class="app-tabs-item">Simple Small</div>
-                <div class="app-tabs-item">Pastel</div>
-                <div class="app-tabs-item">Ice Cream</div>
-                <div class="app-tabs-item">Doodle</div>
-                <div class="app-tabs-item">Cloud</div>
-                <div class="app-tabs-item">Circle Bubbles</div>
-                <div class="app-tabs-item">Color Hand Drawn</div>
-                <div class="app-tabs-item">Hand Drawn</div>
-                <div class="app-tabs-item">Pastel Glyph</div>
-
+                @foreach($icon_category as $value)
+                    <a href=""><div class="app-tabs-item is-active">{{$value->title}} </div></a>
+                @endforeach
 
             </div>
 
@@ -453,28 +425,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/simplebar/4.1.0/simplebar.min.js"></script>
 
-    <script src="{{asset('js/Frontend/app.min.js')}}"></script>
-
-
-<script src="{{asset('js/toastr.min.js')}}"></script>
-
-<script>
-    @if(Session::has('success'))
-    toastr.success("{{Session::get('success')}}");
-    @endif
-    @if(Session::has('error'))
-    toastr.error("{{Session::get('error')}}");
-    @endif
-    @if(Session::has('info'))
-    toastr.info("{{Session::get('info')}}");
-    @endif
-    @if ($errors->any())
-    @foreach($errors->all() as $error)
-    toastr.warning("{{ $error }}");
-    @endforeach
-    @endif
-</script>
-
+<script src="{{asset('js/Frontend/app.min.js')}}"></script>
 
 </body>
 </html>

@@ -23,6 +23,170 @@
     <link rel="stylesheet" href="{{asset('css/Frontend/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/Frontend/responsive.css')}}">
     <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css" rel="stylesheet">
+    <style>
+        .algolia-autocomplete {
+            display: flex !important;
+            width: 100% !important;
+        }
+
+        .aa-input {
+            display: block;
+
+        }
+
+        .aa-input-container {
+            display: inline-block;
+            position: relative;
+        }
+
+        .aa-input-search {
+            width: 300px;
+            padding: 12px 28px 12px 12px;
+            border: 1px solid #e4e4e4;
+            box-sizing: border-box;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        .aa-input-search::-webkit-search-decoration, .aa-input-search::-webkit-search-cancel-button,
+        .aa-input-search::-webkit-search-results-button, .aa-input-search::-webkit-search-results-decoration {
+            display: none;
+        }
+
+        .aa-input-icon {
+            height: 16px;
+            width: 16px;
+            position: absolute;
+            top: 50%;
+            right: 16px;
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+            fill: #e4e4e4;
+            pointer-events: none;
+        }
+
+        .aa-dropdown-menu {
+            background-color: #fff;
+            border: 1px solid rgba(168, 168, 168, 0.6);
+            width: 100%;
+            margin-top: 10px;
+            box-sizing: border-box;
+        }
+
+        .aa-dropdown-menu .search-cat {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #000;
+            float: left;
+            display: inline;
+            width: 70%;
+        }
+
+        .aa-dropdown-menu .search-cat .searchTerm {
+            font-weight: 700;
+            color: #000;
+            padding-right: 10px;
+        }
+
+        .aa-dropdown-menu .search-cat .in {
+            padding-right: 10px;
+        }
+
+        .aa-dropdown-menu .search-cat .searchCategory {
+            /*padding-left:10px;*/
+        }
+
+        .aa-dropdown-menu .total {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 30%;
+            float: right;
+            display: inline;
+            font-size: 14px;
+            color: gray;
+            text-align: right;
+        }
+
+        .aa-dropdown-menu span {
+            display: inline;
+        }
+
+        .aa-dropdown-menu .total .count {
+            color: #000;
+            padding: 20px;
+        }
+
+        .aa-dropdown-menu .product-image {
+            padding-right: 10px;
+            width: 60px;
+            display: table-cell;
+
+        }
+
+        .aa-dropdown-menu .product-image img {
+            width: 80px;
+            max-width: 80px;
+            max-height: 62px;
+        }
+
+        .aa-dropdown-menu .product-details {
+            padding-top: 10px;
+            display: table-cell;
+            width: 99%;
+            vertical-align: top;
+        }
+
+        .aa-dropdown-menu .product-details .product-title {
+            display: block;
+            color: gray;
+            direction: ltr;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .aa-dropdown-menu .product-details .product-title .description {
+            padding-left: 10px;
+        }
+
+        .aa-dropdown-menu .product-details .product-title > span:first-child {
+            float: left;
+            padding-right: 5px;
+        }
+
+        .aa-dropdown-menu .product-details .product-price {
+            color: #da061c;
+        }
+
+        .aa-suggestion {
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+
+        .aa-suggestions-category {
+            border-bottom: 1px solid rgba(228, 228, 228, 0.6);
+            border-top: 1px solid rgba(228, 228, 228, 0.6);
+            padding: 6px 12px;
+        }
+
+        .aa-dropdown-menu > div {
+            display: inline-block;
+            width: 100%;
+            vertical-align: top;
+        }
+
+        .aa-empty {
+            padding: 6px 12px;
+        }
+
+        .aa-hint {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 
 </head>
 <body>
@@ -96,8 +260,9 @@
             <div class="menu-panel">
 
                 <div class="search-input">
-                    <input id="search-term" type="text" value="" placeholder="">
+                    <input id="search" name="search_term" type="search" value="" placeholder="">
                 </div>
+
 
             </div>
         </div>
@@ -329,16 +494,15 @@
                                                                     {{--type="button">--}}
                                                                     {{--Comment--}}
                                                                     {{--</button>--}}
-                                                                    <button class="widget-button btn-flat share  btn-icon"
-                                                                            aria-label="share a link to this post"
-                                                                            title="share a link to this post"><i
-                                                                                class="icofont-link"></i></button>
                                                                     <button class="widget-button btn-flat reply create"
                                                                             title="begin composing a reply to this post"
                                                                             id="create-topic">
                                                                         <i class="fas fa-reply"></i>
                                                                         <span class="d-button-label">Reply</span>
                                                                     </button>
+                                                                    <div class="addthis_inline_share_toolbox"></div>
+
+
                                                                 </div>
                                                             </nav>
 
@@ -379,7 +543,8 @@
                                                                 </li>
                                                                 <li><span class="number">{{$reply}}</span>
                                                                     <h4>replies</h4></li>
-                                                                <li class="secondary"><span class="number">66</span>
+                                                                <li class="secondary"><span
+                                                                            class="number">{{$forum->counts->first()->count}}</span>
                                                                     <h4>views</h4></li>
                                                                 <li class="secondary"><span
                                                                             class="number">{{isset($total_user)?$total_user:'0'}}</span>
@@ -387,6 +552,7 @@
                                                                 <li class="avatars">
                                                                     @if(isset($user_commented))
                                                                         @foreach($user_commented as $value)
+
                                                                             <div>
                                                                                 <a class="poster trigger-user-card"
                                                                                    title="{{$value->name}}"><img alt=""
@@ -395,7 +561,7 @@
                                                                                                                  src="{{asset('storage/'.$value->avatar)}}"
                                                                                                                  title="{{$value->name}}"
                                                                                                                  class="avatar med"><span
-                                                                                            class="post-count">{{isset($value->comments)?count($value->comments):0}}</span></a>
+                                                                                            class="post-count">{{isset($value->comments)?count(\App\Model\TopicComments::where('user_id',$value->id)->where('topic_id',$forum->id)->get()):0}}</span></a>
                                                                             </div>
 
                                                                         @endforeach
@@ -457,14 +623,19 @@
                                                                                 class="icofont-simple-down"></i>
                                                                     </button>
                                                                     <div class="actions">
+                                                                        <button class="incrementLikeComment">
+                                                                            <span>{{count(\App\Model\CommentLike::where('comment_id',$value->id)->get())}}</span>
+                                                                        </button>
                                                                         <div class="like-button">
-                                                                            <button class="widget-button btn-flat toggle-like like btn-icon">
+                                                                            <button data-id="{{$value->id}}"
+                                                                                    class="like-comment widget-button btn-flat toggle-{{\Illuminate\Support\Facades\Auth::check()?\App\Model\CommentLike::where('comment_id',$value->id)->where('user_id',\Illuminate\Support\Facades\Auth::user()->id)->first()?'like':'':'unlike'}} like btn-icon">
                                                                                 <i class="icofont-heart"></i></button>
                                                                         </div>
-                                                                        <button class="widget-button btn-flat share  btn-icon"
-                                                                                aria-label="share a link to this post"
-                                                                                title="share a link to this post"><i
-                                                                                    class="icofont-link"></i></button>
+
+
+                                                                        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+                                                                        <div class="addthis_inline_share_toolbox"></div>
+
                                                                     </div>
                                                                 </nav>
                                                             </section>
@@ -504,147 +675,76 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="topic-list-item">
-                            <td class="main-link " colspan="1">
+                        @foreach($suggested as $value)
+                            <tr class="topic-list-item">
+                                <td class="main-link " colspan="1">
                                 <span class="link-top-line">
-                                    <a href="" class="raw-link raw-topic-link">Doubts on the use of your music for a full-length documentary.</a>
+                                    <a href="{{route('forum-inner',$value->slug)}}"
+                                       class="raw-link raw-topic-link">{{$value->topic}}</a>
                                     <span class="topic-post-badges"></span>
                                 </span>
-                            </td>
+                                </td>
 
-                            <td class="category">
-                                <a class="badge-wrapper box" href="">
-                                    <span class="badge-category-bg" style="background-color: #AB9364;"></span>
-                                    <span style="color: #FFFFFF;" class="badge-category"
-                                          title="All questions related to our Fugue Music.">
-                                        <span class="category-name">Music</span>
+                                <td class="category">
+                                    <a class="badge-wrapper box" href="">
+                                        <span class="badge-category-bg" style="background-color: #AB9364;"></span>
+                                        <span style="color: #FFFFFF;" class="badge-category"
+                                              title="All questions related to our {{$value->categories->parent_id ? \App\Model\ForumCategory::where('id',1)->first()->name:''}} {{$value->categories->name}}">
+                                        <span class="category-name">{{$value->categories->parent_id ? \App\Model\ForumCategory::where('id',1)->first()->name:''}}</span>&ensp;
+                                        <span class="category-name">{{$value->categories->name}}</span>
                                     </span>
-                                </a>
-                            </td>
+                                    </a>
+                                </td>
 
-                            <td class="posters">
-                                <a href="" class="">
-                                    <img alt="" width="25" height="25"
-                                         src="https://community.icons8.com/letter_avatar_proxy/v2/letter/m/cab0a1/25.png"
-                                         class="avatar" title="mediaattack22 - Original Poster">
-                                </a>
-                                <a href="" class="latest">
-                                    <img alt="" width="25" height="25"
-                                         src="https://community.icons8.com/user_avatar/community.icons8.com/elenalo161/25/168_1.png"
-                                         class="avatar latest" title="elenalo161 - Most Recent Poster">
-                                </a>
-                            </td>
+                                <td class="posters">
+                                    @if(isset($value->users))
+                                        @foreach($value->users as $user)
+                                            <a href="" class="">
+                                                <img alt="" style="height: 25px;width: 25px"
+                                                     src="{{asset('storage/'.$user->avatar)}}"
+                                                     class="avatar" title="{{$user->name}}">
+                                            </a>
+                                            @if(\App\Model\TopicComments::where('topic_id',$value->id)->first())
+                                                @foreach(\App\Model\TopicComments::where('topic_id',$value->id)->select('user_id')->distinct()->take(5)->get() as $key=>$comment)
+                                                    <a href="" class="">
+                                                        <img alt="" style="height: 25px;width: 25px"
+                                                             src="{{asset('storage/'.\App\User::where('id',$comment->user_id)->first()->avatar)}}"
+                                                             class="avatar"
+                                                             title="{{\App\User::where('id',$comment->user_id)->first()->name}}">
+                                                    </a>
+                                                @endforeach
+                                            @endif
 
-                            <td class="num posts" title="This topic has 1 reply">
-                                <a href="" class="badge-posts ">
-                                    <span class="number">1</span>
-                                </a>
-                            </td>
+                                        @endforeach
+                                    @endif
+                                    {{--@if (isset($value->comments))--}}
+                                    {{--@foreach(  $value->comments as $user)--}}
+                                    {{--{{$user->email}}--}}
+                                    {{--@endforeach--}}
+                                    {{--@endif--}}
+                                </td>
 
-                            <td class="num views ">
-                                <span class="number" title="this topic has been viewed 4 times">4</span></td>
+                                <td class="num posts"
+                                    title="This topic has {{\App\Model\TopicComments::where('topic_id', $value->id)->get()->isnotEmpty()? count(\App\Model\TopicComments::where('topic_id', $value->id)->get()):'0'}} reply">
+                                    <a href="" class="badge-posts ">
+                                        <span class="number">{{\App\Model\TopicComments::where('topic_id', $value->id)->get()->isnotEmpty()? count(\App\Model\TopicComments::where('topic_id', $value->id)->get()):'0'}}</span>
+                                    </a>
+                                </td>
 
-                            <td class="num age "
-                                title="First post: Jul 17, 2019 9:24 am Posted: Jul 17, 2019 10:13 am">
-                                <a class="post-activity" href="">
-                                    <span class="relative-date">6h</span>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr class="topic-list-item">
-                            <td class="main-link " colspan="1">
-                                <span class="link-top-line">
-                                    <a href="" class="raw-link raw-topic-link">Doubts on the use of your music for a full-length documentary.</a>
-                                    <span class="topic-post-badges"></span>
-                                </span>
-                            </td>
+                                <td class="num views ">
+                                    <span class="number" title="this topic has been viewed 4 times">4</span></td>
 
-                            <td class="category">
-                                <a class="badge-wrapper box" href="">
-                                    <span class="badge-category-bg" style="background-color: #AB9364;"></span>
-                                    <span style="color: #FFFFFF;" class="badge-category"
-                                          title="All questions related to our Fugue Music.">
-                                        <span class="category-name">Music</span>
-                                    </span>
-                                </a>
-                            </td>
+                                <td class="num age "
+                                    title="Posted: {{$value->created_at}}">
+                                    <a class="post-activity" href="">
+                                        <span class="relative-date">{{\App\Model\TopicComments::where('topic_id',$value->id)->first()?\Illuminate\Support\Carbon::parse(\App\Model\TopicComments::where('topic_id',$value->id)->latest()->first()->created_at)->diffForHumans():''}}</span>
+                                    </a>
+                                </td>
+                            </tr>
 
-                            <td class="posters">
-                                <a href="" class="">
-                                    <img alt="" width="25" height="25"
-                                         src="https://community.icons8.com/letter_avatar_proxy/v2/letter/m/cab0a1/25.png"
-                                         class="avatar" title="mediaattack22 - Original Poster">
-                                </a>
-                                <a href="" class="latest">
-                                    <img alt="" width="25" height="25"
-                                         src="https://community.icons8.com/user_avatar/community.icons8.com/elenalo161/25/168_1.png"
-                                         class="avatar latest" title="elenalo161 - Most Recent Poster">
-                                </a>
-                            </td>
+                        @endforeach
 
-                            <td class="num posts" title="This topic has 1 reply">
-                                <a href="" class="badge-posts ">
-                                    <span class="number">1</span>
-                                </a>
-                            </td>
 
-                            <td class="num views ">
-                                <span class="number" title="this topic has been viewed 4 times">4</span></td>
-
-                            <td class="num age "
-                                title="First post: Jul 17, 2019 9:24 am Posted: Jul 17, 2019 10:13 am">
-                                <a class="post-activity" href="">
-                                    <span class="relative-date">6h</span>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr class="topic-list-item">
-                            <td class="main-link " colspan="1">
-                                <span class="link-top-line">
-                                    <a href="" class="raw-link raw-topic-link">Doubts on the use of your music for a full-length documentary.</a>
-                                    <span class="topic-post-badges"></span>
-                                </span>
-                            </td>
-
-                            <td class="category">
-                                <a class="badge-wrapper box" href="">
-                                    <span class="badge-category-bg" style="background-color: #AB9364;"></span>
-                                    <span style="color: #FFFFFF;" class="badge-category"
-                                          title="All questions related to our Fugue Music.">
-                                        <span class="category-name">Music</span>
-                                    </span>
-                                </a>
-                            </td>
-
-                            <td class="posters">
-                                <a href="" class="">
-                                    <img alt="" width="25" height="25"
-                                         src="https://community.icons8.com/letter_avatar_proxy/v2/letter/m/cab0a1/25.png"
-                                         class="avatar" title="mediaattack22 - Original Poster">
-                                </a>
-                                <a href="" class="latest">
-                                    <img alt="" width="25" height="25"
-                                         src="https://community.icons8.com/user_avatar/community.icons8.com/elenalo161/25/168_1.png"
-                                         class="avatar latest" title="elenalo161 - Most Recent Poster">
-                                </a>
-                            </td>
-
-                            <td class="num posts" title="This topic has 1 reply">
-                                <a href="" class="badge-posts ">
-                                    <span class="number">1</span>
-                                </a>
-                            </td>
-
-                            <td class="num views ">
-                                <span class="number" title="this topic has been viewed 4 times">4</span></td>
-
-                            <td class="num age "
-                                title="First post: Jul 17, 2019 9:24 am Posted: Jul 17, 2019 10:13 am">
-                                <a class="post-activity" href="">
-                                    <span class="relative-date">6h</span>
-                                </a>
-                            </td>
-                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -836,8 +936,105 @@
                 }
             });
         });
+
+        $('.like-comment').click(function () {
+
+            let comment_id = $(this).attr('data-id');
+            let count = $(this).parent().parent().find('.incrementLikeComment span');
+            let span = $(this);
+
+// console.log($(this).parent().parent().find('.incrementLikeComment span').html());
+            $.ajax({
+                headers: {"X-CSRF-TOKEN": jQuery(`meta[name="csrf-token"]`).attr("content")},
+                type: "POST",
+                url: "{{route('like-comment')}}",
+                data: {
+                    comment_id: comment_id,
+                },
+                success: function (data) {
+                    if (data.status == 'error') {
+                        toastr.warning(data.message);
+                    }
+                    if (data.status == 'success') {
+                        // swal(data.status, data.message, data.status);
+
+                        count.html(data.comment_id);
+                        $(span).switchClass("toggle-unlike", "toggle-like like");
+
+
+                    }
+                    if (data.status == 'Unliked') {
+                        count.html(data.comment_id);
+                        $(span).switchClass("widget-button btn-flat toggle-like like btn-icon", "widget-button btn-flat toggle-unlike like btn-icon");
+
+
+                    }
+                }
+            });
+        });
+
     });
 </script>
+<script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+<script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(function () {
+            autocomplete('#search', {}, [
+                {
+                    source: function (request, response) {
+                        $.ajax({
+                            url: "{{ route('forum-autosuggest') }}",
+                            data: {query: $("#search").val(), category: $('#cat').val()},
+                            dataType: "json",
+                            type: "GET",
+                            success: function (data) {
+                                // console.log(data);
+                                response($.map(data, function (obj) {
+                                    return {
+                                        // obj
+                                        name: obj.topic,
+                                        category: obj.name,
+                                        slug: obj.slug,
+                                        description: obj.description
+                                    };
+                                }));
+                            }
+                        });
+
+                    },
+                    displayKey: 'forum',
+
+                    templates: {
+                        header: '<div class="aa-suggestions-category"><span class="title text-center"><i class="fa fa-shopping-bag"></i>Topics</span></div>',
+                        suggestion: function (suggestion) {
+                            console.log(suggestion)
+                            return '<div>' + '<a href="{{ url('/') }}/forum-inner/' + suggestion.slug + '">' + '' +
+
+                                '<span class="product-details">' +
+                                '<span class="product-title">' +
+                                '<span><strong>' + suggestion.name + '</strong></span>' + '<button class="btn btn-danger btn btn-sm">' + suggestion.category + '</button>' +
+                                '</span>' +
+                                '<span class="badge-category"> ' + (suggestion.description.substring(200, 0)) + ' </span>' +
+                                '</span>' +
+                                '</a>' +
+                                '</div>'
+                                ;
+                        }
+                    }
+                }
+
+            ]);
+
+
+        });
+    });
+
+
+</script>
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5d62609ef99c4f5c"></script>
+
 </body>
 </html>
 

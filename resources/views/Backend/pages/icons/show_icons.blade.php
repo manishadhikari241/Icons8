@@ -1,4 +1,9 @@
-@extends('backEnd.layout')
+@extends('voyager::master')
+
+
+@section('css')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@stop
 @section('content')
 
     <div class="container">
@@ -21,8 +26,7 @@
                                         <th>Title</th>
                                         <th>Description</th>
                                         <th>Category</th>
-                                        <th>Tags</th>
-                                        <th>Trends</th>
+                                            <th>Trends</th>
                                         <th>Styles</th>
                                         <th class="sorting-false">Action</th>
                                     </tr>
@@ -40,11 +44,7 @@
                                                     {{$key->title}},
                                                 @endforeach
                                             </td>
-                                            <td>
-                                                @foreach($value->tags as $item)
-                                                    {{$item->name}},
-                                                @endforeach
-                                            </td>
+
                                             <td>
                                                @foreach($value->trends as $try)
                                                    {{$try->category}},

@@ -13,7 +13,7 @@ class Image extends Model
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom('name')
+            ->generateSlugsFrom('title')
             ->saveSlugsTo('slug');
     }
 
@@ -65,5 +65,15 @@ class Image extends Model
     public function models()
     {
         return $this->belongsToMany('App\Model\Credit','image_models','image_id','model_id');
+    }
+    public function orders()
+    {
+        return $this->belongsToMany('App\Model\Order','image_orders','image_id','order_id');
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany('App\Model\User','user_images','image_id','user_id');
+
     }
 }

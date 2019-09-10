@@ -15,7 +15,7 @@
                     <!-- /.card-header -->
                     <div class="card-body">
 
-                        <form method="POST" action="{{route('voyager.credits')}}"
+                        <form method="POST" action="{{route('credits')}}"
                               accept-charset="UTF-8" class=""
                               enctype="multipart/form-data">
                             @csrf
@@ -82,10 +82,10 @@
                                     <td>{{$value->photographer}}</td>
                                     <td>{{$value->model}}</td>
                                     <td>
-                                        <a href="{{route('voyager.credits-delete',$value->id)}}"
+                                        <a href="{{route('credits-delete',$value->id)}}"
                                            onclick="return confirm('Confirm Delete?')"
                                            class="btn btn-sm btn btn-danger"><i class="fa fa-trash"></i> </a>
-                                        <a href="{{route('voyager.credits-edit',$value->id)}}" data-toggle="modal"
+                                        <a href="{{route('credits-edit',$value->id)}}" data-toggle="modal"
                                            data-target="#myEditModal{{ $value->id }}"
                                            class="btn btn-sm btn btn-primary"><i
                                                     class="fa fa-edit"></i> </a>
@@ -103,7 +103,7 @@
                                             </div>
                                             <div class="card-body">
 
-                                                <form method="POST" action="{{route('voyager.credits-edit')}}"
+                                                <form method="POST" action="{{route('credits-edit')}}"
                                                       accept-charset="UTF-8" class=""
                                                       enctype="multipart/form-data">
                                                     @csrf

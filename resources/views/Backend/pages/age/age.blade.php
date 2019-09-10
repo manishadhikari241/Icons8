@@ -15,7 +15,7 @@
                     <!-- /.card-header -->
                     <div class="card-body">
 
-                        <form method="POST" action="{{route('voyager.ages')}}"
+                        <form method="POST" action="{{route('ages')}}"
                               accept-charset="UTF-8" class=""
                               enctype="multipart/form-data">
                             @csrf
@@ -74,10 +74,10 @@
                                     <td>{{++$key}}</td>
                                     <td>{{$value->name}}</td>
                                     <td>
-                                        <a href="{{route('voyager.age-delete',$value->id)}}"
+                                        <a href="{{route('age-delete',$value->id)}}"
                                            onclick="return confirm('Confirm Delete?')"
                                            class="btn btn-sm btn btn-danger"><i class="fa fa-trash"></i> </a>
-                                        <a href="{{route('voyager.age-edit',$value->id)}}" data-toggle="modal"
+                                        <a href="{{route('age-edit',$value->id)}}" data-toggle="modal"
                                            data-target="#myEditModal{{ $value->id }}"
                                            class="btn btn-sm btn btn-primary"><i
                                                     class="fa fa-edit"></i> </a>
@@ -95,7 +95,7 @@
                                             </div>
                                             <div class="card-body">
 
-                                                <form method="POST" action="{{route('voyager.age-edit')}}"
+                                                <form method="POST" action="{{route('age-edit')}}"
                                                       accept-charset="UTF-8" class=""
                                                       enctype="multipart/form-data">
                                                     @csrf

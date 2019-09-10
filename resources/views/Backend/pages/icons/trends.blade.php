@@ -1,6 +1,12 @@
-@extends('backEnd.layout')
-@section('content')
+@extends('voyager::master')
 
+
+@section('css')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@stop
+
+
+@section('content')
 
     <div class="container-fluid">
         <div class="row">

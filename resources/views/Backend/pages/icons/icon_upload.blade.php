@@ -1,8 +1,12 @@
-@extends('backEnd.layout')
+@extends('voyager::master')
+
+
+@section('css')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@stop
+
 @section('content')
-
-
-    <div class="container-fluid">
+<div class="container-fluid">
         <div class="row">
             <div class="col-md-8">
                 <div class="card">
@@ -41,17 +45,17 @@
                                         <h6 class="box-title">Icon Tags:</h6>
                                     </div>
                                     <!-- /.box-header -->
-                                    <div class="box-body">
-                                        <div class="form-group mb-none">
-                                            <select class="form-control" name="tags[]" id="tags"
-                                                    multiple="multiple">
-                                                @foreach($tag as $value)
-                                                    <option value="{{$value->id}}">{{$value->name}}</option>
-                                                @endforeach
-                                            </select>
+                                    {{--<div class="box-body">--}}
+                                        {{--<div class="form-group mb-none">--}}
+                                            {{--<select class="form-control" name="tags[]" id="tags"--}}
+                                                    {{--multiple="multiple">--}}
+                                                {{--@foreach($tag as $value)--}}
+                                                    {{--<option value="{{$value->id}}">{{$value->name}}</option>--}}
+                                                {{--@endforeach--}}
+                                            {{--</select>--}}
 
-                                        </div>
-                                    </div>
+                                        {{--</div>--}}
+                                    {{--</div>--}}
 
                                     <div class="box-header with-border">
                                         <h6 class="box-title">Icon Trends:</h6>
@@ -95,7 +99,7 @@
                                                     multiple="multiple">
                                                 @foreach($style as $value)
                                                     <option value="{{$value->id}}">{{$value->name}}</option>
-                                                    @include('dashboard.pages.icons.category_dropdown',['category'=>$value])
+                                                    @include('Backend.pages.icons.category_dropdown',['category'=>$value])
                                                 @endforeach
                                             </select>
 
@@ -119,4 +123,4 @@
             <!-- /.col -->
 
 
-@endsection
+@stop

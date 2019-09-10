@@ -27,12 +27,11 @@ class IconController extends BackendController
 
     public function icon_style(Request $request)
     {
-        $GeneralWebmasterSections = WebmasterSection::where('status', '=', '1')->orderby('row_no', 'asc')->get();
 
         if ($request->isMethod('get')) {
             $style = IconStyle::all();
             $this->data('styles', $style);
-            return view($this->backendiconPath . 'styles', compact('GeneralWebmasterSections'), $this->data);
+            return view($this->backendiconPath . 'styles', $this->data);
         }
         if ($request->isMethod('post')) {
             $request->validate([
@@ -61,12 +60,12 @@ class IconController extends BackendController
     public function edit_icon_style(Request $request)
     {
         if ($request->isMethod('get')) {
-            $GeneralWebmasterSections = WebmasterSection::where('status', '=', '1')->orderby('row_no', 'asc')->get();
             $id = IconStyle::where('id', '=', $request->id)->first();
             $this->data('style', $id);
             $all = IconStyle::all();
             $this->data('parent', $all);
-            return view($this->backendiconPath . 'edit_icon_style', compact('GeneralWebmasterSections'), $this->data);
+            return view($this->backendiconPath . 'edit_icon_style',$this->data);
+
         }
         if ($request->isMethod('post')) {
             $request->validate([
@@ -121,12 +120,14 @@ class IconController extends BackendController
     public function category(Request $request)
     {
         // General for all pages
-        $GeneralWebmasterSections = WebmasterSection::where('status', '=', '1')->orderby('row_no', 'asc')->get();
 
         if ($request->isMethod('get')) {
             $cat = IconCategory::all();
             $this->data('cat', $cat);
-            return view($this->backendiconPath . 'category', compact('GeneralWebmasterSections'), $this->data);
+
+            return view($this->backendiconPath . 'category', $this->data);
+
+
         }
         if ($request->isMethod('post')) {
             $request->validate([
@@ -154,10 +155,11 @@ class IconController extends BackendController
     public function edit_icon_category(Request $request)
     {
         if ($request->isMethod('get')) {
-            $GeneralWebmasterSections = WebmasterSection::where('status', '=', '1')->orderby('row_no', 'asc')->get();
             $id = IconCategory::where('id', '=', $request->id)->first();
             $this->data('icon', $id);
-            return view($this->backendiconPath . 'edit_icon_category', compact('GeneralWebmasterSections'), $this->data);
+
+            return view($this->backendiconPath . 'edit_icon_category', $this->data);
+
         }
         if ($request->isMethod('post')) {
             $request->validate([
@@ -205,12 +207,15 @@ class IconController extends BackendController
 
     public function icon_trend(Request $request)
     {
-        $GeneralWebmasterSections = WebmasterSection::where('status', '=', '1')->orderby('row_no', 'asc')->get();
 
         if ($request->isMethod('get')) {
             $trend = IconTrend::all();
             $this->data('trend', $trend);
-            return view($this->backendiconPath . 'trends', compact('GeneralWebmasterSections'), $this->data);
+
+            return view($this->backendiconPath . 'trends',  $this->data);
+
+
+
         }
         if ($request->isMethod('post')) {
             $request->validate([
@@ -237,10 +242,9 @@ class IconController extends BackendController
     public function edit_icon_trend(Request $request)
     {
         if ($request->isMethod('get')) {
-            $GeneralWebmasterSections = WebmasterSection::where('status', '=', '1')->orderby('row_no', 'asc')->get();
             $id = IconTrend::where('id', '=', $request->id)->first();
             $this->data('trend', $id);
-            return view($this->backendiconPath . 'edit_icon_trend', compact('GeneralWebmasterSections'), $this->data);
+            return view($this->backendiconPath . 'edit_icon_trend', $this->data);
         }
         if ($request->isMethod('post')) {
             $request->validate([
@@ -288,7 +292,6 @@ class IconController extends BackendController
 
     public function icon_upload(Request $request)
     {
-        $GeneralWebmasterSections = WebmasterSection::where('status', '=', '1')->orderby('row_no', 'asc')->get();
 
         if ($request->isMethod('get')) {
             $icon = IconUpload::all();
@@ -301,14 +304,15 @@ class IconController extends BackendController
             $this->data('cat', $cat);
             $style = IconStyle::all();
             $this->data('style', $style);
-            return view($this->backendiconPath . 'icon_upload', compact('GeneralWebmasterSections'), $this->data);
+
+            return view($this->backendiconPath . 'icon_upload', $this->data);
+
         }
         if ($request->isMethod('post')) {
             $request->validate([
                 'name' => 'required',
                 'description' => 'required',
                 'image' => 'required',
-                'tags' => 'required',
                 'trends' => 'required',
                 'categories' => 'required',
                 'styles' => 'required'
@@ -325,9 +329,9 @@ class IconController extends BackendController
             $insert = IconUpload::create($data);
             $id = $insert->id;
 
-            foreach ($request->tags as $value) {
-                $tag = DB::table('icons_tags')->insert(['icon_id' => $id, 'tag_id' => $value]);
-            }
+//            foreach ($request->tags as $value) {
+//                $tag = DB::table('icons_tags_pivot')->insert(['icon_id' => $id, 'tag_id' => $value]);
+//            }
             foreach ($request->trends as $value) {
                 $trend = DB::table('icons_trend')->insert(['icon_id' => $id, 'trend_id' => $value]);
             }
@@ -348,11 +352,10 @@ class IconController extends BackendController
     public function show_icon(Request $request)
     {
         if ($request->isMethod('get')) {
-            $GeneralWebmasterSections = WebmasterSection::where('status', '=', '1')->orderby('row_no', 'asc')->get();
 
             $icon = IconUpload::all();
             $this->data('icon', $icon);
-            return view($this->backendiconPath . 'show_icons', compact('GeneralWebmasterSections'), $this->data);
+            return view($this->backendiconPath . 'show_icons', $this->data);
 
         }
     }
@@ -361,7 +364,6 @@ class IconController extends BackendController
     {
 
         if ($request->isMethod('get')) {
-            $GeneralWebmasterSections = WebmasterSection::where('status', '=', '1')->orderby('row_no', 'asc')->get();
             $id = IconUpload::where('id', '=', $request->id)->first();
             $this->data('icon', $id);
             $tags = Tag::all();
@@ -372,14 +374,16 @@ class IconController extends BackendController
             $this->data('cat', $cat);
             $style = IconStyle::all();
             $this->data('style', $style);
-            return view($this->backendiconPath . 'edit_icon_upload', compact('GeneralWebmasterSections'), $this->data);
+
+            return view($this->backendiconPath . 'edit_icon_upload', $this->data);
+
+
         }
 
         if ($request->isMethod('post')) {
             $request->validate([
                 'name' => 'required',
                 'description' => 'required',
-                'tags' => 'required',
                 'trends' => 'required',
                 'categories' => 'required',
                 'styles' => 'required'
@@ -396,7 +400,7 @@ class IconController extends BackendController
                 $data['image'] = $name;
             }
             $find = IconUpload::findorfail($id);
-            $pivot = $find->tags()->sync($request->tags);
+//            $pivot = $find->tags()->sync($request->tags);
             $trend = $find->trends()->sync($request->trends);
             $catt = $find->categories()->sync($request->categories);
             $style = $find->styles()->sync($request->styles);
@@ -430,4 +434,33 @@ class IconController extends BackendController
         }
     }
 
+    public function getCategory(){
+        $categories = IconStyle::where('parent_id', 0)->take(12)->get();
+        $categories = $this->addRelation($categories);
+        return $categories;
+    }
+    public function addRelation($categories)
+    {
+
+        $categories->map(function ($item, $key) {
+
+//            dd($item);
+            $sub = $this->selectChild($item->id);
+
+            return $item = array_add($item, 'subCategory', $sub);
+
+
+        });
+
+        return $categories;
+    }
+    public function selectChild($id)
+    {
+        $categories = IconStyle::where('parent_id', $id)->get(); //rooney
+
+        $categories = $this->addRelation($categories);
+
+        return $categories;
+
+    }
 }
