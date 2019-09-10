@@ -9,11 +9,11 @@
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">Edit Music</h5>
-                        <a href="{{route('voyager.show-music')}}"><i class="fa fa-backward"></i>Back</a>
+                        <a href="{{route('show-music')}}"><i class="fa fa-backward"></i>Back</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <form method="POST" action="{{route('voyager.edit-music')}}"
+                        <form method="POST" action="{{route('edit-music')}}"
                               accept-charset="UTF-8" class=""
                               enctype="multipart/form-data">
                             @csrf

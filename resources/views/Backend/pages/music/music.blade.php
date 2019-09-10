@@ -10,11 +10,11 @@
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">Music Upload</h5>
-                        <a href="{{route('voyager.show-music')}}"><i class="fa fa-music"></i>View Musics</a>
+                        <a href="{{route('show-music')}}"><i class="fa fa-music"></i>View Musics</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <form method="POST" action="{{route('voyager.music-upload')}}"
+                        <form method="POST" action="{{route('music-upload')}}"
                               accept-charset="UTF-8" class=""
                               enctype="multipart/form-data">
                             @csrf

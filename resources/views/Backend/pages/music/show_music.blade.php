@@ -10,7 +10,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">All Musics</h5>
-                        <a href="{{route('voyager.music-upload')}}"><i class="fa fa-backward"></i>Back</a>
+                        <a href="{{route('music-upload')}}"><i class="fa fa-backward"></i>Back</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -69,11 +69,11 @@
 
                                             <td>
                                                 <a class="btn btn-outline-danger confirm"
-                                                   href="{{route('voyager.delete-music',$value->id)}}"
+                                                   href="{{route('delete-music',$value->id)}}"
                                                    onclick="return confirm('Confirm Delete?')"><i
                                                             class="fa fa fa-trash"></i></a>
                                                 <a class="btn btn-outline-primary confirm"
-                                                   href="{{route('voyager.edit-music',$value->id)}}"
+                                                   href="{{route('edit-music',$value->id)}}"
                                                 ><i class="fa fa fa-edit"></i></a>
                                             </td>
                                         </tr>
