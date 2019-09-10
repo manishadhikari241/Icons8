@@ -268,9 +268,8 @@ class PageController extends Controller
         $data['status'] = '0';
         $new = Order::create($data);
         $new->images()->attach($id);
-        $insert = DB::table('user_images')->insert(['image_id' => $id, 'user_id' => Auth::user()->id]);
         $create = DB::table('user_orders')->insert(['user_id' => Auth::user()->id, 'order_id' => $new->id]);
-        if ($new && $insert && $create) {
+        if ($new  && $create) {
             return \response()->json([
                 'message' => 'Order placed successfully'
             ]);
@@ -295,7 +294,7 @@ class PageController extends Controller
 
     }
 
-    public function editor()
+    public function editor($id)
     {
         return view('Frontend.pixie');
     }

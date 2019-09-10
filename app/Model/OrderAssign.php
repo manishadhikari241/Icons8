@@ -4,6 +4,7 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
+use TCG\Voyager\Models\User;
 class OrderAssign extends Model
 {
     protected $fillable=['order_id','user_id','status'];
@@ -15,7 +16,7 @@ class OrderAssign extends Model
 
     public function users()
     {
-        return $this->hasMany('App\User','user_id');
+        return $this->belongsTo(User::class,'user_id');
     }
 
 }

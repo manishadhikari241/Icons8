@@ -42,8 +42,4 @@ class User extends \TCG\Voyager\Models\User
         return $this->hasMany('App\Model\TopicComments', 'user_id');
     }
 
-    public function images()
-    {
-        return $this->belongsToMany('App\Model\Image','user_images','user_id','image_id');
-    }
 }

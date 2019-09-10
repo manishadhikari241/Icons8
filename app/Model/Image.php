@@ -17,7 +17,7 @@ class Image extends Model
             ->saveSlugsTo('slug');
     }
 
-    protected $fillable = ['title', 'image', 'description', 'uploader', 'image_type', 'license', 'status', 'is_new', 'is_rising', 'is_top'];
+    protected $fillable = ['title', 'image', 'description', 'uploader', 'image_type', 'license', 'status', 'is_new', 'is_rising', 'is_top','user_id','cost'];
 
     public function categories()
     {
@@ -73,7 +73,7 @@ class Image extends Model
 
     public function users()
     {
-        return $this->belongsToMany('App\Model\User','user_images','image_id','user_id');
+        return $this->belongsTo('App\User','user_id');
 
     }
 }

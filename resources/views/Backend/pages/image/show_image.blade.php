@@ -39,7 +39,9 @@
                                             <td><img src="{{asset('images/photo_upload/'.$value->image)}}" width="60px">
                                             </td>
                                             <td>{{$value->title}}</td>
-                                            <td>{{$value->uploader}}</td>
+                                            <td>
+                                               {{$value->users->name}}
+                                            </td>
                                             <td>{!! $value->description !!}</td>
                                             <td>
                                                 @foreach($value->categories as $key)

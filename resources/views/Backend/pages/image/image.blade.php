@@ -15,7 +15,7 @@
                     <!-- /.card-header -->
                     <div class="card-body">
 
-                        <form method="POST" action="{{route('voyager.order-upload')}}"
+                        <form method="POST" action="{{route('voyager.image-upload')}}"
                               accept-charset="UTF-8" class=""
                               enctype="multipart/form-data">
                             @csrf
@@ -37,9 +37,12 @@
 
                                                     <div class="form-group">
                                                         <label for="formGroupExampleInput">Uploader:</label>
-                                                        <input type="text" name="uploader" class="form-control"
-                                                               id="formGroupExampleInput"
-                                                               placeholder="enter uploader name">
+                                                        <select class="form-control" name="uploader">
+                                                            <option selected>-Please select user-</option>
+                                                            @foreach($user as $value)
+                                                                <option value="{{$value->id}}">{{$value->name}}</option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
 
                                                     <div class="form-group">
@@ -49,14 +52,18 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="formGroupExampleInput">Image Type</label>
-                                                        <select class="form-control" name="image_type">
+                                                        <select class="select form-control" name="image_type">
                                                             <option selected="selected" value="">Select image type
                                                             </option>
-                                                            <option value="0">Free</option>
-                                                            <option value="1">Premium</option>
+                                                            <option id="free" value="0">Free</option>
+                                                            <option id="premium" value="1">Premium</option>
                                                         </select>
-
                                                     </div>
+                                                    {{--<div class="form-group">--}}
+                                                        {{--<label for="formGroupExampleInput">Price:</label>--}}
+                                                        {{--<input type="text" name="license" class="form-control"--}}
+                                                               {{--id="formGroupExampleInput">--}}
+                                                    {{--</div>--}}
                                                     <div class="form-group">
                                                         <label for="formGroupExampleInput">Description:</label>
                                                         <textarea id="desc"
@@ -284,3 +291,22 @@
     </div>
 
 @stop
+@push('javascript')
+    <script>
+        $(document).ready(function () {
+            $('.select').on('change', function () {
+                var premium = $(this).val();
+                if (premium == 1) {
+                    $(this).parent().append(' <div class="premium form-group">\n' +
+                        '                                                        <label for="formGroupExampleInput">Price:</label>\n' +
+                        '                                                        <input type="text" name="price" class="form-control"\n' +
+                        '                                                               id="formGroupExampleInput">\n' +
+                        '                                                    </div>')
+                }
+                else {
+                  $(this).parent().find('.premium').remove()
+                }
+            });
+        });
+    </script>
+@endpush

@@ -18,8 +18,10 @@ class CreateImagesTable extends Migration
             $table->string('title');
             $table->string('slug');
             $table->string('image');
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('cost')->nullable();
             $table->longText('description');
-            $table->string('uploader')->nullable();
             $table->boolean('image_type')->default(0);
             $table->string('license')->nullable();
             $table->boolean('status')->default(0);

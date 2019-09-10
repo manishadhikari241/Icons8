@@ -14,9 +14,9 @@
                 <div class="photo-right">
                     <div class="photo-info">
                         <div class="author"><a href="/user/5bfd44c3f0fed700165713d2" class="author-pic"
-                                               style="background-color: rgb(201, 185, 130);">P</a><a
+                                               style="background-color: rgb(201, 185, 130);">M</a><a
                                     href="/user/5bfd44c3f0fed700165713d2"
-                                    class="author-name">pavel.aksyonov.icons8</a></div>
+                                    class="author-name">{{$image->users->name}}.icons8</a></div>
                         <div class="date">{{\Illuminate\Support\Carbon::parse($image->created_at)->format('M d, Y')}}</div>
                     </div>
                     @if($image->image_type==0)
@@ -29,7 +29,12 @@
                     @elseif($image->image_type==1)
                         <div class="premium photo-controls">
                             @if(\Illuminate\Support\Facades\Auth::check())
-                                <a href="javascript:void(0)"  class="order_click btn is-download" data-id="{{$image->id}}" data-toggle="modal">Order Now</a>
+                                <a href="javascript:void(0)"  class="order_click btn is-download" data-id="{{$image->id}}" data-toggle="modal">Order Now @
+                                    <span class="btn-icon">
+                                    <i class="icofont-dollar">{{$image->cost}}</i>
+                                </span>
+
+                                </a>
                             @else
                                 <a data-dismiss="modal" onclick="$('#loginModal').modal('show');" href=""
                                    class="btn is-download" data-toggle="modal" data-target="#loginModal" >Order Now</a>
@@ -39,7 +44,7 @@
                                 <span class="btn-icon">
                                     <i class="icofont-heart"></i>
                                 </span>
-                                <span href="{{route('editor')}}">Recompose</span>
+                                <a href="{{route('editor',$image->id)}}">Recompose</a>
                             </div>
                         </div>
                     @endif

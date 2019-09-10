@@ -476,7 +476,9 @@ class ImageController extends BackendController
             $this->data('cat', $cat);
             $credit = Credit::all();
             $this->data('credits', $credit);
-            return view($this->backendimagePath . 'image', compact('GeneralWebmasterSections'), $this->data);
+            $user = User::where('role_id', '!=', 2)->get();
+            $this->data('user', $user);
+            return view($this->backendimagePath . 'image', $this->data);
         }
 
         if ($request->isMethod('post')) {
@@ -498,7 +500,7 @@ class ImageController extends BackendController
                 $data['image'] = $name;
             }
             $data['title'] = $request->name;
-            $data['uploader'] = $request->uploader;
+            $data['user_id'] = $request->uploader;
             $data['license'] = $request->license;
             $data['image_type'] = $request->image_type;
             $data['description'] = $request->description;
@@ -506,6 +508,7 @@ class ImageController extends BackendController
             $data['is_new'] = $request->is_new;
             $data['is_rising'] = $request->is_rising;
             $data['is_top'] = $request->is_top;
+            $data['cost'] = $request->price;
             $create = Image::create($data);
             $last_id = $create->id;
             foreach ($request->category as $value) {
@@ -580,6 +583,8 @@ class ImageController extends BackendController
             $this->data('cat', $cat);
             $credit = Credit::all();
             $this->data('credits', $credit);
+            $user = User::where('role_id', '!=', 2)->get();
+            $this->data('user', $user);
             return view($this->backendimagePath . 'edit_image', $this->data);
 
         }
@@ -603,7 +608,7 @@ class ImageController extends BackendController
                 $data['image'] = $name;
             }
             $data['title'] = $request->name;
-            $data['uploader'] = $request->uploader;
+            $data['user_id'] = $request->uploader;
             $data['license'] = $request->license;
             $data['image_type'] = $request->image_type;
             $data['description'] = $request->description;
@@ -611,6 +616,7 @@ class ImageController extends BackendController
             $data['is_new'] = $request->is_new;
             $data['is_rising'] = $request->is_rising;
             $data['is_top'] = $request->is_top;
+            $data['cost'] = $request->price;
             $edit = Image::findorfail($id);
             $pivot = $edit->tags()->sync($request->tags);
             $cat = $edit->categories()->sync($request->category);
@@ -682,7 +688,7 @@ class ImageController extends BackendController
         if ($request->isMethod('get')) {
             $order = Order::all();
             $this->data('order', $order);
-            $user = User::where('role_id', '!=', 2)->where('role_id', '!=', 1)->get();
+            $user = User::where('role_id', '!=', 2)->get();
             $this->data('users', $user);
             return view($this->backendimagePath . 'latest_orders', $this->data);
         }
@@ -846,7 +852,15 @@ class ImageController extends BackendController
         if ($find->delete()) {
             Session::flash('success', 'Upload deleted');
             return redirect()->back();
-      }
+        }
+    }
+
+    public function order_invoice(Request $request)
+    {
+        $id=$request->id;
+        $order=OrderUpload::where('order_id','=',$id)->first();
+        $this->data('order',$order);
+        return view($this->backendimagePath . 'invoice',$this->data);
     }
 }
 

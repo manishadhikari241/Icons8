@@ -37,13 +37,17 @@
                                                      width="150px">
                                             </td>
                                             <td>
-                                                {!! $value->message !!}}
+                                                {!! $value->message !!}
                                             </td>
                                             <td>
                                                 {{\Illuminate\Support\Carbon::parse($value->created_at)->format('M d y')}}
                                             </td>
                                             <td>
                                                 <a href="{{route('voyager.order-download',$value->id)}}" class="btn-primary">Download</a>
+                                                <a class="btn btn-outline-danger confirm"
+                                                   href="{{route('voyager.invoice',$value->id)}}"
+                                                   onclick="return confirm('Generate Invoice?')"><i
+                                                            class="fa fa fa-print"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach

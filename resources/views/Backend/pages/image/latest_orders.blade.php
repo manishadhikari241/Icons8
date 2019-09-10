@@ -25,6 +25,7 @@
                                         <small>(Click to view image)</small>
                                         </th>
                                         <th>User</th>
+                                        <th>Cost</th>
                                         <th>Status
                                             <br>
                                             <small>(Click to change order status)</small>
@@ -52,6 +53,11 @@
                                                 @foreach($value->users as $user)
                                                     {{$user->name}}
                                                 @endforeach
+                                            </td>
+                                            <td>
+                                               @foreach($value->images as $val)
+                                                   {{$val->cost}}$
+                                                   @endforeach
                                             </td>
                                             <td>
                                                 <form method="post" action="{{route('voyager.order-status')}}">

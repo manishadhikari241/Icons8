@@ -40,9 +40,13 @@
 
                                                     <div class="form-group">
                                                         <label for="formGroupExampleInput">Uploader:</label>
-                                                        <input type="text" name="uploader" class="form-control"
-                                                               id="formGroupExampleInput" value="{{$img->uploader}}"
-                                                               placeholder="enter uploader name">
+                                                        <select class="form-control" name="uploader">
+                                                            <option selected>-Please select user-</option>
+                                                            @foreach($user as $value)
+                                                                <option @if ($value->id==$img->user_id) selected
+                                                                        @endif value="{{$value->id}}">{{$value->name}}</option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
 
                                                     <div class="form-group">
@@ -53,16 +57,27 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="formGroupExampleInput">Image Type</label>
-                                                        <select class="form-control" name="image_type">
-                                                            <option @if($img->image_type==0)selected @endif value="0">
+                                                        <select class="select form-control" name="image_type">
+                                                            <option @if($img->image_type==0)selected @endif value="0"
+                                                                    id="free">
                                                                 Free
                                                             </option>
-                                                            <option @if($img->image_type==1)selected @endif value="1">
+                                                            <option @if($img->image_type==1)selected @endif value="1"
+                                                                    id="premium">
                                                                 Premium
                                                             </option>
                                                         </select>
 
                                                     </div>
+
+                                                    @if($img->image_type==1)
+                                                    <div class="premium form-group">
+                                                    <label for="formGroupExampleInput">Price:</label>
+                                                    <input type="text" name="price" class="form-control" value="{{$img->cost}}"
+                                                    id="formGroupExampleInput">
+                                                    </div>
+                                                    @endif
+
                                                     <div class="form-group">
                                                         <label for="formGroupExampleInput">Description:</label>
                                                         <textarea id="desc"
@@ -138,8 +153,8 @@
                                                         <select class="form-control" name="category[]" id="cat"
                                                                 multiple="multiple">
                                                             @foreach($cat as $value)
-                                                                    <option @if($img->categories()->where('category_id',$value->id)->where('image_id',$img->id)->first()) selected
-                                                                            @endif value="{{$value->id}}">{{$value->title}}</option>
+                                                                <option @if($img->categories()->where('category_id',$value->id)->where('image_id',$img->id)->first()) selected
+                                                                        @endif value="{{$value->id}}">{{$value->title}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -154,7 +169,8 @@
                                                         <select class="form-control" name="gender[]" id="gen"
                                                                 multiple="multiple">
                                                             @foreach($gender as $value)
-                                                                <option @if($img->genders()->where('gender_id',$value->id)->where('image_id',$img->id)->first()) selected @endif
+                                                                <option @if($img->genders()->where('gender_id',$value->id)->where('image_id',$img->id)->first()) selected
+                                                                        @endif
                                                                         value="{{$value->id}}">{{$value->name}}</option>
                                                             @endforeach
                                                         </select>
@@ -170,7 +186,8 @@
                                                         <select class="form-control" name="age[]" id="age"
                                                                 multiple="multiple">
                                                             @foreach($age as $value)
-                                                                <option  @if($img->ages()->where('age_id',$value->id)->where('image_id',$img->id)->first()) selected @endif
+                                                                <option @if($img->ages()->where('age_id',$value->id)->where('image_id',$img->id)->first()) selected
+                                                                        @endif
                                                                         value="{{$value->id}}">{{$value->name}}</option>
                                                             @endforeach
                                                         </select>
@@ -187,7 +204,8 @@
                                                         <select class="form-control" name="race[]" id="race"
                                                                 multiple="multiple">
                                                             @foreach($race as $value)
-                                                                <option  @if($img->races()->where('race_id',$value->id)->where('image_id',$img->id)->first()) selected @endif
+                                                                <option @if($img->races()->where('race_id',$value->id)->where('image_id',$img->id)->first()) selected
+                                                                        @endif
                                                                         value="{{$value->id}}">{{$value->name}}</option>
                                                             @endforeach
                                                         </select>
@@ -203,7 +221,8 @@
                                                         <select class="form-control" name="hair[]" multiple="multiple"
                                                                 id="hair">
                                                             @foreach($hair as $value)
-                                                                <option  @if($img->hairs()->where('hair_id',$value->id)->where('image_id',$img->id)->first()) selected @endif
+                                                                <option @if($img->hairs()->where('hair_id',$value->id)->where('image_id',$img->id)->first()) selected
+                                                                        @endif
                                                                         value="{{$value->id}}">{{$value->name}}</option>
                                                             @endforeach
                                                         </select>
@@ -220,7 +239,8 @@
                                                         <select class="form-control" name="body_type[]"
                                                                 multiple="multiple" id="body">
                                                             @foreach($body as $value)
-                                                                <option  @if($img->bodytypes()->where('body_id',$value->id)->where('image_id',$img->id)->first()) selected @endif
+                                                                <option @if($img->bodytypes()->where('body_id',$value->id)->where('image_id',$img->id)->first()) selected
+                                                                        @endif
                                                                         value="{{$value->id}}">{{$value->name}}</option>
                                                             @endforeach
                                                         </select>
@@ -237,7 +257,8 @@
                                                         <select class="form-control" name="special_feature[]"
                                                                 id="special" multiple="multiple">
                                                             @foreach($special as $value)
-                                                                <option  @if($img->specials()->where('special_id',$value->id)->where('image_id',$img->id)->first()) selected @endif
+                                                                <option @if($img->specials()->where('special_id',$value->id)->where('image_id',$img->id)->first()) selected
+                                                                        @endif
                                                                         value="{{$value->id}}">{{$value->name}}</option>
                                                             @endforeach
                                                         </select>
@@ -273,7 +294,8 @@
                                                         <select class="form-control" name="photographer[]" id="credits"
                                                                 multiple="multiple">
                                                             @foreach($credits as $value)
-                                                                <option @if($img->photos()->where('image_id',$img->id)->where('photographer_id',$value->id)->first()) selected @endif value="{{$value->id}}">{{$value->photographer}}</option>
+                                                                <option @if($img->photos()->where('image_id',$img->id)->where('photographer_id',$value->id)->first()) selected
+                                                                        @endif value="{{$value->id}}">{{$value->photographer}}</option>
                                                             @endforeach
                                                         </select>
 
@@ -283,7 +305,8 @@
                                                         <select class="form-control" name="model[]" id="models"
                                                                 multiple="multiple">
                                                             @foreach($credits as $value)
-                                                                <option @if($img->models()->where('image_id',$img->id)->where('model_id',$value->id)->first()) selected @endif value="{{$value->id}}">{{$value->model}}</option>
+                                                                <option @if($img->models()->where('image_id',$img->id)->where('model_id',$value->id)->first()) selected
+                                                                        @endif value="{{$value->id}}">{{$value->model}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -291,27 +314,46 @@
 
                                             </div>
 
-                                            </div>
-
                                         </div>
-                                    </div>
 
-                                    <button type="submit" class="btn btn-primary"><i class="fa fa-upload"></i>Update Image
-                                    </button>
+                                    </div>
                                 </div>
 
-                                <!-- /.box-body -->
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-upload"></i>Update Image
+                                </button>
                             </div>
-                            <!-- /.box -->
+
+                            <!-- /.box-body -->
+
                         </form>
                     </div>
-                    <!-- ./card-body -->
-                    <!-- /.card-footer -->
+                    <!-- /.box -->
                 </div>
+                <!-- ./card-body -->
+                <!-- /.card-footer -->
             </div>
-
-            <!-- /.col -->
         </div>
+
+        <!-- /.col -->
     </div>
 
 @stop
+@push('javascript')
+    <script>
+        $(document).ready(function () {
+            $('.select').on('change', function () {
+                var premium = $(this).val();
+                if (premium == 1) {
+                    $(this).parent().append(' <div class="premium form-group">\n' +
+                        '                                                        <label for="formGroupExampleInput">Price:</label>\n' +
+                        '                                                        <input type="text" name="price" class="form-control"\n' +
+                        '                                                            value="{{$img->cost}}"   id="formGroupExampleInput">\n' +
+                        '                                                    </div>')
+                }
+                if (premium == 0) {
+                    $(this).parent().parent().find('.premium').remove()
+                }
+            });
+        });
+    </script>
+@endpush
