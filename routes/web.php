@@ -151,6 +151,8 @@ Route::group(['namespace' => 'Backend'], function () {
         Route::any('/show-order', 'ImageController@show_order')->name('show-order');
         Route::any('image-log', 'ImageController@image_log')->name('image-log');
         Route::any('/invoice/{id?}', 'ImageController@order_invoice')->name('invoice');
+        Route::get('/generate-pdf/{id?}','ImageController@generate_PDF')->name('pdf');
+
 
     });
 });
