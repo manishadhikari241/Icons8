@@ -33,11 +33,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sidebar.blade.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="sidebar.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vendor/tcg/voyager/resources/views/dashboard/sidebar.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
-              <caret line="38" column="10" selection-start-line="38" selection-start-column="10" selection-end-line="38" selection-end-column="10" />
+            <state relative-caret-position="388">
+              <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PageController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Frontend/PageController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="371">
+              <caret line="158" selection-start-line="158" selection-end-line="158" />
             </state>
           </provider>
         </entry>
@@ -273,85 +282,7 @@
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="Http" type="462c0819:PsiDirectoryNode" />
               <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="Backend" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="icons8" type="b2602c69:ProjectViewProjectNode" />
-              <item name="icons8" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="icons8" type="b2602c69:ProjectViewProjectNode" />
-              <item name="icons8" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="icons8" type="b2602c69:ProjectViewProjectNode" />
-              <item name="icons8" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="Backend" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="icons8" type="b2602c69:ProjectViewProjectNode" />
-              <item name="icons8" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="Backend" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="icons8" type="b2602c69:ProjectViewProjectNode" />
-              <item name="icons8" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="Backend" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="image" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="icons8" type="b2602c69:ProjectViewProjectNode" />
-              <item name="icons8" type="462c0819:PsiDirectoryNode" />
-              <item name="vendor" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="icons8" type="b2602c69:ProjectViewProjectNode" />
-              <item name="icons8" type="462c0819:PsiDirectoryNode" />
-              <item name="vendor" type="462c0819:PsiDirectoryNode" />
-              <item name="tcg" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="icons8" type="b2602c69:ProjectViewProjectNode" />
-              <item name="icons8" type="462c0819:PsiDirectoryNode" />
-              <item name="vendor" type="462c0819:PsiDirectoryNode" />
-              <item name="tcg" type="462c0819:PsiDirectoryNode" />
-              <item name="voyager" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="icons8" type="b2602c69:ProjectViewProjectNode" />
-              <item name="icons8" type="462c0819:PsiDirectoryNode" />
-              <item name="vendor" type="462c0819:PsiDirectoryNode" />
-              <item name="tcg" type="462c0819:PsiDirectoryNode" />
-              <item name="voyager" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="icons8" type="b2602c69:ProjectViewProjectNode" />
-              <item name="icons8" type="462c0819:PsiDirectoryNode" />
-              <item name="vendor" type="462c0819:PsiDirectoryNode" />
-              <item name="tcg" type="462c0819:PsiDirectoryNode" />
-              <item name="voyager" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="icons8" type="b2602c69:ProjectViewProjectNode" />
-              <item name="icons8" type="462c0819:PsiDirectoryNode" />
-              <item name="vendor" type="462c0819:PsiDirectoryNode" />
-              <item name="tcg" type="462c0819:PsiDirectoryNode" />
-              <item name="voyager" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
+              <item name="Frontend" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -399,7 +330,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21557000" />
+    <option name="totallyTimeSpent" value="21570000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -467,15 +398,8 @@
     <entry file="file://$PROJECT_DIR$/vendor/tcg/voyager/src/Helpers/helpers.php" />
     <entry file="file://$PROJECT_DIR$/vendor/tcg/voyager/resources/views/dashboard/sidebar.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="38" column="10" selection-start-line="38" selection-start-column="10" selection-end-line="38" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Frontend/PageController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2567">
-          <caret line="158" selection-start-line="158" selection-end-line="158" />
+        <state relative-caret-position="388">
+          <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
         </state>
       </provider>
     </entry>
@@ -665,6 +589,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Model/TopicComments.php">
       <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Frontend/PageController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="371">
+          <caret line="158" selection-start-line="158" selection-end-line="158" />
+        </state>
+      </provider>
     </entry>
   </component>
 </project>
