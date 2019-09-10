@@ -68,7 +68,7 @@ class Image extends Model
     }
     public function orders()
     {
-        return $this->belongsToMany('App\Model\Order','image_orders','image_id','order_id');
+        return $this->belongsToMany('App\Model\Order','table_image_orders','image_id','order_id');
     }
 
     public function users()
