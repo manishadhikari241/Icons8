@@ -173,9 +173,6 @@
 
 @section('content')
 
-
-
-    <!--Author      : @arboshiki-->
     <div id="invoice">
 
         <div class="toolbar hidden-print">
@@ -226,7 +223,7 @@
                         <tbody>
                         <tr>
                             <td class="no">1</td>
-                            <td class="text-left"><img src="{{asset('images/order_upload/'.$order->orders->images->first()->image)}}" width="150px"></td>
+                            <td class="text-left"><img src="{{asset('images/order_upload/'.$order->image)}}" width="100px"></td>
                             <td class="unit">1</td>
                             <td class="qty">${{$order->orders->images->first()->cost}}</td>
                             <td class="total">${{$order->orders->images->first()->cost}}</td>

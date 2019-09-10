@@ -3,10 +3,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @stop
 
-
 @section('content')
-
-
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -43,15 +40,14 @@
                                                 {{\Illuminate\Support\Carbon::parse($value->created_at)->format('M d y')}}
                                             </td>
                                             <td>
+                                                <a href="{{route('order-download',$value->id)}}" class="btn-primary">Download</a>
                                                 <a class="btn btn-outline-danger confirm"
                                                    href="{{route('invoice',$value->id)}}"
                                                    onclick="return confirm('Generate Invoice?')"><i
                                                             class="fa fa fa-print"></i></a>
-                                                <a href="{{route('order-download',$value->id)}}" class="btn-primary">Download</a>
                                             </td>
                                         </tr>
                                     @endforeach
-
                                     </tbody>
                                 </table>
                             </div>
