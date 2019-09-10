@@ -10,7 +10,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">All Photos</h5>
-                        <a href="{{route('voyager.image-upload')}}"><i class="fa fa-backward"></i>Back</a>
+                        <a href="{{route('image-upload')}}"><i class="fa fa-backward"></i>Back</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -87,11 +87,11 @@
                                             </td>
                                             <td>
                                                 <a class="btn btn-outline-danger confirm"
-                                                   href="{{route('voyager.image-delete',$value->id)}}"
+                                                   href="{{route('image-delete',$value->id)}}"
                                                    onclick="return confirm('Confirm Delete?')"><i
                                                             class="fa fa fa-trash"></i></a>
                                                 <a class="btn btn-outline-primary confirm"
-                                                   href="{{route('voyager.image-edit',$value->id)}}"
+                                                   href="{{route('image-edit',$value->id)}}"
                                                 ><i class="fa fa fa-edit"></i></a>
                                             </td>
                                         </tr>

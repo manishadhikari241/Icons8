@@ -10,7 +10,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">Assigned Orders</h5>
-                        <a href="{{route('voyager.show-image')}}"><i class="fa fa-backward"></i>Back</a>
+                        <a href="{{route('show-image')}}"><i class="fa fa-backward"></i>Back</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -39,7 +39,7 @@
                                                {{\App\User::where('id',$value->user_id)->first()->name}}
                                             </td>
                                             <td>
-                                                <form method="post" action="{{route('voyager.assign-status')}}">
+                                                <form method="post" action="{{route('assign-status')}}">
                                                     <input type="hidden" name="id" value="{{$value->id}}">
                                                     @csrf
                                                <select name="status">
@@ -56,7 +56,7 @@
                                             </td>
                                             <td>
                                                 <a class="btn btn-outline-danger confirm"
-                                                   href="{{route('voyager.assign-delete',$value->id)}}"
+                                                   href="{{route('assign-delete',$value->id)}}"
                                                    onclick="return confirm('Confirm Delete?')"><i
                                                             class="fa fa fa-trash"></i></a>
                                             </td>

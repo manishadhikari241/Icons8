@@ -28,7 +28,7 @@
 
                                 </span>
                             </span>
-                <span class="topic-count">× 4</span>
+                <span class="topic-count">× {{\App\Model\ForumTopic::where('category_id',$child->id)->first()?count(\App\Model\ForumTopic::where('category_id',$child->id)->get()):''}}</span>
             </div>
 
             <div class="category-desc">

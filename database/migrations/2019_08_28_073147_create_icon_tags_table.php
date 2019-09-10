@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddSlugTable extends Migration
+class CreateIconTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddSlugTable extends Migration
      */
     public function up()
     {
-        Schema::table('forum_topics', function (Blueprint $table) {
-            $table->string('slug')->after('id');
+        Schema::create('icon_tags', function (Blueprint $table) {
+            $table->Increments('id');
+            $table->string('name','200');
+            $table->string('slug');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddSlugTable extends Migration
      */
     public function down()
     {
-        Schema::table('forum_topics', function (Blueprint $table) {
-
-        });
+        Schema::dropIfExists('icon_tags');
     }
 }

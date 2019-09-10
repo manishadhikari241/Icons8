@@ -8,7 +8,7 @@ use Spatie\Sluggable\SlugOptions;
 
 class ForumTopic extends Model
 {
-    protected $fillable = ['topic', 'category_id', 'status', 'description','slug'];
+    protected $fillable = ['topic', 'category_id', 'status', 'description', 'slug'];
 
     use HasSlug;
 
@@ -32,5 +32,10 @@ class ForumTopic extends Model
     public function comments()
     {
         return $this->hasMany('App\Model\TopicComments', 'topic_id');
+    }
+
+    public function counts()
+    {
+        return $this->hasMany('App\Model\TopicVisit', 'topic_id');
     }
 }

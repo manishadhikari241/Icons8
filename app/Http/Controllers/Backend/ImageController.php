@@ -12,6 +12,7 @@ use App\Model\ImageCategory;
 use App\Model\Order;
 use App\Model\OrderAssign;
 use App\Model\OrderUpload;
+use App\Model\PhotoLog;
 use App\Model\Race;
 use App\Model\SpecialFeature;
 use App\Model\Tag;
@@ -21,6 +22,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
+use TCG\Voyager\Models\Role;
 
 class ImageController extends BackendController
 {
@@ -751,10 +754,36 @@ class ImageController extends BackendController
             $data['user_id'] = $request->user_id;
             $data['order_id'] = $request->order_id;
             $data['status'] = 0;
+
+            if ($request->user_id == 0) {
+                $find = OrderAssign::where('order_id', $request->order_id)->first()->users->name;
+                $remove = OrderAssign::where('order_id', $request->order_id)->delete();
+                if ($remove) {
+
+                    $logs = PhotoLog::create([
+                        'type' => 'Cancelled',
+                        'description' => 'Order Assignment Removed from ' . $find,
+                        'user_id' => null,
+                        'ip_address' => $_SERVER['REMOTE_ADDR'],
+                        'order_id' => $request->order_id
+                    ]);
+                    return response()->json([
+                        'message' => 'Assignment Removed'
+                    ]);
+                }
+            }
+
             if (OrderAssign::where('order_id', $request->order_id)->where('user_id', '!=', $request->user_id)) {
                 $var = OrderAssign::where('order_id', $request->order_id)->where('user_id', '!=', $request->user_id)
                     ->update($data);
                 if ($var) {
+                    $logs = PhotoLog::create([
+                        'type' => Role::where('id', \TCG\Voyager\Models\User::where('id', $request->user_id)->first()->role_id)->first()->name,
+                        'description' => 'Order Assigned to ' . \TCG\Voyager\Models\User::where('id', $request->user_id)->first()->name,
+                        'user_id' => $request->user_id,
+                        'ip_address' => $_SERVER['REMOTE_ADDR'],
+                        'order_id' => $request->order_id
+                    ]);
                     return response()->json([
                         'message' => 'Assignment changed'
                     ]);
@@ -762,6 +791,13 @@ class ImageController extends BackendController
             }
             $create = OrderAssign::updateorcreate(['order_id' => $request->order_id], $data);
             if ($create) {
+                $logs = PhotoLog::create([
+                    'type' => Role::where('id', \TCG\Voyager\Models\User::where('id', $request->user_id)->first()->role_id)->first()->name,
+                    'description' => 'Order Assigned to ' . \TCG\Voyager\Models\User::where('id', $request->user_id)->first()->name,
+                    'user_id' => $request->user_id,
+                    'ip_address' => $_SERVER['REMOTE_ADDR'],
+                    'order_id' => $request->order_id
+                ]);
                 return response()->json([
                     'message' => 'Order assigned succesfully'
                 ]);
@@ -857,10 +893,28 @@ class ImageController extends BackendController
 
     public function order_invoice(Request $request)
     {
-        $id=$request->id;
-        $order=OrderUpload::where('order_id','=',$id)->first();
-        $this->data('order',$order);
-        return view($this->backendimagePath . 'invoice',$this->data);
+        $id = $request->id;
+        $order = OrderUpload::where('order_id', '=', $id)->first();
+        $this->data('order', $order);
+        return view($this->backendimagePath . 'invoice', $this->data);
+    }
+    public function image_log(Request $request)
+    {
+        if ($request->isMethod('get')) {
+            $photolog = PhotoLog::latest()->get();
+            $this->data('logs', $photolog);
+            return view($this->backendimagePath . 'logs', $this->data);
+        }
+        if ($request->isMethod('post')) {
+            $validator= Validator::make($request->all(),[
+               'delete'=>'required'
+            ],['delete.required'=>'Please Select'])->validate();
+            $log_delete = PhotoLog::whereIn('id', $request->delete)->delete();
+            if ($log_delete) {
+                return redirect()->back()->with('success', 'Logs Deleted');
+            }
+        }
+        return false;
     }
 }
 

@@ -12,12 +12,12 @@
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">Edit Image</h5>
-                        <a href="{{route('voyager.show-image')}}"><i class="fa fa-image"></i>View all photos</a>
+                        <a href="{{route('show-image')}}"><i class="fa fa-image"></i>View all photos</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
 
-                        <form method="POST" action="{{route('voyager.image-edit')}}"
+                        <form method="POST" action="{{route('image-edit')}}"
                               accept-charset="UTF-8" class=""
                               enctype="multipart/form-data">
                             @csrf

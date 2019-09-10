@@ -25,7 +25,7 @@
                         <section class="content">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <form method="post" action="{{route('voyager.add-category-forum')}}"
+                                    <form method="post" action="{{route('add-category-forum')}}"
                                           enctype="multipart/form-data">
 
                                     @csrf

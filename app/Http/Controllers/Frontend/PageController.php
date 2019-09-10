@@ -6,6 +6,8 @@ use App\Model\Age;
 use App\Model\BodyType;
 use App\Model\Gender;
 use App\Model\Genre;
+
+use App\Model\IconCategory;
 use App\Model\Hair;
 use App\Model\Image;
 use App\Model\ImageCategory;
@@ -29,7 +31,9 @@ class PageController extends Controller
     public function index(Request $request)
     {
         if ($request->isMethod('get')) {
-            return view('Frontend.index');
+            $category = IconCategory::all();
+            $this->data('icon_category', $category);
+            return view('Frontend.index', $this->data);
         }
         return false;
     }

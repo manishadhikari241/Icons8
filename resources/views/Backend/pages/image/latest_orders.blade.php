@@ -10,7 +10,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">Image Orders</h5>
-                        <a href="{{route('voyager.show-image')}}"><i class="fa fa-backward"></i>Back</a>
+                        <a href="{{route('show-image')}}"><i class="fa fa-backward"></i>Back</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -60,7 +60,8 @@
                                                    @endforeach
                                             </td>
                                             <td>
-                                                <form method="post" action="{{route('voyager.order-status')}}">
+
+                                                <form method="post" action="{{route('order-status')}}">
                                                     <input type="hidden" name="id" value="{{$value->id}}">
                                                     @csrf
                                                 <select name="status">
@@ -74,7 +75,7 @@
                                             </td>
                                             <td>
                                                 <select class="select">
-                                                    <option>Select user</option>
+                                                    <option value="0">Select user</option>
                                                     @foreach($users as $item)
                                                     <option @if(\App\Model\OrderAssign::where('user_id',$item->id)->where('order_id',$value->id)->first()) selected @endif value="{{$item->id}}">
                                                             {{$item->name}}
@@ -87,7 +88,7 @@
                                             </td>
                                             <td>
                                                 <a class="btn btn-outline-danger confirm"
-                                                   href="{{route('voyager.delete-order',$value->id)}}"
+                                                   href="{{route('delete-order',$value->id)}}"
                                                    onclick="return confirm('Confirm Delete?')"><i
                                                             class="fa fa fa-trash"></i></a>
                                             </td>
@@ -125,7 +126,7 @@
                 if (confirm('Confirm assign?')) {
                     $.ajax({
                         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                        url: "{{route('voyager.order-assign')}}",
+                        url: "{{route('order-assign')}}",
                         type: "POST",
                         data: {
                             user_id: id,
@@ -142,7 +143,7 @@
                 var $modal = $('#exampleModalLong');
                 e.preventDefault();
                 var id = $(this).attr('data-id');
-                var tempEditUrl = "{{route('voyager.image-modal',':id')}}";
+                var tempEditUrl = "{{route('image-modal',':id')}}";
                 tempEditUrl = tempEditUrl.replace(':id', id);
                 $modal.load(tempEditUrl, function (response) {
                     $modal.modal({show: true});

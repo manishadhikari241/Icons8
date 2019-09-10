@@ -19,4 +19,9 @@ class IconTrend extends Model
     }
 
     protected $fillable = ['category', 'description', 'image'];
+
+    public function icons()
+    {
+        return $this->belongsToMany('App\Model\IconTrend', 'icons_trend');
+    }
 }

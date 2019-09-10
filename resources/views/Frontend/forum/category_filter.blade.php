@@ -70,7 +70,7 @@
                         </td>
 
                         <td class="num views ">
-                            <span class="number" title="this topic has been viewed 4 times">4</span></td>
+                            <span class="number" title="this topic has been viewed 4 times">{{$value->counts->first()?$value->counts->first()->count:''}}</span></td>
 
                         <td class="num age "
                             title="Posted: {{$value->created_at}}">

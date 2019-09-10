@@ -1,4 +1,9 @@
-@extends('backEnd.layout')
+@extends('voyager::master')
+
+
+@section('css')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@stop
 @section('content')
 
 
@@ -27,7 +32,7 @@
                                             <option value="0">Select Parent Category</option>
                                             @foreach($styles as $value)
                                                 <option value="{{$value->id}}">{{$value->name}}</option>
-                                                @include('dashboard.pages.icons.category_dropdown',['category'=>$value])
+                                                @include('Backend.pages.icons.category_dropdown',['category'=>$value])
                                             @endforeach
                                         </select>
 

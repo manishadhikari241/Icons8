@@ -52,7 +52,7 @@
                                                         <td>{{$value->Categories->name}}</td>
                                                         <td>
                                                             <form method="post"
-                                                                  action="{{route('voyager.topic-status')}}">
+                                                                  action="{{route('topic-status')}}">
                                                                 <input type="hidden" name="status"
                                                                        value="{{$value->id}}">
                                                                 {{csrf_field()}}
@@ -71,9 +71,9 @@
                                                             {{$value->created_at}}
                                                         </td>
                                                         <td>
-                                                            <a target="__blank" class="btn btn-dark" href="{{route('voyager.show-topic',$value->slug)}}"><i
+                                                            <a target="__blank" class="btn btn-dark" href="{{route('show-topic',$value->slug)}}"><i
                                                                         class="fa fa-eye"></i></a>
-                                                            <a href="{{route('voyager.delete-topic',$value->id)}}"
+                                                            <a href="{{route('delete-topic',$value->id)}}"
                                                                onclick="return confirm('Are you sure??')"
                                                                class="btn btn-lg btn btn-danger"><i
                                                                         class="fa fa-trash"></i> </a>
