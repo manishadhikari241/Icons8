@@ -1,4 +1,8 @@
-@extends('backEnd.layout')
+@extends('voyager::master')
+@section('css')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@stop
+
 @section('content')
     <div class="col-md-12">
         <div class="card">

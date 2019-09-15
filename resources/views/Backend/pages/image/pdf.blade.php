@@ -226,11 +226,8 @@
                 <tbody>
                 <tr>
                     <td class="no">1</td>
-                    <td>{{\App\Model\OrderUpload::where('id', $id)->first()->image}}</td>
-                    {{--<td class="text-left"><img--}}
-                                {{--src="{{asset('images/order_upload/'.\App\Model\OrderUpload::where('id', $id)->first()->image)}}"--}}
-                                {{--width="100px">--}}
-                    {{--</td>--}}
+                    <td class="text-left"><img src="{{asset('images/order_upload/'.\App\Model\OrderUpload::where('id', $id)->first()->image)}}">
+                    </td>
                     <td class="unit">1</td>
                     <td class="qty">
                         ${{\App\Model\OrderUpload::where('id', $id)->first()->orders->images->first()->cost}}</td>

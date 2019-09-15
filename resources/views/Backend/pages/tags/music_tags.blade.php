@@ -15,7 +15,7 @@
                     <!-- /.card-header -->
                     <div class="card-body">
 
-                        <form method="POST" action="{{route('.music-tags')}}"
+                        <form method="POST" action="{{route('music-tags')}}"
                               accept-charset="UTF-8" class=""
                               enctype="multipart/form-data">
                             @csrf
@@ -95,7 +95,7 @@
                                             </div>
                                             <div class="card-body">
 
-                                                <form method="POST" action="{{route('voyager.tags-edit')}}"
+                                                <form method="POST" action="{{route('music-tags-edit')}}"
                                                       accept-charset="UTF-8" class=""
                                                       enctype="multipart/form-data">
                                                     @csrf

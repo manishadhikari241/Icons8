@@ -42,7 +42,7 @@
                     <div class="nav-dropdown">
                         <ul>
 
-                            <li ><a href="{{route('editor')}}" >Photo Creator</a></li>
+                            <li ><a href="{{route('pixel')}}" >Photo Creator</a></li>
                             <li ><a href="{{route('photo')}}" >Photo library</a></li>
 
                         </ul>
@@ -83,9 +83,12 @@
                     <div id="loginForm" class="toggleform">
                         <div class="title">Login</div>
                         <div class="description">You can use your account to log in to any of our products</div>
-                        <form class="is-big">
+                        <form class="is-big" action="{{route('voyager.login')}}" method="post">
+                            @csrf
                             <input name="email" placeholder="Email" class="" autocomplete="off">
-                            <input type="password" name="password" placeholder="Password" class="" autocomplete="off">
+                            <input type="password" name="password" placeholder="Password" class=""
+                                   autocomplete="off">
+
 
 
                             <button type="submit" class="submit-button">Login</button>
@@ -96,7 +99,8 @@
                     <div id="registerForm" class="toggleform">
                         <div class="title">Register</div>
                         <div class="description">You can use your Icons8 account to log in to any of our products</div>
-                        <form class="is-big">
+                        <form class="is-big" method="post" action="{{route('register')}}">
+                            @csrf
                             <input name="email" placeholder="Email" class="" autocomplete="off">
                             <input type="password" name="password" placeholder="Password" class="" autocomplete="off">
 

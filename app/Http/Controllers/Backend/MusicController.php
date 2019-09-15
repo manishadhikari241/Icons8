@@ -24,7 +24,7 @@ class MusicController extends BackendController
         if ($request->isMethod('get')) {
             $tags = MusicTag::all();
             $this->data('tags', $tags);
-            return view($this->backendtagPath . 'music_tags', $this->data);
+            return view($this->backendtagPath .'music_tags', $this->data);
         }
         if ($request->isMethod('post')) {
             $request->validate([

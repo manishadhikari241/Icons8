@@ -115,7 +115,6 @@
         </div>
     </div>
 
-
     <div class="photo-categories-page">
         <div class="categories">
 

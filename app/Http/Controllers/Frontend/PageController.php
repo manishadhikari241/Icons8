@@ -174,7 +174,7 @@ class PageController extends Controller
             if ($request->has('top')) {
                 $img->where('is_top', '=', 1);
             }
-            if ($request->has('genderId') ) {
+            if ($request->has('genderId')) {
                 $id = $request->genderId;
                 $join = $img->join('table_image_gender', 'table_image_gender.image_id', '=', 'images.id')
                     ->join('genders', 'table_image_gender.gender_id', '=', 'genders.id')
@@ -211,11 +211,10 @@ class PageController extends Controller
                     ->join('special_features', 'table_image_special_feature.special_id', '=', 'special_features.id')
                     ->where('special_features.id', $special_id)->select('images.*');
             }
-            if ($request->has('category_id'))
-            {
-                $cat_id=$request->category_id;
-                $join=$img->join('table_image_category','table_image_category.image_id','=','images.id')
-                    ->where('table_image_category.category_id',$cat_id)->select('images.*');
+            if ($request->has('category_id')) {
+                $cat_id = $request->category_id;
+                $join = $img->join('table_image_category', 'table_image_category.image_id', '=', 'images.id')
+                    ->where('table_image_category.category_id', $cat_id)->select('images.*');
             }
 
             $var = $img->get();
@@ -237,7 +236,7 @@ class PageController extends Controller
         $this->data('body', $body);
         $spec = SpecialFeature::all();
         $this->data('spec', $spec);
-        $img = Image::orderBy('created_at')->get();
+        $img = Image::where('status', '=', 1)->get();
         $this->data('img', $img);
 
         return view('Frontend.photo', $this->data);
@@ -273,7 +272,7 @@ class PageController extends Controller
         $new = Order::create($data);
         $new->images()->attach($id);
         $create = DB::table('user_orders')->insert(['user_id' => Auth::user()->id, 'order_id' => $new->id]);
-        if ($new  && $create) {
+        if ($new && $create) {
             return \response()->json([
                 'message' => 'Order placed successfully'
             ]);
@@ -298,9 +297,18 @@ class PageController extends Controller
 
     }
 
-    public function editor()
+    public function editor(Request $request)
     {
-        return view('Frontend.pixie');
+        $id = $request->id;
+        $img = Image::where('id', '=', $id)->get();
+        $this->data('image', $img);
+        return view('Frontend.pixie', $this->data);
+    }
+
+    public function pixel()
+    {
+        return view('Frontend.editor', $this->data);
+
     }
 
 }
