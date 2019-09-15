@@ -15,7 +15,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <table id="example-1" class="table table-striped table-bordered" style="width:100%">
+                                <table id="example1" class="table table-striped table-bordered" style="width:100%">
                                     <thead>
                                     <tr>
                                         <th>#</th>

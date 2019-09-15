@@ -2,6 +2,10 @@
 @section('css')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @stop@section('content')
+
+@stop
+
+@section('content')
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
@@ -23,14 +27,16 @@
                                 <div class="col-sm-4">
                                     <div class="form-group ">
                                         <label for="name" class="control-label">Category Name *</label>
-                                        <input class="form-control" name="name" type="text" id="name" value="{{$icon->title}}">
+                                        <input class="form-control" name="name" type="text" id="name"
+                                               value="{{$icon->title}}">
                                     </div>
                                 </div>
 
                                 <div class="col-sm-4">
                                     <div class="form-group ">
                                         <label for="name" class="control-label">Current Image:</label>
-                                        <img src="{{asset('images/icons/category/'.$icon->image)}}" width="80px"><hr>
+                                        <img src="{{asset('images/icons/category/'.$icon->image)}}" width="80px">
+                                        <hr>
                                         <input class="form-control" name="image" type="file" id="name">
                                     </div>
                                 </div>
@@ -48,7 +54,6 @@
                             <button type="submit" class="btn btn-primary">Update Category</button>
 
                         </div>
-
 
 
                         <!-- /.box-body -->

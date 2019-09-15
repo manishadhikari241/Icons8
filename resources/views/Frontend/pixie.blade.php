@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 	<title>Image Editor</title>
-    <link rel="stylesheet" href="{{asset('css/Frontend/styles.min.css')}}">
+    <link rel="stylesheet" href="{{asset('pixie/styles.min.css')}}">
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500' rel='stylesheet' type='text/css'>
 	<style>
 		body, html {
@@ -34,9 +34,38 @@
 	<script>setTimeout(function() {
 		var spinner = document.querySelector('.global-spinner');
 		if (spinner) spinner.style.display = 'flex';
-	}, 50);</script>
+	}, 50);
+	</script>
 </pixie-editor>
-<script src="{{asset('js/Frontend/scripts.min.js')}}"></script>
+<script src="{{asset('pixie/scripts.min.js')}}"></script>
+
+
+
+{{--<img id="open-me" src="{{asset('images/photo_upload/'.$image->first()->image)}}">--}}
+
+{{--<script>--}}
+    {{--var pixie = new Pixie({--}}
+        {{--onLoad: function() {--}}
+            {{--pixie.openMainImage(document.querySelector('#open-me'));--}}
+        {{--},--}}
+        {{--onSave: function(data, name) {--}}
+            {{--pixie.http().post('http://your-site-url.com', {name: name, data: data}).subscribe(function(response) {--}}
+                {{--console.log(response);--}}
+            {{--});--}}
+        {{--},--}}
+    {{--});--}}
+{{--</script>--}}
+
+{{--<script>--}}
+    {{--var pixie = new Pixie({--}}
+        {{--watermarkText: '',--}}
+        {{--onLoad: function() {--}}
+            {{--window.postMessage('pixieLoaded', '*');--}}
+        {{--},--}}
+    {{--});--}}
+{{--</script>--}}
+
+
 
 
 <img id="image" src="{{asset('images/photo_upload/'.$image->first()->image)}}" height="500px" width="600px" style=" display: block;
@@ -62,5 +91,6 @@
         pixie.openEditorWithImage(document.querySelector('#image'));
     });
 </script>
+
 </body>
 </html>

@@ -90,16 +90,6 @@
                     <div class="card-header">
                         <h5 class="card-title">All Categories</h5>
 
-                        <div class="card-tools">
-
-                            <button type="button" class="btn btn-tool" data-widget="collapse">
-                                <i class="fa fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-widget="remove">
-                                <i class="fa fa-times"></i>
-                            </button>
-
-                        </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">

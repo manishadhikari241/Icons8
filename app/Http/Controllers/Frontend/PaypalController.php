@@ -1,14 +1,27 @@
 <?php
-
 namespace App\Http\Controllers\Frontend;
-
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
+use PayPal\Api\Amount;
+use PayPal\Api\Item;
+use PayPal\Api\ItemList;
+use PayPal\Api\Payer;
+use PayPal\Api\Payment;
+use PayPal\Api\PaymentExecution;
+use PayPal\Api\RedirectUrls;
+use PayPal\Api\Transaction;
+use PayPal\Auth\OAuthTokenCredential;
+use PayPal\Rest\ApiContext;
 class PaypalController extends Controller
 {
     private $_api_context;
-
     public function __construct()
     {
         /** PayPal api context **/
@@ -19,17 +32,11 @@ class PaypalController extends Controller
         );
         $this->_api_context->setConfig($paypal_conf['settings']);
     }
-
     public function payWithpaypal(Request $request)
     {
-        dd($request->amount);
-        if ($request->ajax()) {
-            if (!Auth::check()) {
-                return response()->json(['status' => 'error', 'message' => 'Please login first']);
-            }
-
+        if (!Auth::check()) {
+            return response()->json(['status' => 'error', 'message' => 'Please login first']);
         }
-
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');
         $item_1 = new Item();
@@ -55,7 +62,6 @@ class PaypalController extends Controller
             ->setPayer($payer)
             ->setRedirectUrls($redirect_urls)
             ->setTransactions(array($transaction));
-
         /** dd($payment->create($this->_api_context));exit; **/
         try {
             $payment->create($this->_api_context);
@@ -83,7 +89,6 @@ class PaypalController extends Controller
         Session::put('error', 'Unknown error occurred');
         return Redirect::to('/');
     }
-
     public
     function getPaymentStatus()
     {
@@ -101,8 +106,7 @@ class PaypalController extends Controller
         /**Execute the payment **/
         $result = $payment->execute($execution, $this->_api_context);
         if ($result->getState() == 'approved') {
-            $this->save();
-            return \redirect()->route('home')->with('success', 'Payment Succeessful');
+            return \redirect()->route('photo')->with('success', 'Payment Succeessful');
         }
         Session::put('error', 'Payment failed');
         return \redirect()->route('home')->with('success', 'Payment Failed');

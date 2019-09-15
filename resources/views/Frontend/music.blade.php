@@ -28,7 +28,7 @@
 
 <div class="app-music">
     <header class="header">
-        <a href="" class="logo">
+        <a href="{{route('index')}}" class="logo">
             <img src="http://www.iconhot.com/icon/png/wood-social-networking/512/blinklist-logo-webtreatsetc.png"
                  alt="">
         </a>
@@ -37,21 +37,21 @@
             <nav>
                 <ul class="nav-list">
 
-                    <li><a class="nav-link" href="Icons/icons.blade.php">Icons</a></li>
+                    <li><a class="nav-link" href="{{route('icons-index')}}">Icons</a></li>
                     <li class="nav-item has-dropdown">
                         <a class="nav-link" href="javascript:void(0)">Photos &nbsp;<i class="icofont-thin-down"></i></a>
                         <div class="nav-dropdown">
                             <ul>
-                                <li><a href="photocreator/index.html">Photo Creator</a></li>
-                                <li><a href="{{route('photo')}}">Photo library</a></li>
+                                <li ><a href="{{route('pixel')}}" >Photo Creator</a></li>
+                                <li ><a href="{{route('photo')}}" >Photo library</a></li>
                             </ul>
                         </div>
                     </li>
                     <li><a class="nav-link" href="">Vectors</a></li>
-                    <li><a class="nav-link" href="">Music</a></li>
+                    <li><a class="nav-link" href="{{route('music')}}">Music</a></li>
                     <li><a class="nav-link" href="videos-page.html">Videos</a></li>
 
-                    <li class="is-pull-right"><a class="nav-link " href="forum-index.html">Forum</a></li>
+                    <li class="is-pull-right"><a class="nav-link " href="{{route('forum-index')}}">Forum</a></li>
                     <li><a class="nav-link" href="">Resources</a></li>
 
                 </ul>
@@ -80,7 +80,8 @@
                         <div id="loginForm" class="toggleform">
                             <div class="title">Login</div>
                             <div class="description">You can use your account to log in to any of our products</div>
-                            <form class="is-big">
+                            <form class="is-big" action="{{route('voyager.login')}}" method="post">
+                                @csrf
                                 <input name="email" placeholder="Email" class="" autocomplete="off">
                                 <input type="password" name="password" placeholder="Password" class=""
                                        autocomplete="off">
@@ -95,7 +96,8 @@
                             <div class="title">Register</div>
                             <div class="description">You can use your Icons8 account to log in to any of our products
                             </div>
-                            <form class="is-big">
+                            <form class="is-big" method="post" action="{{route('register')}}">
+                                @csrf
                                 <input name="email" placeholder="Email" class="" autocomplete="off">
                                 <input type="password" name="password" placeholder="Password" class=""
                                        autocomplete="off">

@@ -10,7 +10,6 @@ use App\Model\Tag;
 use App\Repositories\Contracts\StyleRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\WebmasterSection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
@@ -36,7 +35,6 @@ class IconController extends BackendController
         if ($request->isMethod('post')) {
             $request->validate([
                 'name' => 'required',
-                'parent_id' => 'required',
                 'description' => 'required',
                 'image' => 'required'
             ]);
@@ -70,11 +68,9 @@ class IconController extends BackendController
         if ($request->isMethod('post')) {
             $request->validate([
                 'name' => 'required',
-                'parent_id' => 'required',
                 'description' => 'required',
             ]);
             $data['name'] = $request->name;
-            $data['parent_id'] = $request->parent_id;
             $data['description'] = $request->description;
             $id = $request->id;
             if ($request->hasFile('image')) {
@@ -120,14 +116,11 @@ class IconController extends BackendController
     public function category(Request $request)
     {
         // General for all pages
-
         if ($request->isMethod('get')) {
             $cat = IconCategory::all();
             $this->data('cat', $cat);
 
             return view($this->backendiconPath . 'category', $this->data);
-
-
         }
         if ($request->isMethod('post')) {
             $request->validate([
@@ -213,9 +206,6 @@ class IconController extends BackendController
             $this->data('trend', $trend);
 
             return view($this->backendiconPath . 'trends',  $this->data);
-
-
-
         }
         if ($request->isMethod('post')) {
             $request->validate([

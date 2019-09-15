@@ -236,7 +236,7 @@ class PageController extends Controller
         $this->data('body', $body);
         $spec = SpecialFeature::all();
         $this->data('spec', $spec);
-        $img = Image::orderBy('created_at')->get();
+        $img = Image::where('status', '=', 1)->get();
         $this->data('img', $img);
 
         return view('Frontend.photo', $this->data);

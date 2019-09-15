@@ -22,6 +22,7 @@ Route::group(['namespace' => 'Frontend'], function () {
     Route::get('/pixie-editor/{id?}', 'PageController@editor')->name('editor');
     Route::get('/editor', 'PageController@pixel')->name('pixel');
     Route::get('/my-editor', 'PageController@my_editor')->name('my-editor');
+
     Route::get('/filtered-modal/{id?}', 'PageController@filtered_modal')->name('filtered-modal');
     Route::get('/modal/{id?}', 'PageController@modal')->name('modal');
     Route::any('/search', 'PageController@search_results')->name('search-result');
@@ -31,10 +32,9 @@ Route::group(['namespace' => 'Frontend'], function () {
     Route::post('/photo-filter', 'PageController@photo_filter')->name('photo-filter');
 
     // route for processing payment
-    Route::any('paypal/{amount?}', 'PaymentController@payWithpaypal')->name('paypal');
+    Route::any('paypal/{amount?}', 'PaypalController@payWithpaypal')->name('paypal');
 // route for check status of the payment
-    Route::get('status', 'PaymentController@getPaymentStatus');
-
+    Route::get('status', 'PaypalController@getPaymentStatus');
 
     Route::group(['namespace' => 'Forum'], function () {
         Route::any('/forum', 'ForumController@index')->name('forum-index');
@@ -48,7 +48,7 @@ Route::group(['namespace' => 'Frontend'], function () {
         Route::post('topic-comment', 'TopicCommentController@comment')->name('topic-comment');
         Route::post('like-topic', 'LikeController@like_topic')->name('like-topic');
         Route::post('like-coment', 'LikeController@like_comment')->name('like-comment');
-        ROute::get('forum-autosuggest', 'SearchController@autosuggest')->name('forum-autosuggest');
+        Route::get('forum-autosuggest', 'SearchController@autosuggest')->name('forum-autosuggest');
     });
 
     Route::group(['namespace' => 'Icons'], function () {
@@ -73,7 +73,7 @@ Route::group(['namespace' => 'Backend'], function () {
     });
     Route::Group(['prefix' => 'Icons'], function () {
         Route::any('/icon-category', 'IconController@category')->name('category');
-        Route::any('/icon-tags', 'IconController@icon_tags')->name('icon-tags');
+//        Route::any('/icon-tags', 'IconController@icon_tags')->name('icon-tags');
         Route::any('/icon-trend', 'IconController@icon_trend')->name('icon-trend');
         Route::any('/icon-style', 'IconController@icon_style')->name('icon-style');
         Route::any('/icon-upload', 'IconController@icon_upload')->name('icon-upload');

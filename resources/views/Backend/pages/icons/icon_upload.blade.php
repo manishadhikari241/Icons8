@@ -41,9 +41,9 @@
                                                           name="description"
                                                           class="form-control"></textarea></div>
 
-                                    <div class="box-header with-border">
-                                        <h6 class="box-title">Icon Tags:</h6>
-                                    </div>
+                                    {{--<div class="box-header with-border">--}}
+                                        {{--<h6 class="box-title">Icon Tags:</h6>--}}
+                                    {{--</div>--}}
                                     <!-- /.box-header -->
                                     {{--<div class="box-body">--}}
                                         {{--<div class="form-group mb-none">--}}
