@@ -38,12 +38,28 @@
 </pixie-editor>
 <script src="{{asset('js/Frontend/scripts.min.js')}}"></script>
 
+
+<img id="image" src="{{asset('images/photo_upload/'.$image->first()->image)}}" height="500px" width="600px" style=" display: block;
+    margin-left: auto;
+    margin-right: auto;">
+<hr>
+<button id="button" style=" display: block;
+    margin-left: auto;
+    margin-right: auto;" class="btn-outline-dark">Open Editor</button>
+
 <script>
+
     var pixie = new Pixie({
-    	watermarkText: '',
-    	onLoad: function() {
-    		window.postMessage('pixieLoaded', '*');
-    	},
+        ui: {
+            visible: false,
+            openImageDialog: true,
+            mode: 'overlay',
+        }
+    });
+
+    //open pixie on button click
+    document.querySelector('#button').addEventListener('click', function() {
+        pixie.openEditorWithImage(document.querySelector('#image'));
     });
 </script>
 </body>

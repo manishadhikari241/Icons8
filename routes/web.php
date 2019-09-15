@@ -20,6 +20,8 @@ Route::group(['namespace' => 'Frontend'], function () {
     Route::get('/musics', 'PageController@music')->name('music');
     Route::get('/photos', 'PageController@photo')->name('photo');
     Route::get('/pixie-editor/{id?}', 'PageController@editor')->name('editor');
+    Route::get('/editor', 'PageController@pixel')->name('pixel');
+    Route::get('/my-editor', 'PageController@my_editor')->name('my-editor');
     Route::get('/filtered-modal/{id?}', 'PageController@filtered_modal')->name('filtered-modal');
     Route::get('/modal/{id?}', 'PageController@modal')->name('modal');
     Route::any('/search', 'PageController@search_results')->name('search-result');
@@ -28,8 +30,10 @@ Route::group(['namespace' => 'Frontend'], function () {
     Route::post('/orders', 'PageController@image_orders')->name('photo-order');
     Route::post('/photo-filter', 'PageController@photo_filter')->name('photo-filter');
 
-
-
+    // route for processing payment
+    Route::any('paypal/{amount?}', 'PaymentController@payWithpaypal')->name('paypal');
+// route for check status of the payment
+    Route::get('status', 'PaymentController@getPaymentStatus');
 
 
     Route::group(['namespace' => 'Forum'], function () {

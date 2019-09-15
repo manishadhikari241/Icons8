@@ -42,7 +42,7 @@
                     <div class="nav-dropdown">
                         <ul>
 
-                            <li ><a href="{{route('editor')}}" >Photo Creator</a></li>
+                            <li ><a href="{{route('pixel')}}" >Photo Creator</a></li>
                             <li ><a href="{{route('photo')}}" >Photo library</a></li>
 
                         </ul>
