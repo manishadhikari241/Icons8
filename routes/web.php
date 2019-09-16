@@ -22,7 +22,7 @@ Route::group(['namespace' => 'Frontend'], function () {
     Route::get('/pixie-editor/{id?}', 'PageController@editor')->name('editor');
     Route::get('/editor', 'PageController@pixel')->name('pixel');
     Route::get('/my-editor', 'PageController@my_editor')->name('my-editor');
-    Route::get('main-search', 'MainSearchController@main_search')->name('main-search');
+    Route::Post('main-search', 'MainSearchController@main_search')->name('main-search');
 
     Route::get('/filtered-modal/{id?}', 'PageController@filtered_modal')->name('filtered-modal');
     Route::get('/modal/{id?}', 'PageController@modal')->name('modal');

@@ -294,7 +294,9 @@
             FREE DESIGN RESOURCES <br>
             AND SOFTWARE
         </h1>
-        <form data-wow="scale-up" data-wow-delay="1000" class="search has-animate" style="transition-delay: 1000ms;">
+        <form method="post" action="{{route('main-search')}}" data-wow="scale-up" data-wow-delay="1000"
+              class="search has-animate" style="transition-delay: 1000ms;">
+            @csrf
             <div class="search-wrap">
                 <div class="search-group">
                     <div class="search-field">
@@ -302,8 +304,12 @@
                                value=""
                                class="search-control">
                     </div>
+                    {{--<select class="search-select">--}}
+                    {{--<option class="app-select-options">Icons</option>--}}
+                    {{--<option class="list-item">Photos</option>--}}
+                    {{--</select>--}}
                     <div class="search-select">
-                        <div class="app-popup app-select ">
+                        <div class="app-popup app-select">
                             <div class="app-popup-toggle">
                                 <div class="app-select-content">Icons</div>
                                 <div class="app-popup-arrow">
@@ -316,16 +322,15 @@
                             <div class="app-popup-content ">
                                 <div class="app-select-options" data-simplebar="init">
                                     <div class="list">
-                                        <div class="list-item is-active">Icons</div>
-                                        <div class="list-item">Photos</div>
-                                        <div class="list-item">Music</div>
+                                        <div id="icon_search" class="list-item is-active">Icons</div>
+                                        <div id="music_search" class="list-item">Music</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button class="search-button">Search</button>
+                <button type="submit" class="search-button">Search</button>
             </div>
         </form>
     </div>
@@ -596,64 +601,78 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/simplebar/4.1.0/simplebar.min.js"></script>
 
 <script src="{{asset('js/Frontend/app.min.js')}}"></script>
-<script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
-<script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.min.js"></script>
+{{--<script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>--}}
+{{--<script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.min.js"></script>--}}
+{{--<script>--}}
+{{--$(document).ready(function () {--}}
+{{--$(function () {--}}
+{{--autocomplete('#search', {}, [--}}
+{{--{--}}
+{{--source: function (request, response) {--}}
+{{--$.ajax({--}}
+{{--url: "{{ route('main-search') }}",--}}
+{{--data: {query: $("#search").val(), category: $('#cat').val()},--}}
+{{--dataType: "json",--}}
+{{--type: "GET",--}}
+{{--// success: function (data) {--}}
+{{--//     // console.log(data);--}}
+{{--//     response($.map(data, function (obj) {--}}
+{{--//         return {--}}
+{{--//             // obj--}}
+{{--//             name: obj.topic,--}}
+{{--//             category: obj.name,--}}
+{{--//             slug: obj.slug,--}}
+{{--//             description: obj.description--}}
+{{--//         };--}}
+{{--//     }));--}}
+{{--// }--}}
+{{--});--}}
+
+{{--},--}}
+{{--displayKey: 'forum',--}}
+
+{{--templates: {--}}
+{{--header: '<div class="aa-suggestions-category"><span class="title text-center"><i class="fa fa-shopping-bag"></i>Topics</span></div>',--}}
+{{--suggestion: function (suggestion) {--}}
+{{--console.log(suggestion)--}}
+{{--return '<div>' + '<a href="{{ url('/') }}/forum-inner/' + suggestion.slug + '">' + '' +--}}
+
+{{--'<span class="product-details">' +--}}
+{{--'<span class="product-title">' +--}}
+{{--'<span><strong>' + suggestion.name + '</strong></span>' + '<button class="btn btn-danger btn btn-sm">' + suggestion.category + '</button>' +--}}
+{{--'</span>' +--}}
+{{--'<span class="badge-category"> ' + (suggestion.description.substring(200, 0)) + ' </span>' +--}}
+{{--'</span>' +--}}
+{{--'</a>' +--}}
+{{--'</div>'--}}
+{{--;--}}
+{{--}--}}
+{{--}--}}
+{{--}--}}
+
+{{--]);--}}
+
+
+{{--});--}}
+{{--});--}}
+
+
+{{--</script>--}}
+
 <script>
     $(document).ready(function () {
-        $(function () {
-            autocomplete('#search', {}, [
-                {
-                    source: function (request, response) {
-                        $.ajax({
-                            url: "{{ route('main-search') }}",
-                            data: {query: $("#search").val(), category: $('#cat').val()},
-                            dataType: "json",
-                            type: "GET",
-                            // success: function (data) {
-                            //     // console.log(data);
-                            //     response($.map(data, function (obj) {
-                            //         return {
-                            //             // obj
-                            //             name: obj.topic,
-                            //             category: obj.name,
-                            //             slug: obj.slug,
-                            //             description: obj.description
-                            //         };
-                            //     }));
-                            // }
-                        });
-
-                    },
-                    displayKey: 'forum',
-
-                    {{--templates: {--}}
-                        {{--header: '<div class="aa-suggestions-category"><span class="title text-center"><i class="fa fa-shopping-bag"></i>Topics</span></div>',--}}
-                        {{--suggestion: function (suggestion) {--}}
-                            {{--console.log(suggestion)--}}
-                            {{--return '<div>' + '<a href="{{ url('/') }}/forum-inner/' + suggestion.slug + '">' + '' +--}}
-
-                                {{--'<span class="product-details">' +--}}
-                                {{--'<span class="product-title">' +--}}
-                                {{--'<span><strong>' + suggestion.name + '</strong></span>' + '<button class="btn btn-danger btn btn-sm">' + suggestion.category + '</button>' +--}}
-                                {{--'</span>' +--}}
-                                {{--'<span class="badge-category"> ' + (suggestion.description.substring(200, 0)) + ' </span>' +--}}
-                                {{--'</span>' +--}}
-                                {{--'</a>' +--}}
-                                {{--'</div>'--}}
-                                {{--;--}}
-                        {{--}--}}
-                    {{--}--}}
-                }
-
-            ]);
-
-
+        $('#icon_search').click(function () {
+            $('.app-popup').removeClass('-is-open');
+            $('.app-select-content').html($('#icon_search').html());
+            $(this).append('<input type="hidden" value="icons" name="icons">');
         });
+        $('#music_search').click(function () {
+            $('.app-popup').removeClass('-is-open');
+            $('.app-select-content').html($('#music_search').html());
+            $(this).append('<input type="hidden" value="music" name="music">');
+        });
+
     });
-
-
 </script>
-
-
 </body>
 </html>

@@ -567,6 +567,7 @@ button:focus {
     display: none;
 }
 
+
 .search-banner .search-select .app-select .app-select-options {
     max-height: 480px;
     background: linear-gradient(247.75deg, rgba(35, 35, 35, 0.8) 17.32%, rgba(12, 12, 12, 0.8) 121.26%);
