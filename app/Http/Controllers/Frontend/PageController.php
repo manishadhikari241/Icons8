@@ -9,6 +9,7 @@ use App\Model\Genre;
 
 use App\Model\IconCategory;
 use App\Model\Hair;
+use App\Model\IconUpload;
 use App\Model\Image;
 use App\Model\ImageCategory;
 use App\Model\Mood;
@@ -18,6 +19,7 @@ use App\Model\Race;
 use App\Model\SpecialFeature;
 use App\Model\Tag;
 use App\Model\Theme;
+use Hamcrest\Thingy;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -32,8 +34,9 @@ class PageController extends Controller
     {
         if ($request->isMethod('get')) {
             $category = IconCategory::all();
+            $allicon = IconUpload::all();
             $this->data('icon_category', $category);
-            return view('Frontend.index', $this->data);
+            return view('Frontend.index', $this->data, compact('allicon'));
         }
         return false;
     }
