@@ -22,11 +22,12 @@ Route::group(['namespace' => 'Frontend'], function () {
     Route::get('/pixie-editor/{id?}', 'PageController@editor')->name('editor');
     Route::get('/editor', 'PageController@pixel')->name('pixel');
     Route::get('/my-editor', 'PageController@my_editor')->name('my-editor');
+    Route::get('main-search', 'MainSearchController@main_search')->name('main-search');
 
     Route::get('/filtered-modal/{id?}', 'PageController@filtered_modal')->name('filtered-modal');
     Route::get('/modal/{id?}', 'PageController@modal')->name('modal');
     Route::any('/search', 'PageController@search_results')->name('search-result');
-    Route::get( '/download/{id}', 'PageController@download')->name('download');
+    Route::get('/download/{id}', 'PageController@download')->name('download');
 
     Route::post('/orders', 'PageController@image_orders')->name('photo-order');
     Route::post('/photo-filter', 'PageController@photo_filter')->name('photo-filter');
@@ -57,8 +58,8 @@ Route::group(['namespace' => 'Frontend'], function () {
         Route::get('category-click-icons', 'IconsController@category_click_icons')->name('category-click-icons');
         Route::post('add-to-collection-icons', 'CartControllerIcons@add_to_collection_icons')->name('add-to-collection-icons');
         Route::get('trend-filter', 'IconsController@trend_filter')->name('trend-filter');
-        Route::get('icons-search','IconSearchController@autocomplete')->name('icons-search');
-        Route::get('pack-page/{category_slug}','IconsController@pack_page')->name('pack-page');
+        Route::get('icons-search', 'IconSearchController@autocomplete')->name('icons-search');
+        Route::get('pack-page/{category_slug}', 'IconsController@pack_page')->name('pack-page');
     });
 });
 
@@ -155,7 +156,7 @@ Route::group(['namespace' => 'Backend'], function () {
         Route::any('/show-order', 'ImageController@show_order')->name('show-order');
         Route::any('image-log', 'ImageController@image_log')->name('image-log');
         Route::any('/invoice/{id?}', 'ImageController@order_invoice')->name('invoice');
-        Route::get('/generate-pdf/{id?}','ImageController@generate_PDF')->name('pdf');
+        Route::get('/generate-pdf/{id?}', 'ImageController@generate_PDF')->name('pdf');
 
 
     });
