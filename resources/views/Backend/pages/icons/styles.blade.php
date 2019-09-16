@@ -28,9 +28,10 @@
                                     </div>
 
                                     <div class="form-group mb-none">
+                                        <label for="name" class="control-label">Select Parent Category</label>
                                         <select name="parent_id" id="parent" class="form-control select2">
-                                            <option value="0">Select Parent Category</option>
-                                            @foreach($styles as $value)
+                                        @foreach($styles as $value)
+                                            <option selected value="0">-Please select--</option>
                                                 <option value="{{$value->id}}">{{$value->name}}</option>
                                                 @include('Backend.pages.icons.category_dropdown',['category'=>$value])
                                             @endforeach

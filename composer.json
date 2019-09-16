@@ -17,6 +17,7 @@
         "laravel/tinker": "^1.0",
         "nesbot/carbon": "^1.23",
         "ozankurt/repoist": "^3.1",
+        "paypal/rest-api-sdk-php": "^1.14",
         "spatie/laravel-sluggable": "^2.1",
         "tcg/voyager": "^1.2",
         "weboap/visitor": "^2.0"

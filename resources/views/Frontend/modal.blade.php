@@ -6,7 +6,7 @@
                     <div class="photo-img" style="min-width: 280px; max-width: calc((600px - 10%) * 1.50015);">
                         <div class="image-container" style="padding-bottom: 66.66%;">
                             <img
-                                    src="{{asset('images/photo_upload/'.$image->image)}}"
+                                    id="image"  src="{{asset('images/photo_upload/'.$image->image)}}"
                                     alt="The art of teaching ballet">
                         </div>
                     </div>
@@ -27,26 +27,37 @@
                             </div>
                         </div>
                     @elseif($image->image_type==1)
-                        <div class="premium photo-controls">
-                            @if(\Illuminate\Support\Facades\Auth::check())
-                                <a href="javascript:void(0)"  class="order_click btn is-download" data-id="{{$image->id}}" data-toggle="modal">Order Now @
-                                    <span class="btn-icon">
+                        <form method="post" action="{{route('paypal')}}">
+                            @csrf
+                            <div class="premium photo-controls">
+                                @if(\Illuminate\Support\Facades\Auth::check())
+                                    <a href="javascript:void(0)" class="order_click btn is-download"
+                                       data-id="{{$image->id}}" data-toggle="modal">Order Now @
+                                        <span class="btn-icon">
                                     <i class="icofont-dollar">{{$image->cost}}</i>
                                 </span>
 
-                                </a>
-                            @else
-                                <a data-dismiss="modal" onclick="$('#loginModal').modal('show');" href=""
-                                   class="btn is-download" data-toggle="modal" data-target="#loginModal" >Order Now</a>
-                            @endif
+                                    </a>
+                                @else
+                                    <a data-dismiss="modal" onclick="$('#loginModal').modal('show');" href=""
+                                       class="btn is-download" data-toggle="modal" data-target="#loginModal">Order
+                                        Now</a>
+                                @endif
 
-                            <div class="btn is-like">
+                                <div class="btn is-like">
                                 <span class="btn-icon">
                                     <i class="icofont-heart"></i>
                                 </span>
-                                <a href="{{route('editor',$image->id)}}">Recompose</a>
+                                    <a id="button" href="{{route('editor',$image->id)}}">Recompose</a>
+                                </div>
+
+                                <button name="amount" value="{{$image->cost}}" type="submit" class="btn btn-primary">Pay
+                                    with PayPal
+                                </button>
+
                             </div>
-                        </div>
+                        </form>
+
                     @endif
                     <div class="photo-details">
                         <div class="details is-expand">
@@ -95,33 +106,34 @@
 
             <div class="masonry">
                 @foreach($img->split(5) as $item)
-                <div class="column">
-                    @foreach($item as $value)
-                        <div class="display card"
-                             data-id="{{$value->id}}">
-                            <a href="" class="card-link"></a>
-                            <div class="card-image">
-                                <img src="{{asset('images/photo_upload/'.$value->image)}}"
-                                     alt="{!! $value->description  !!}">
-                                <div class="card-control">
-                                    <a href="" class="card-edit">Recompose</a>
-                                    <button class="card-like">
+                    <div class="column">
+                        @foreach($item as $value)
+                            <div class="display card"
+                                 data-id="{{$value->id}}">
+                                <a href="" class="card-link"></a>
+                                <div class="card-image">
+                                    <img src="{{asset('images/photo_upload/'.$value->image)}}"
+                                         alt="{!! $value->description  !!}">
+                                    <div class="card-control">
+                                        <a href="" class="card-edit">Recompose</a>
+                                        <button class="card-like">
                                     <span class="card-like-icon">
                                         <svg width="100%" height="100%"><use xlink:href="#heart"></use></svg>
                                     </span>
-                                        <span class="card-like-value">2</span>
-                                    </button>
+                                            <span class="card-like-value">2</span>
+                                        </button>
+                                    </div>
                                 </div>
+                                <div class="card-caption">{{$value->title}} </div>
                             </div>
-                            <div class="card-caption">{{$value->title}} </div>
-                        </div>
-                    @endforeach
-                </div>
-                    @endforeach
+                        @endforeach
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>
 </div>
+
 <script src="{{asset('js/toastr.min.js')}}"></script>
 
 <script>
@@ -143,20 +155,49 @@
 <script>
     $(document).ready(function () {
         $('.order_click').click(function () {
-            var id=$(this).attr('data-id');
-            if (confirm('Confirm order?')){
+            var id = $(this).attr('data-id');
+            if (confirm('Confirm order?')) {
                 $.ajax({
+                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    url: "{{route('photo-order')}}",
+                    type: "POST",
+                    data: {
+                        order_id: id
+                    },
+                    success: function (response) {
+                        toastr.success(response.message);
+                    }
+                });
+            }
+        });
+        $('.paypal').click(function () {
+            var paypal = $(this).attr('data-id');
+            console.log(paypal);
+            $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                url: "{{route('photo-order')}}",
+                url: "{{route('paypal')}}",
                 type: "POST",
                 data: {
-                    order_id:id
+                    amount: paypal
                 },
-                  success:function (response) {
-                      toastr.success(response.message);
-                  }
-            });}
-        });
-
+                success: function (response) {
+                    console.log(response);
+                    toastr.success(response.message);
+                }
+            });
+        })
+    });
+</script>
+<script>
+    var pixie = new Pixie({
+        ui: {
+            visible: false,
+            openImageDialog: true,
+            mode: 'overlay',
+        }
+    });
+    //open pixie on button click
+    document.querySelector('#button').addEventListener('click', function() {
+        pixie.openEditorWithImage(document.querySelector('#image'));
     });
 </script>
