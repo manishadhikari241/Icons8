@@ -13,7 +13,9 @@ use App\Model\Image;
 use App\Model\ImageCategory;
 use App\Model\Mood;
 use App\Model\Music;
+use App\Model\MusicSlider;
 use App\Model\Order;
+use App\Model\PhotoSlider;
 use App\Model\Race;
 use App\Model\SpecialFeature;
 use App\Model\Tag;
@@ -130,6 +132,8 @@ class PageController extends Controller
         $this->data('mood', $mood);
         $gen = Genre::all();
         $this->data('genre', $gen);
+        $slide=MusicSlider::all();
+        $this->data('slide',$slide);
         return view('Frontend.music', $this->data);
     }
 
@@ -238,6 +242,8 @@ class PageController extends Controller
         $this->data('spec', $spec);
         $img = Image::where('status', '=', 1)->get();
         $this->data('img', $img);
+        $slide=PhotoSlider::all();
+        $this->data('slide',$slide);
 
         return view('Frontend.photo', $this->data);
 
@@ -260,6 +266,17 @@ class PageController extends Controller
             'Content-Type:image/jpeg',
         );
         return response()->download($path, $img
+            ->original_filename, $headers);
+    }
+
+    public function music_download($id)
+    {
+       $mus=Music::where('id',$id)->firstorFail();
+        $path = public_path('music/' . $mus->audio);
+        $headers = array(
+            'Content-Type:audio/mp3',
+        );
+        return response()->download($path, $mus
             ->original_filename, $headers);
     }
 

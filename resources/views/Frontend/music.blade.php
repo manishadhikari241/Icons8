@@ -19,6 +19,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplebar/4.1.0/simplebar.min.css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css">
+
+
 
     <link rel="stylesheet" href="{{url('css/Frontend/icofont/icofont.min.css')}}">
     <link rel="stylesheet" href="{{url('css/Frontend/style.css')}}">
@@ -42,8 +47,8 @@
                         <a class="nav-link" href="javascript:void(0)">Photos &nbsp;<i class="icofont-thin-down"></i></a>
                         <div class="nav-dropdown">
                             <ul>
-                                <li ><a href="{{route('pixel')}}" >Photo Creator</a></li>
-                                <li ><a href="{{route('photo')}}" >Photo library</a></li>
+                                <li><a href="{{route('pixel')}}">Photo Creator</a></li>
+                                <li><a href="{{route('photo')}}">Photo library</a></li>
                             </ul>
                         </div>
                     </li>
@@ -123,7 +128,7 @@
         <div class="jumbotrons-container">
             <div class="jumbotrons-head">
                 <div class="jumbotrons-preview">
-                    <img src="https://icons8.com/vue-static/music/images/jumbotron-preview.png"
+                    <img src="{{asset('images/sliders/'.$slide->last()->music_slider)}}"
                          alt="Music for your videos. Free." class="jumbotrons-preview-image">
                 </div>
                 <h1 class="jumbotrons-title">Music for<br>your videos.<br>Free.</h1>
@@ -147,7 +152,6 @@
                                 <i class="icofont-search"></i>
                             </div>
                             <form>
-
                                 <label>
                                     <button id="search_btn" type="submit" class="uk-search-icon-flip" uk-search-icon
                                             style="top:0;"></button>
@@ -269,13 +273,14 @@
 
                                                     </div>
                                                     <div class="tracks-item-col tracks-item-download">
-                                                        <button type="button" class="tracks-item-download-btn">
+                                                        <a href="{{route('music-download',$value->id)}}" class="tracks-item-download-btn">
                                                     <span class="icon-download">
                                                         <svg width="100%" height="100%"><use
                                                                     xlink:href="#arrowDownload"></use></svg>
                                                     </span>
-                                                        </button>
+                                                        </a>
                                                     </div>
+
                                                     <div class="tracks-item-col tracks-item-tags">
                                                         @if($value->tags != null)
                                                             @foreach($value->tags->slice(0,2) as $tag)
@@ -413,7 +418,8 @@
         crossorigin="anonymous"></script>
 
 <!-- wow js -->
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/simplebar/4.1.0/simplebar.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/simplebar/4.1.0/simplebar.min.js"></script>
 
@@ -431,7 +437,7 @@
                 url: "{{route('search-result')}}",
                 type: 'POST',
                 data: {
-                    search:search
+                    search: search
                 },
                 success: function (result) {
                     $('#filter_id').replaceWith($('#filter_id')).html(result);

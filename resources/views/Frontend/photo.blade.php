@@ -20,6 +20,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplebar/4.1.0/simplebar.min.css">
     <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css">
+
 
     <link rel="stylesheet" href="{{url('css/Frontend/icofont/icofont.min.css')}}">
     <link rel="stylesheet" href="{{url('css/Frontend/style.css')}}">
@@ -34,9 +38,38 @@
             <img src="http://www.iconhot.com/icon/png/wood-social-networking/512/blinklist-logo-webtreatsetc.png"
                  alt="">
         </a>
+        <div class="main-nav container">
+            <nav>
+                <ul class="nav-list">
+
+                    <li><a class="nav-link" href="{{route('icons-index')}}">Icons</a></li>
+                    <li class="nav-item has-dropdown">
+                        <a class="nav-link" href="javascript:void(0)">Photos &nbsp;<i class="icofont-thin-down"></i></a>
+                        <div class="nav-dropdown">
+                            <ul>
+
+                                <li><a href="{{route('pixel')}}">Photo Creator</a></li>
+                                <li><a href="{{route('photo')}}">Photo library</a></li>
+
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a class="nav-link" href="">Vectors</a></li>
+                    <li><a class="nav-link" href="{{route('music')}}">Music</a></li>
+                    <li><a class="nav-link" href="videos-page.html">Videos</a></li>
+
+                    <li class="is-pull-right"><a class="nav-link " href="{{route('forum-index')}}">Forum</a></li>
+                    <li><a class="nav-link" href="">Resources</a></li>
+
+
+                </ul>
+            </nav>
+            <div class="gamburg">
+                <button class="gamburg-btn"></button>
+            </div>
+        </div>
 
         @if(\Illuminate\Support\Facades\Auth::check())
-
             <ul class="nav-actions">
                 <li class="has-auth"><a
                             href="{{route('voyager.dashboard')}}">{{\Illuminate\Support\Facades\Auth::user()->name}}</a>
@@ -56,9 +89,19 @@
         @else
             <ul class="nav-actions">
                 <li class="has-auth"><a href="" data-toggle="modal" data-target="#loginModal">Login</a></li>
+
             </ul>
         @endif
     </header>
+        <div class="interactive-sliders">
+            <div class="photobanner-slider owl-carousel">
+                @foreach($slide as $value)
+                <div class="item">
+                    <img src="{{asset('images/sliders/'.$value->photo_slider)}}" alt="">
+                </div>
+                @endforeach
+            </div>
+        </div>
     <div class="modal fade app-modal" id="loginModal" tabindex="-1" role="dialog"
          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -117,12 +160,12 @@
 
     <div class="photo-categories-page">
         <div class="categories">
-
             <div class="categories-wrap">
                 <div class="categories-list" style="padding-bottom: 17px;">
                     @foreach($cat as $value)
-                        <div class="bar categories-item"><a  data-id="{{$value->id}}" class="categories-link is-active">{{$value->title}}</a>
-                        <input type="checkbox" id="cat" class="cart" name="id" value="{{$value->id}}"></div>
+                        <div class="bar categories-item"><a data-id="{{$value->id}}"
+                                                            class="categories-link is-active">{{$value->title}}</a>
+                            <input type="checkbox" id="cat" class="cart" name="id" value="{{$value->id}}"></div>
                     @endforeach
 
                 </div>
@@ -369,6 +412,10 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/simplebar/4.1.0/simplebar.min.js"></script>
 
+<!-- Owl carousel -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/simplebar/4.1.0/simplebar.min.js"></script>
+
 <script src="{{asset('js/Frontend/app.min.js')}}"></script>
 
 <script src="{{asset('js/toastr.min.js')}}"></script>
@@ -448,19 +495,19 @@
                 }
             });
         });
-        $("input[type='checkbox']").click(function (){
-           var cat=$("input.cart[type='checkbox']:checked").val();
-           console.log(cat);
-           $.ajax({
-               url:document.URL,
-               type:'get',
-               data:{
-                   category_id:cat
-               },
-               success: function (result) {
-                   $('#filter_id').replaceWith($('#filter_id')).html(result);
-               }
-           });
+        $("input[type='checkbox']").click(function () {
+            var cat = $("input.cart[type='checkbox']:checked").val();
+            console.log(cat);
+            $.ajax({
+                url: document.URL,
+                type: 'get',
+                data: {
+                    category_id: cat
+                },
+                success: function (result) {
+                    $('#filter_id').replaceWith($('#filter_id')).html(result);
+                }
+            });
         });
 
         $("input[type='radio']").click(function () {

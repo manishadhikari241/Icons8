@@ -24,7 +24,8 @@ Route::group(['namespace' => 'Frontend'], function () {
     Route::get('/filtered-modal/{id?}', 'PageController@filtered_modal')->name('filtered-modal');
     Route::get('/modal/{id?}', 'PageController@modal')->name('modal');
     Route::any('/search', 'PageController@search_results')->name('search-result');
-    Route::get( '/download/{id}', 'PageController@download')->name('download');
+    Route::get( '/download/{id}', 'PageController@download')->name('photo-download');
+    Route::get( '/music-download/{id}', 'PageController@music_download')->name('music-download');
 
     Route::post('/orders', 'PageController@image_orders')->name('photo-order');
     Route::post('/photo-filter', 'PageController@photo_filter')->name('photo-filter');
@@ -106,6 +107,11 @@ Route::group(['namespace' => 'Backend'], function () {
         Route::any('edit-music-upload/{id?}', 'MusicController@edit_music')->name('edit-music');
         Route::any('delete-music-upload/{id?}', 'MusicController@delete_music')->name('delete-music');
         Route::any('/show-music', 'MusicController@show_music')->name('show-music');
+        Route::any('/music-slider', 'MusicController@music_slider')->name('music-slider');
+        Route::any('edit-slider/{id?}', 'MusicController@edit_slide')->name('slide-edit');
+        Route::any('delete-slider/{id?}', 'MusicController@slider_delete')->name('slide-delete');
+        Route::any('music_download/{id?}', 'MusicController@music_download')->name('music_download');
+
     });
     Route::Group(['prefix' => 'Photos'], function () {
         Route::any('/image-categories', 'ImageController@categories')->name('categories');
@@ -152,9 +158,12 @@ Route::group(['namespace' => 'Backend'], function () {
         Route::get('/order-download/{id}', 'ImageController@order_download')->name('order-download');
         Route::get('/upload-delete/{id}', 'ImageController@upload_delete')->name('upload-delete');
         Route::any('/show-order', 'ImageController@show_order')->name('show-order');
+        Route::any('/sliders', 'ImageController@sliders')->name('sliders');
         Route::any('image-log', 'ImageController@image_log')->name('image-log');
         Route::any('/invoice/{id?}', 'ImageController@order_invoice')->name('invoice');
         Route::get('/generate-pdf/{id?}','ImageController@generate_PDF')->name('pdf');
+        Route::any('edit-slide/{id?}', 'ImageController@edit_slide')->name('slider-edit');
+        Route::any('delete-slide/{id?}', 'ImageController@slider_delete')->name('slider-delete');
 
 
     });

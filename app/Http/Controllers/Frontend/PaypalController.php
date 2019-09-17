@@ -38,10 +38,6 @@ class PaypalController extends Controller
 
     public function payWithpaypal(Request $request)
     {
-        if (!Auth::check()) {
-            return response()->json(['status' => 'error', 'message' => 'Please login first']);
-        }
-
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');
         $item_1 = new Item();
