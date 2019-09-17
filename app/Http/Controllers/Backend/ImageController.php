@@ -695,6 +695,7 @@ class ImageController extends BackendController
             $order = Order::all();
             $this->data('order', $order);
             $user = User::where('role_id', '!=', 2)->get();
+
             $this->data('users', $user);
             return view($this->backendimagePath . 'latest_orders', $this->data);
         }
