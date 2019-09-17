@@ -206,11 +206,9 @@
                 }
             });
         })
-
     });
 </script>
 <script>
-
     var pixie = new Pixie({
         ui: {
             visible: false,
@@ -218,7 +216,6 @@
             mode: 'overlay',
         }
     });
-
     //open pixie on button click
     document.querySelector('#button').addEventListener('click', function () {
         pixie.openEditorWithImage(document.querySelector('#image'));

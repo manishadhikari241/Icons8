@@ -21,6 +21,9 @@ Route::group(['namespace' => 'Frontend'], function () {
     Route::get('/photos', 'PageController@photo')->name('photo');
     Route::get('/pixie-editor/{id?}', 'PageController@editor')->name('editor');
     Route::get('/editor', 'PageController@pixel')->name('pixel');
+    Route::get('/my-editor', 'PageController@my_editor')->name('my-editor');
+    Route::get('main-search', 'MainSearchController@main_search')->name('main-search');
+
     Route::get('/filtered-modal/{id?}', 'PageController@filtered_modal')->name('filtered-modal');
     Route::get('/modal/{id?}', 'PageController@modal')->name('modal');
     Route::any('/search', 'PageController@search_results')->name('search-result');
@@ -34,7 +37,6 @@ Route::group(['namespace' => 'Frontend'], function () {
     Route::any('paypal/{amount?}', 'PaypalController@payWithpaypal')->name('paypal');
 // route for check status of the payment
     Route::get('status', 'PaypalController@getPaymentStatus');
-
 
     Route::group(['namespace' => 'Forum'], function () {
         Route::any('/forum', 'ForumController@index')->name('forum-index');
@@ -57,8 +59,8 @@ Route::group(['namespace' => 'Frontend'], function () {
         Route::get('category-click-icons', 'IconsController@category_click_icons')->name('category-click-icons');
         Route::post('add-to-collection-icons', 'CartControllerIcons@add_to_collection_icons')->name('add-to-collection-icons');
         Route::get('trend-filter', 'IconsController@trend_filter')->name('trend-filter');
-        Route::get('icons-search','IconSearchController@autocomplete')->name('icons-search');
-        Route::get('pack-page/{category_slug}','IconsController@pack_page')->name('pack-page');
+        Route::get('icons-search', 'IconSearchController@autocomplete')->name('icons-search');
+        Route::get('pack-page/{category_slug}', 'IconsController@pack_page')->name('pack-page');
     });
 });
 
@@ -164,7 +166,6 @@ Route::group(['namespace' => 'Backend'], function () {
         Route::get('/generate-pdf/{id?}','ImageController@generate_PDF')->name('pdf');
         Route::any('edit-slide/{id?}', 'ImageController@edit_slide')->name('slider-edit');
         Route::any('delete-slide/{id?}', 'ImageController@slider_delete')->name('slider-delete');
-
 
     });
 });

@@ -328,6 +328,11 @@ class PageController extends Controller
 
     }
 
+    public function my_editor()
+    {
+        return view('Frontend.myeditor', $this->data);
+
+    }
 }
 
 

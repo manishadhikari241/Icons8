@@ -65,6 +65,9 @@
     {{--});--}}
 {{--</script>--}}
 
+
+
+
 <img id="image" src="{{asset('images/photo_upload/'.$image->first()->image)}}" height="500px" width="600px" style=" display: block;
     margin-left: auto;
     margin-right: auto;">

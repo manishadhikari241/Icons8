@@ -3,6 +3,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @stop
 
+
 @section('content')
     <div class="container">
         <form method="post" class="form-group" action="{{route('edit-icon-style')}}" enctype="multipart/form-data">
@@ -61,7 +62,7 @@
                     </div>
                 </div>
 
-
+            </div>
                 <!-- /.box -->
         </form>
     </div>

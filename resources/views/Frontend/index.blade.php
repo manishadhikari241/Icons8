@@ -26,6 +26,170 @@
     <link rel="stylesheet" href="{{asset('css/Frontend/icofont/icofont.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/Frontend/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/Frontend/responsive.css')}}">
+    <style>
+        .algolia-autocomplete {
+            display: flex !important;
+            width: 100% !important;
+        }
+
+        .aa-input {
+            display: block;
+
+        }
+
+        .aa-input-container {
+            display: inline-block;
+            position: relative;
+        }
+
+        .aa-input-search {
+            width: 300px;
+            padding: 12px 28px 12px 12px;
+            border: 1px solid #e4e4e4;
+            box-sizing: border-box;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        .aa-input-search::-webkit-search-decoration, .aa-input-search::-webkit-search-cancel-button,
+        .aa-input-search::-webkit-search-results-button, .aa-input-search::-webkit-search-results-decoration {
+            display: none;
+        }
+
+        .aa-input-icon {
+            height: 16px;
+            width: 16px;
+            position: absolute;
+            top: 50%;
+            right: 16px;
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+            fill: #e4e4e4;
+            pointer-events: none;
+        }
+
+        .aa-dropdown-menu {
+            background-color: #fff;
+            border: 1px solid rgba(168, 168, 168, 0.6);
+            width: 100%;
+            margin-top: 10px;
+            box-sizing: border-box;
+        }
+
+        .aa-dropdown-menu .search-cat {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #000;
+            float: left;
+            display: inline;
+            width: 70%;
+        }
+
+        .aa-dropdown-menu .search-cat .searchTerm {
+            font-weight: 700;
+            color: #000;
+            padding-right: 10px;
+        }
+
+        .aa-dropdown-menu .search-cat .in {
+            padding-right: 10px;
+        }
+
+        .aa-dropdown-menu .search-cat .searchCategory {
+            /*padding-left:10px;*/
+        }
+
+        .aa-dropdown-menu .total {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 30%;
+            float: right;
+            display: inline;
+            font-size: 14px;
+            color: gray;
+            text-align: right;
+        }
+
+        .aa-dropdown-menu span {
+            display: inline;
+        }
+
+        .aa-dropdown-menu .total .count {
+            color: #000;
+            padding: 20px;
+        }
+
+        .aa-dropdown-menu .product-image {
+            padding-right: 10px;
+            width: 60px;
+            display: table-cell;
+
+        }
+
+        .aa-dropdown-menu .product-image img {
+            width: 80px;
+            max-width: 80px;
+            max-height: 62px;
+        }
+
+        .aa-dropdown-menu .product-details {
+            padding-top: 10px;
+            display: table-cell;
+            width: 99%;
+            vertical-align: top;
+        }
+
+        .aa-dropdown-menu .product-details .product-title {
+            display: block;
+            color: gray;
+            direction: ltr;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .aa-dropdown-menu .product-details .product-title .description {
+            padding-left: 10px;
+        }
+
+        .aa-dropdown-menu .product-details .product-title > span:first-child {
+            float: left;
+            padding-right: 5px;
+        }
+
+        .aa-dropdown-menu .product-details .product-price {
+            color: #da061c;
+        }
+
+        .aa-suggestion {
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+
+        .aa-suggestions-category {
+            border-bottom: 1px solid rgba(228, 228, 228, 0.6);
+            border-top: 1px solid rgba(228, 228, 228, 0.6);
+            padding: 6px 12px;
+        }
+
+        .aa-dropdown-menu > div {
+            display: inline-block;
+            width: 100%;
+            vertical-align: top;
+        }
+
+        .aa-empty {
+            padding: 6px 12px;
+        }
+
+        .aa-hint {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 
 </head>
 <body>
@@ -46,8 +210,8 @@
                     <div class="nav-dropdown">
                         <ul>
 
-                            <li ><a href="{{route('pixel')}}" >Photo Creator</a></li>
-                            <li ><a href="{{route('photo')}}" >Photo library</a></li>
+                            <li><a href="{{route('pixel')}}">Photo Creator</a></li>
+                            <li><a href="{{route('photo')}}">Photo library</a></li>
 
                         </ul>
                     </div>
@@ -94,7 +258,6 @@
                                    autocomplete="off">
 
 
-
                             <button type="submit" class="submit-button">Login</button>
                         </form>
                         <a href="" class="reset-password">Forgot password?</a>
@@ -139,7 +302,8 @@
             <div class="search-wrap">
                 <div class="search-group">
                     <div class="search-field">
-                        <input type="text" placeholder="Search icons" id="search" autocomplete="off" value=""
+                        <input name="search" type="text" placeholder="Search icons" id="search" autocomplete="off"
+                               value=""
                                class="search-control">
                     </div>
                     <div class="search-select">
@@ -186,7 +350,9 @@
             </button>
             <div class="app-tabs-header" style="padding-bottom: 20px;">
                 @foreach($icon_category as $value)
-                    <a href=""><div class="app-tabs-item is-active">{{$value->title}} </div></a>
+                    <a href="">
+                        <div class="app-tabs-item is-active">{{$value->title}} </div>
+                    </a>
                 @endforeach
 
             </div>
@@ -435,6 +601,64 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/simplebar/4.1.0/simplebar.min.js"></script>
 
 <script src="{{asset('js/Frontend/app.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+<script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(function () {
+            autocomplete('#search', {}, [
+                {
+                    source: function (request, response) {
+                        $.ajax({
+                            url: "{{ route('main-search') }}",
+                            data: {query: $("#search").val(), category: $('#cat').val()},
+                            dataType: "json",
+                            type: "GET",
+                            // success: function (data) {
+                            //     // console.log(data);
+                            //     response($.map(data, function (obj) {
+                            //         return {
+                            //             // obj
+                            //             name: obj.topic,
+                            //             category: obj.name,
+                            //             slug: obj.slug,
+                            //             description: obj.description
+                            //         };
+                            //     }));
+                            // }
+                        });
+
+                    },
+                    displayKey: 'forum',
+
+                    {{--templates: {--}}
+                        {{--header: '<div class="aa-suggestions-category"><span class="title text-center"><i class="fa fa-shopping-bag"></i>Topics</span></div>',--}}
+                        {{--suggestion: function (suggestion) {--}}
+                            {{--console.log(suggestion)--}}
+                            {{--return '<div>' + '<a href="{{ url('/') }}/forum-inner/' + suggestion.slug + '">' + '' +--}}
+
+                                {{--'<span class="product-details">' +--}}
+                                {{--'<span class="product-title">' +--}}
+                                {{--'<span><strong>' + suggestion.name + '</strong></span>' + '<button class="btn btn-danger btn btn-sm">' + suggestion.category + '</button>' +--}}
+                                {{--'</span>' +--}}
+                                {{--'<span class="badge-category"> ' + (suggestion.description.substring(200, 0)) + ' </span>' +--}}
+                                {{--'</span>' +--}}
+                                {{--'</a>' +--}}
+                                {{--'</div>'--}}
+                                {{--;--}}
+                        {{--}--}}
+                    {{--}--}}
+                }
+
+            ]);
+
+
+        });
+    });
+
+
+</script>
+
 
 </body>
 </html>
