@@ -336,6 +336,16 @@ class PageController extends Controller
         return view('Frontend.myeditor', $this->data);
 
     }
+
+    public function vector()
+    {
+         return view('Frontend.vector');
+    }
+
+    public function video()
+    {
+     return view('Frontend.video');
+    }
 }
 
 

@@ -52,9 +52,9 @@
                             </ul>
                         </div>
                     </li>
-                    <li><a class="nav-link" href="">Vectors</a></li>
+                    <li><a class="nav-link" href="{{route('vector')}}">Vectors</a></li>
                     <li><a class="nav-link" href="{{route('music')}}">Music</a></li>
-                    <li><a class="nav-link" href="videos-page.html">Videos</a></li>
+                    <li><a class="nav-link" href="{{route('video')}}">Videos</a></li>
 
                     <li class="is-pull-right"><a class="nav-link " href="{{route('forum-index')}}">Forum</a></li>
                     <li><a class="nav-link" href="">Resources</a></li>

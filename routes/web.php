@@ -19,6 +19,8 @@ Route::group(['namespace' => 'Frontend'], function () {
     Route::get('/', 'PageController@index')->name('index');
     Route::get('/musics', 'PageController@music')->name('music');
     Route::get('/photos', 'PageController@photo')->name('photo');
+    Route::get('/vectors', 'PageController@vector')->name('vector');
+    Route::get('/videos', 'PageController@video')->name('video');
     Route::get('/pixie-editor/{id?}', 'PageController@editor')->name('editor');
     Route::get('/editor', 'PageController@pixel')->name('pixel');
     Route::get('/my-editor', 'PageController@my_editor')->name('my-editor');

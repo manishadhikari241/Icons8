@@ -82,3 +82,19 @@
     </div>
 
 @endif
+@if($ser->isEmpty())
+    <div class="app-tracks-list">
+        <div class="track-list-title">SEARCH</div>
+        <div class="track-list-row track-list-items ">
+            <div class="tracks-list-col">
+                <div class="app-tracks-item">
+                    <p>Oops... Seems that we don't have Action category yet.
+                        If you think that category is important, please let us know
+                    </p>
+                    <a href="{{route('music')}}" class="btn btn-outline-danger">Back to all categories</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
