@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddUserIdTableImages extends Migration
+class CreateTableAudio extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class AddUserIdTableImages extends Migration
      */
     public function up()
     {
-        Schema::table('images', function (Blueprint $table) {
-            $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('cost')->nullable();
+        Schema::table('musics', function (Blueprint $table) {
+            $table->string('audio')->after('image');
         });
     }
 
@@ -27,7 +25,7 @@ class AddUserIdTableImages extends Migration
      */
     public function down()
     {
-        Schema::table('images', function (Blueprint $table) {
+        Schema::table('musics', function (Blueprint $table) {
             //
         });
     }

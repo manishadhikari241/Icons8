@@ -6,6 +6,7 @@ use App\Model\Artist;
 use App\Model\Genre;
 use App\Model\Mood;
 use App\Model\Music;
+use App\Model\MusicSlider;
 use App\Model\MusicTag;
 use App\Model\Tag;
 use App\Model\Theme;
@@ -288,6 +289,7 @@ class MusicController extends BackendController
             }
             $data['artist_id'] = $request->artist;
             $create = Music::create($data);
+
             foreach ($request->tag as $value) {
                 DB::table('pivot_music_tags')->insert(['music_id' => $create->id, 'tag_id' => $value]);
             }
@@ -300,7 +302,6 @@ class MusicController extends BackendController
             foreach ($request->moods as $value) {
                 DB::table('music_mood')->insert(['music_id' => $create->id, 'mood_id' => $value]);
             }
-
             if ($create) {
                 Session::flash('success', 'Music uploaded');
                 return redirect()->back();
@@ -369,7 +370,7 @@ class MusicController extends BackendController
             $this->data('genre', $genre);
             $mood = Mood::all();
             $this->data('mood', $mood);
-            return view($this->backendmusicPath . 'edit_music', compact('GeneralWebmasterSections'), $this->data);
+            return view($this->backendmusicPath . 'edit_music', $this->data);
         }
         if ($request->isMethod('post')) {
             $request->validate([
@@ -412,6 +413,98 @@ class MusicController extends BackendController
         }
     }
 
+    public function music_slider(Request $request)
+    {
+        if ($request->isMethod('get'))
+        {
+            $slide=MusicSlider::all();
+            $this->data('slide',$slide);
+            return view($this->backendmusicPath . 'music_slider', $this->data);
+        }
+        if ($request->isMethod('post')) {
+
+            $request->validate([
+                'image' => 'required',
+            ]);
+            $data['music_description'] = $request->description;
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $name = time() . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('/images/sliders/');
+                $image->move($destinationPath, $name);
+                $data['music_slider'] = $name;
+            }
+
+            $create = MusicSlider::create($data);
+
+            if ($create) {
+                Session::flash('success', 'Slider added successfully');
+                return redirect()->back();
+            }
+        }
+    }
+
+    public function edit_slide(Request $request)
+    {
+        if ($request->isMethod('get'))
+        {
+            $id = $request->id;
+            $edit = MusicSlider::where('id', '=', $id)->first();
+            $this->data('slide', $edit);
+            return view($this->backendmusicPath. 'edit_slide', $this->data);
+        }
+        if ($request->isMethod('post')) {
+            $id = $request->id;
+            $data['music_description'] = $request->description;
+            if ($request->hasFile('image')) {
+                $this->delete_slide($id);
+                $image = $request->file('image');
+                $name = time() . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('/images/sliders/');
+                $image->move($destinationPath, $name);
+                $data['music_slider'] = $name;
+            }
+            $find = MusicSlider::findorfail($id);
+            $update = $find->update($data);
+            if ($update) {
+                Session::flash('success', 'Slider updated successfully');
+                return redirect()->back();
+            }
+        }
+    }
+
+    public function slider_delete($id)
+    {
+        $find=MusicSlider::findorfail($id);
+        if ($this->delete_slide($id) && $find->delete())
+        {
+            Session::flash('success','Slider deleted successfully');
+            return redirect()->back();
+        }
+    }
+
+    public function delete_slide($id)
+    {
+        $findData = MusicSlider::findorfail($id);
+        $fileName = $findData->music_slider;
+        $deletePath = public_path('images/sliders/' . $fileName);
+        if (file_exists($deletePath) && is_file($deletePath)) {
+            unlink($deletePath);
+        }
+        return true;
+    }
+
+    public function music_download($id)
+    {
+        $mus = Music::where('id', $id)->firstOrFail();
+        dd($mus->image);
+        $path = public_path('music/' . $mus->audio);
+        $headers = array(
+            'Content-Type:audio/mp3',
+        );
+        return response()->download($path, $mus
+            ->original_filename, $headers);
+    }
 }
 
 

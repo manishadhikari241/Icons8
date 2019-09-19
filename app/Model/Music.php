@@ -16,7 +16,7 @@ class Music extends Model
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }
-    protected $fillable=['name','image','artist_id'];
+    protected $fillable=['name','image','artist_id','audio'];
 
     public function artists()
     {

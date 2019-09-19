@@ -13,7 +13,9 @@ use App\Model\Order;
 use App\Model\OrderAssign;
 use App\Model\OrderUpload;
 use App\Model\PhotoLog;
+use App\Model\PhotoSlider;
 use App\Model\Race;
+use App\Model\Slider;
 use App\Model\SpecialFeature;
 use App\Model\Tag;
 use App\User;
@@ -187,7 +189,7 @@ class ImageController extends BackendController
         if ($request->isMethod('get')) {
             $age = Age::all();
             $this->data('age', $age);
-            return view($this->backendagePath . 'age', compact('GeneralWebmasterSections'), $this->data);
+            return view($this->backendagePath . 'age',$this->data);
         }
         if ($request->isMethod('post')) {
             $request->validate([
@@ -232,7 +234,7 @@ class ImageController extends BackendController
         if ($request->isMethod('get')) {
             $hair = Hair::all();
             $this->data('hair', $hair);
-            return view($this->backendhairPath . 'hair', compact('GeneralWebmasterSections'), $this->data);
+            return view($this->backendhairPath . 'hair',$this->data);
         }
         if ($request->isMethod('post')) {
             $request->validate([
@@ -277,7 +279,7 @@ class ImageController extends BackendController
         if ($request->isMethod('get')) {
             $body = BodyType::all();
             $this->data('body', $body);
-            return view($this->backendbodytypePath . 'body_type', compact('GeneralWebmasterSections'), $this->data);
+            return view($this->backendbodytypePath . 'body_type',$this->data);
         }
         if ($request->isMethod('post')) {
             $request->validate([
@@ -321,7 +323,7 @@ class ImageController extends BackendController
         if ($request->isMethod('get')) {
             $special = SpecialFeature::all();
             $this->data('special', $special);
-            return view($this->backendspecialPath . 'special_features', compact('GeneralWebmasterSections'), $this->data);
+            return view($this->backendspecialPath . 'special_features',$this->data);
         }
         if ($request->isMethod('post')) {
             $request->validate([
@@ -366,7 +368,7 @@ class ImageController extends BackendController
         if ($request->isMethod('get')) {
             $tags = Tag::all();
             $this->data('tags', $tags);
-            return view($this->backendtagPath . 'tags', compact('GeneralWebmasterSections'), $this->data);
+            return view($this->backendtagPath . 'tags',$this->data);
         }
         if ($request->isMethod('post')) {
             $request->validate([
@@ -411,7 +413,7 @@ class ImageController extends BackendController
         if ($request->isMethod('get')) {
             $credits = Credit::all();
             $this->data('credit', $credits);
-            return view($this->backendcreditPath . 'credits', compact('GeneralWebmasterSections'), $this->data);
+            return view($this->backendcreditPath . 'credits', $this->data);
         }
         if ($request->isMethod('post')) {
             $request->validate([
@@ -559,7 +561,7 @@ class ImageController extends BackendController
 
             $image = Image::all();
             $this->data('image', $image);
-            return view($this->backendimagePath . 'show_image', compact('GeneralWebmasterSections'), $this->data);
+            return view($this->backendimagePath . 'show_image',$this->data);
 
         }
     }
@@ -900,6 +902,7 @@ class ImageController extends BackendController
         $this->data('order', $order);
         return view($this->backendimagePath . 'invoice', $this->data);
     }
+
     public function image_log(Request $request)
     {
         if ($request->isMethod('get')) {
@@ -908,9 +911,9 @@ class ImageController extends BackendController
             return view($this->backendimagePath . 'logs', $this->data);
         }
         if ($request->isMethod('post')) {
-            $validator= Validator::make($request->all(),[
-               'delete'=>'required'
-            ],['delete.required'=>'Please Select'])->validate();
+            $validator = Validator::make($request->all(), [
+                'delete' => 'required'
+            ], ['delete.required' => 'Please Select'])->validate();
             $log_delete = PhotoLog::whereIn('id', $request->delete)->delete();
             if ($log_delete) {
                 return redirect()->back()->with('success', 'Logs Deleted');
@@ -922,17 +925,93 @@ class ImageController extends BackendController
     public function generate_PDF($id)
     {
         $img = OrderUpload::where('id', $id)->firstOrFail();
-//        dd($img);
-        $pdf= PDF::loadview($this->backendimagePath .'pdf',$img);
-//         $pdf=new PDF();
+
+        $pdf = PDF::loadview($this->backendimagePath . 'pdf', $img);
 //
-//         $file=$pdf->loadView($this->backendimagePath . 'invoice',['title' => 'Welcome to HDTuto.com']);
-//         dd($file)
         return $pdf->download('invoice.pdf');
-//    $pdf=PDF::class;
-//    $pdf->load
+//
+    }
+
+    public function sliders(Request $request)
+    {
+        if ($request->isMethod('get')) {
+            $slide = PhotoSlider::all();
+            $this->data('slide', $slide);
+            return view($this->backendimagePath . 'photo_slider', $this->data);
+        }
+        if ($request->isMethod('post')) {
+
+            $request->validate([
+                'image' => 'required',
+            ]);
+            $data['photo_description'] = $request->description;
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $name = time() . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('/images/sliders/');
+                $image->move($destinationPath, $name);
+                $data['photo_slider'] = $name;
+            }
+
+            $create = PhotoSlider::create($data);
+
+            if ($create) {
+                Session::flash('success', 'Slider added successfully');
+                return redirect()->back();
+            }
+        }
+    }
+
+    public function edit_slide(Request $request)
+    {
+        if ($request->isMethod('get')) {
+            $id = $request->id;
+            $edit = PhotoSlider::where('id', '=', $id)->first();
+            $this->data('slide', $edit);
+            return view($this->backendimagePath . 'edit_slide', $this->data);
+        }
+        if ($request->isMethod('post')) {
+            $id = $request->id;
+            $data['photo_description'] = $request->description;
+            if ($request->hasFile('image')) {
+                $this->delete_slide($id);
+                $image = $request->file('image');
+                $name = time() . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('/images/sliders/');
+                $image->move($destinationPath, $name);
+                $data['photo_slider'] = $name;
+            }
+            $find = PhotoSlider::findorfail($id);
+            $update = $find->update($data);
+            if ($update) {
+                Session::flash('success', 'Slider updated successfully');
+                return redirect()->back();
+            }
+        }
+    }
+
+    public function slider_delete($id)
+    {
+        $find = PhotoSlider::findorfail($id);
+        if ($this->delete_slide($id) && $find->delete()) {
+            Session::flash('success', 'Photo slider deleted');
+            return redirect()->back();
+        }
+
+    }
+
+    public function delete_slide($id)
+    {
+        $findData = PhotoSlider::findorfail($id);
+        $fileName = $findData->photo_slider;
+        $deletePath = public_path('images/sliders/' . $fileName);
+        if (file_exists($deletePath) && is_file($deletePath)) {
+            unlink($deletePath);
+        }
+        return true;
     }
 }
+
 
 
 

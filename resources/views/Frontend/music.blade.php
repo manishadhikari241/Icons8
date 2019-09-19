@@ -19,6 +19,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplebar/4.1.0/simplebar.min.css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css">
+
+    <link rel="stylesheet" type="text/css" href="{{asset('css/Frontend/jquery.mCustomScrollbar.css')}}" media="all"/>
+    <!-- playlist scroll -->
+    <link rel="stylesheet" type="text/css" href="{{asset('css/Frontend/playlist.css')}}"/>
 
     <link rel="stylesheet" href="{{url('css/Frontend/icofont/icofont.min.css')}}">
     <link rel="stylesheet" href="{{url('css/Frontend/style.css')}}">
@@ -47,9 +54,9 @@
                             </ul>
                         </div>
                     </li>
-                    <li><a class="nav-link" href="">Vectors</a></li>
+                    <li><a class="nav-link" href="{{route('vector')}}">Vectors</a></li>
                     <li><a class="nav-link" href="{{route('music')}}">Music</a></li>
-                    <li><a class="nav-link" href="videos-page.html">Videos</a></li>
+                    <li><a class="nav-link" href="{{route('video')}}">Videos</a></li>
 
                     <li class="is-pull-right"><a class="nav-link " href="{{route('forum-index')}}">Forum</a></li>
                     <li><a class="nav-link" href="">Resources</a></li>
@@ -123,8 +130,10 @@
         <div class="jumbotrons-container">
             <div class="jumbotrons-head">
                 <div class="jumbotrons-preview">
-                    <img src="https://icons8.com/vue-static/music/images/jumbotron-preview.png"
-                         alt="Music for your videos. Free." class="jumbotrons-preview-image">
+                    @if($slide->last() != null)
+                        <img src="{{asset('images/sliders/'.$slide->last()->music_slider)}}"
+                             alt="Music for your videos. Free." class="jumbotrons-preview-image">
+                    @endif
                 </div>
                 <h1 class="jumbotrons-title">Music for<br>your videos.<br>Free.</h1>
             </div>
@@ -147,7 +156,6 @@
                                 <i class="icofont-search"></i>
                             </div>
                             <form>
-
                                 <label>
                                     <button id="search_btn" type="submit" class="uk-search-icon-flip" uk-search-icon
                                             style="top:0;"></button>
@@ -242,11 +250,81 @@
                     <div class="app-tracks" id="filter_id">
                         @if(!isset($main_search) && !isset($empty_search))
 
-                        @foreach($theme as $key)
-                            <div class="app-tracks-list">
-                                <div class="track-list-title">{{$key->name}}</div>
-                                <div class="track-list-row track-list-items ">
-                                    @foreach($key->musics as $value)
+                            @foreach($theme as $key)
+                                <div class="app-tracks-list">
+                                    <div class="track-list-title">{{$key->name}}</div>
+                                    <div class="track-list-row track-list-items ">
+                                        @foreach($key->musics as $value)
+                                            <div class="tracks-list-col">
+                                                <div class="app-tracks-item">
+
+                                                    <div class="tracks-item-row">
+                                                        <div class="tracks-item-col tracks-item-cover">
+                                                            <img src="{{asset('images/music/'.$value->image)}}"
+                                                                 alt="Delirix - Welcome To The Jungle"
+                                                                 class="tracks-item-cover-img">
+                                                        </div>
+                                                        <div class="tracks-item-col tracks-item-wrap">
+                                                            <div class="tracks-item-info">
+                                                                <div class="tracks-item-info-name">
+
+                                                                    <span class="btn-inner">{{$value->name}}</span>
+
+                                                                </div>
+                                                                <div class="tracks-item-info-author">
+                                                                    <a href=""
+                                                                       class="tracks-item-info-link">{{$value->artists->name}}</a>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="tracks-item-col tracks-item-download">
+                                                            <a href="{{route('music-download',$value->id)}}"
+                                                               class="tracks-item-download-btn">
+                                                    <span class="icon-download">
+                                                        <svg width="100%" height="100%"><use
+                                                                    xlink:href="#arrowDownload"></use></svg>
+                                                    </span>
+                                                            </a>
+                                                        </div>
+
+                                                        <div class="tracks-item-col tracks-item-tags">
+                                                            @if($value->tags != null)
+                                                                @foreach($value->tags->slice(0,2) as $tag)
+                                                                    <a href=""
+                                                                       class="tracks-item-tags-btn">{{$tag->name}}</a>
+                                                                @endforeach
+                                                            @endif
+                                                            <div class="app-popup">
+                                                                <div class="app-popup-toggle">
+                                                                    <button type="button" class="tracks-item-tags-btn">
+                                                                        more
+                                                                    </button>
+                                                                </div>
+                                                                <div class="app-popup-content is-bottom-right">
+                                                                    <div class="app-popup-tag-content">
+                                                                        @foreach($value->tags->splice(2) as $item)
+                                                                            <a href=""
+                                                                               class="tracks-item-tags-btn">{{$item->name}}</a>
+                                                                        @endforeach
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
+                        @if(isset($main_search) && !isset($empty_search))
+                            @foreach($main_search as $value)
+                                <div class="app-tracks-list">
+                                    <div class="track-list-title">{{$value->name}}</div>
+                                    <div class="track-list-row track-list-items ">
                                         <div class="tracks-list-col">
                                             <div class="app-tracks-item">
 
@@ -305,95 +383,28 @@
 
                                             </div>
                                         </div>
-                                    @endforeach
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
+                        @if(isset($empty_search))
+                            <div class="app-tracks-list">
+                                <div class="track-list-title">SEARCH</div>
+                                <div class="track-list-row track-list-items ">
+                                    <div class="tracks-list-col">
+                                        <div class="app-tracks-item">
+
+                                            <p>Oops... Seems that we don't have Action category yet.
+                                                If you think that category is important, please let us know
+                                            </p>
+                                            <a href="{{route('music')}}" class="btn btn-outline-danger">Back to all
+                                                categories</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        @endforeach
+
                         @endif
-                        @if(isset($main_search) && !isset($empty_search))
-                                @foreach($main_search as $value)
-                                    <div class="app-tracks-list">
-                                        <div class="track-list-title">{{$value->name}}</div>
-                                        <div class="track-list-row track-list-items ">
-                                            <div class="tracks-list-col">
-                                                <div class="app-tracks-item">
-
-                                                    <div class="tracks-item-row">
-                                                        <div class="tracks-item-col tracks-item-cover">
-                                                            <img src="{{asset('images/music/'.$value->image)}}"
-                                                                 alt="Delirix - Welcome To The Jungle"
-                                                                 class="tracks-item-cover-img">
-                                                        </div>
-                                                        <div class="tracks-item-col tracks-item-wrap">
-                                                            <div class="tracks-item-info">
-                                                                <div class="tracks-item-info-name">
-
-                                                                    <span class="btn-inner">{{$value->name}}</span>
-
-                                                                </div>
-                                                                <div class="tracks-item-info-author">
-                                                                    <a href=""
-                                                                       class="tracks-item-info-link">{{$value->artists->name}}</a>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                        <div class="tracks-item-col tracks-item-download">
-                                                            <button type="button" class="tracks-item-download-btn">
-                                                    <span class="icon-download">
-                                                        <svg width="100%" height="100%"><use
-                                                                    xlink:href="#arrowDownload"></use></svg>
-                                                    </span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="tracks-item-col tracks-item-tags">
-                                                            @if($value->tags != null)
-                                                                @foreach($value->tags->slice(0,2) as $tag)
-                                                                    <a href=""
-                                                                       class="tracks-item-tags-btn">{{$tag->name}}</a>
-                                                                @endforeach
-                                                            @endif
-                                                            <div class="app-popup">
-                                                                <div class="app-popup-toggle">
-                                                                    <button type="button" class="tracks-item-tags-btn">
-                                                                        more
-                                                                    </button>
-                                                                </div>
-                                                                <div class="app-popup-content is-bottom-right">
-                                                                    <div class="app-popup-tag-content">
-                                                                        @foreach($value->tags->splice(2) as $item)
-                                                                            <a href=""
-                                                                               class="tracks-item-tags-btn">{{$item->name}}</a>
-                                                                        @endforeach
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            @endif
-                            @if(isset($empty_search))
-                                <div class="app-tracks-list">
-                                    <div class="track-list-title">SEARCH</div>
-                                    <div class="track-list-row track-list-items ">
-                                        <div class="tracks-list-col">
-                                            <div class="app-tracks-item">
-
-                                                <p>Oops... Seems that we don't have Action category yet.
-                                                    If you think that category is important, please let us know
-                                                </p>
-                                                <a href="{{route('music')}}" class="btn btn-outline-danger">Back to all categories</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            @endif
                     </div>
                 </div>
 
@@ -499,11 +510,14 @@
         crossorigin="anonymous"></script>
 
 <!-- wow js -->
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/simplebar/4.1.0/simplebar.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/simplebar/4.1.0/simplebar.min.js"></script>
 
 <script src="{{asset('js/Frontend/app.min.js')}}"></script>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/new.js"></script><!-- main plugin js -->
 
 <script>
     $(document).ready(function () {

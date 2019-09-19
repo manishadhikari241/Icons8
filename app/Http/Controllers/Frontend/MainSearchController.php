@@ -6,6 +6,7 @@ use App\Model\Genre;
 use App\Model\IconUpload;
 use App\Model\Mood;
 use App\Model\Music;
+use App\Model\MusicSlider;
 use App\Model\Theme;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -26,6 +27,8 @@ class MainSearchController extends Controller
                 $gen = Genre::all();
                 $this->data('genre', $gen);
                 $this->data('empty_search', '');
+                $slide=MusicSlider::all();
+                $this->data('slide',$slide);
                 return view('Frontend.music', $this->data);
             }
             $result = explode(',', $query);
@@ -43,6 +46,8 @@ class MainSearchController extends Controller
                 $gen = Genre::all();
                 $this->data('genre', $gen);
                 $this->data('empty_search', '');
+                $slide=MusicSlider::all();
+                $this->data('slide',$slide);
                 return view('Frontend.music', $this->data);
             }
             $theme = Theme::all();
@@ -52,6 +57,8 @@ class MainSearchController extends Controller
             $gen = Genre::all();
             $this->data('genre', $gen);
             $this->data('main_search', $ser);
+            $slide=MusicSlider::all();
+            $this->data('slide',$slide);
             return view('Frontend.music', $this->data);
 
         } else {

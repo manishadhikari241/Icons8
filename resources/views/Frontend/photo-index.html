@@ -13,8 +13,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplebar/4.1.0/simplebar.min.css">
 
-    
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css">
     
     <link rel="stylesheet" href="css/icofont/icofont.min.css">
     <link rel="stylesheet" href="css/style.css">
@@ -24,17 +24,41 @@
 
 
 <div class="photo_layout">
+
     <header class="header">
         <a href="" class="logo">
-            <img src="http://www.iconhot.com/icon/png/wood-social-networking/512/blinklist-logo-webtreatsetc.png" alt="">
+            <img src="http://www.iconhot.com/icon/png/wood-social-networking/512/blinklist-logo-webtreatsetc.png"
+                 alt="">
         </a>
 
-        
-        
-        
-        
-        
-        
+        <div class="main-nav container">
+            <nav>
+                <ul class="nav-list">
+                    
+                    <li><a class="nav-link" href="icons.html">Icons</a></li>
+                    <li class="nav-item has-dropdown">
+                        <a class="nav-link" href="javascript:void(0)">Photos &nbsp;<i class="icofont-thin-down"></i></a>
+                        <div class="nav-dropdown">
+                            <ul>
+                                <li><a href="photocreator/index.html">Photo Creator</a></li>
+                                <li><a href="photo-index.html">Photo library</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a class="nav-link" href="vector-index.html">Vectors</a></li>
+                    <li><a class="nav-link" href="music-index.html">Music</a></li>
+                    <li><a class="nav-link" href="videospage.html">Videos</a></li>
+
+                    <li class="is-pull-right"><a class="nav-link " href="forum-index.html">Forum</a></li>
+                    
+                    
+
+                </ul>
+            </nav>
+            <div class="gamburg">
+                <button class="gamburg-btn"></button>
+            </div>
+        </div>
 
         <ul class="nav-actions">
             <li class="has-auth"><a href="">Login</a></li>
@@ -42,28 +66,30 @@
 
     </header>
 
+    <div class="interactive-sliders">
+        <div class="photobanner-slider owl-carousel">
+            <div class="item">
+                <img src="https://siteimages.agora-gallery.com/galleryPhotos/2016/mezzanine2.jpg" alt="">
+            </div>
+        </div>
+    </div>
+
     <div class="photo-categories-page">
         <div class="categories">
             
-            
 
-            
-            
-            
-            
-            
             <div class="categories-wrap">
-                <div class="categories-list" style="padding-bottom: 17px;">
-                    <div class="categories-item"><a href="/category/animals"
+                <div class="categories-list" style="padding-bottom: 17px;" >
+                    <div class="categories-item"><a href=""
                                                     class="categories-link is-active">Animals</a>
                     </div>
-                    <div class="categories-item"><a href="/category/art" class="categories-link">Art</a></div>
-                    <div class="categories-item"><a href="/category/artificial-intelligence" class="categories-link">Artificial
+                    <div class="categories-item"><a href="" class="categories-link">Art</a></div>
+                    <div class="categories-item"><a href="" class="categories-link">Artificial
                             Intelligence</a></div>
-                    <div class="categories-item"><a href="/category/backgrounds" class="categories-link">Backgrounds</a>
+                    <div class="categories-item"><a href="" class="categories-link">Backgrounds</a>
                     </div>
-                    <div class="categories-item"><a href="/category/beauty" class="categories-link">Beauty</a></div>
-                    <div class="categories-item"><a href="/category/bizarre" class="categories-link">Bizarre</a></div>
+                    <div class="categories-item"><a href="" class="categories-link">Beauty</a></div>
+                    <div class="categories-item"><a href="" class="categories-link">Bizarre</a></div>
                     <div class="categories-item"><a href="/category/coffee-break" class="categories-link">Coffee
                             Break</a>
                     </div>
@@ -124,116 +150,307 @@
                     </div>
                     <div class="filter-details" data-simplebar="init">
                         <div class="details filter is-expand">
-                            <button class="summary"><span class="arrow"></span><span>gender</span></button>
+                            <button class="summary">
+                                <span class="arrow"></span>
+                                <span>gender</span>
+                            </button>
                             <div class="details-content">
                                 <div class="filter-list">
-                                    <div class="filter-item"><a href="/t/boy" class="filter-link">boy</a></div>
-                                    <div class="filter-item"><a href="/t/girl" class="filter-link">girl</a></div>
-                                    <div class="filter-item"><a href="/t/man" class="filter-link">man</a></div>
-                                    <div class="filter-item"><a href="/t/transgender"
-                                                                class="filter-link">transgender</a>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio1" name="photo-radio-group" checked>
+                                        <label for="photoradio1">boy</label>
                                     </div>
-                                    <div class="filter-item"><a href="/t/woman" class="filter-link">woman</a></div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio2" name="photo-radio-group">
+                                        <label for="photoradio2">girl</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio3" name="photo-radio-group">
+                                        <label for="photoradio3">men</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio4" name="photo-radio-group">
+                                        <label for="photoradio4">transgender</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio5" name="photo-radio-group">
+                                        <label for="photoradio5">women</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="details filter">
                             <button class="summary"><span class="arrow"></span><span>age</span></button>
-                            <div class="details-content" style="display: none;">
+                            <div class="details-content">
                                 <div class="filter-list">
-                                    <div class="filter-item"><a href="/t/adult" class="filter-link">adult</a></div>
-                                    <div class="filter-item"><a href="/t/baby" class="filter-link">baby</a></div>
-                                    <div class="filter-item"><a href="/t/child" class="filter-link">child</a></div>
-                                    <div class="filter-item"><a href="/t/elderly" class="filter-link">elderly</a></div>
-                                    <div class="filter-item"><a href="/t/kid" class="filter-link">kid</a></div>
-                                    <div class="filter-item"><a href="/t/mature" class="filter-link">mature</a></div>
-                                    <div class="filter-item"><a href="/t/middle-aged"
-                                                                class="filter-link">middle-aged</a>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio6" name="photo-radio-group">
+                                        <label for="photoradio6">adult</label>
                                     </div>
-                                    <div class="filter-item"><a href="/t/old" class="filter-link">old</a></div>
-                                    <div class="filter-item"><a href="/t/senior" class="filter-link">senior</a></div>
-                                    <div class="filter-item"><a href="/t/teenager" class="filter-link">teenager</a>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio7" name="photo-radio-group">
+                                        <label for="photoradio7">baby</label>
                                     </div>
-                                    <div class="filter-item"><a href="/t/toddler" class="filter-link">toddler</a></div>
-                                    <div class="filter-item"><a href="/t/young" class="filter-link">young</a></div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio8" name="photo-radio-group">
+                                        <label for="photoradio8">child</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio9" name="photo-radio-group">
+                                        <label for="photoradio9">elderly</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio10" name="photo-radio-group">
+                                        <label for="photoradio10">kid</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio11" name="photo-radio-group">
+                                        <label for="photoradio11">mature</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio12" name="photo-radio-group">
+                                        <label for="photoradio12">middle-aged</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio13" name="photo-radio-group">
+                                        <label for="photoradio13">old</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio14" name="photo-radio-group">
+                                        <label for="photoradio14">senior</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio15" name="photo-radio-group">
+                                        <label for="photoradio15">teenager</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio16" name="photo-radio-group">
+                                        <label for="photoradio16">toddler</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio17" name="photo-radio-group">
+                                        <label for="photoradio17">young</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="details filter">
                             <button class="summary"><span class="arrow"></span><span>race</span></button>
-                            <div class="details-content" style="display: none;">
+                            <div class="details-content">
                                 <div class="filter-list">
-                                    <div class="filter-item"><a href="/t/african-american" class="filter-link">african-american</a>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio6" name="photo-radio-group">
+                                        <label for="photoradio6">adult</label>
                                     </div>
-                                    <div class="filter-item"><a href="/t/afro" class="filter-link">afro</a></div>
-                                    <div class="filter-item"><a href="/t/asian" class="filter-link">asian</a></div>
-                                    <div class="filter-item"><a href="/t/black" class="filter-link">black</a></div>
-                                    <div class="filter-item"><a href="/t/caucasian" class="filter-link">caucasian</a>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio7" name="photo-radio-group">
+                                        <label for="photoradio7">baby</label>
                                     </div>
-                                    <div class="filter-item"><a href="/t/hispanic" class="filter-link">hispanic</a>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio8" name="photo-radio-group">
+                                        <label for="photoradio8">child</label>
                                     </div>
-                                    <div class="filter-item"><a href="/t/latino" class="filter-link">latino</a></div>
-                                    <div class="filter-item"><a href="/t/mixed-race" class="filter-link">mixed-race</a>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio9" name="photo-radio-group">
+                                        <label for="photoradio9">elderly</label>
                                     </div>
-                                    <div class="filter-item"><a href="/t/multiracial"
-                                                                class="filter-link">multiracial</a>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio10" name="photo-radio-group">
+                                        <label for="photoradio10">kid</label>
                                     </div>
-                                    <div class="filter-item"><a href="/t/white" class="filter-link">white</a></div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio11" name="photo-radio-group">
+                                        <label for="photoradio11">mature</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio12" name="photo-radio-group">
+                                        <label for="photoradio12">middle-aged</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio13" name="photo-radio-group">
+                                        <label for="photoradio13">old</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio14" name="photo-radio-group">
+                                        <label for="photoradio14">senior</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio15" name="photo-radio-group">
+                                        <label for="photoradio15">teenager</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio16" name="photo-radio-group">
+                                        <label for="photoradio16">toddler</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio17" name="photo-radio-group">
+                                        <label for="photoradio17">young</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="details filter">
                             <button class="summary"><span class="arrow"></span><span>hair</span></button>
-                            <div class="details-content" style="display: none;">
+                            <div class="details-content">
                                 <div class="filter-list">
-                                    <div class="filter-item"><a href="/t/afro-haired"
-                                                                class="filter-link">afro-haired</a>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio6" name="photo-radio-group">
+                                        <label for="photoradio6">adult</label>
                                     </div>
-                                    <div class="filter-item"><a href="/t/bald" class="filter-link">bald</a></div>
-                                    <div class="filter-item"><a href="/t/black-haired"
-                                                                class="filter-link">black-haired</a>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio7" name="photo-radio-group">
+                                        <label for="photoradio7">baby</label>
                                     </div>
-                                    <div class="filter-item"><a href="/t/blond" class="filter-link">blond</a></div>
-                                    <div class="filter-item"><a href="/t/brown-haired"
-                                                                class="filter-link">brown-haired</a>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio8" name="photo-radio-group">
+                                        <label for="photoradio8">child</label>
                                     </div>
-                                    <div class="filter-item"><a href="/t/brunet" class="filter-link">brunet</a></div>
-                                    <div class="filter-item"><a href="/t/brunette" class="filter-link">brunette</a>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio9" name="photo-radio-group">
+                                        <label for="photoradio9">elderly</label>
                                     </div>
-                                    <div class="filter-item"><a href="/t/curly" class="filter-link">curly</a></div>
-                                    <div class="filter-item"><a href="/t/grey-haired"
-                                                                class="filter-link">grey-haired</a>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio10" name="photo-radio-group">
+                                        <label for="photoradio10">kid</label>
                                     </div>
-                                    <div class="filter-item"><a href="/t/silver-haired"
-                                                                class="filter-link">silver-haired</a></div>
-                                    <div class="filter-item"><a href="/t/wavy-haired"
-                                                                class="filter-link">wavy-haired</a>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio11" name="photo-radio-group">
+                                        <label for="photoradio11">mature</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio12" name="photo-radio-group">
+                                        <label for="photoradio12">middle-aged</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio13" name="photo-radio-group">
+                                        <label for="photoradio13">old</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio14" name="photo-radio-group">
+                                        <label for="photoradio14">senior</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio15" name="photo-radio-group">
+                                        <label for="photoradio15">teenager</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio16" name="photo-radio-group">
+                                        <label for="photoradio16">toddler</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio17" name="photo-radio-group">
+                                        <label for="photoradio17">young</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="details filter">
                             <button class="summary"><span class="arrow"></span><span>body type</span></button>
-                            <div class="details-content" style="display: none;">
+                            <div class="details-content">
                                 <div class="filter-list">
-                                    <div class="filter-item"><a href="/t/athletic" class="filter-link">athletic</a>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio6" name="photo-radio-group">
+                                        <label for="photoradio6">adult</label>
                                     </div>
-                                    <div class="filter-item"><a href="/t/fit" class="filter-link">fit</a></div>
-                                    <div class="filter-item"><a href="/t/plump" class="filter-link">plump</a></div>
-                                    <div class="filter-item"><a href="/t/skinny" class="filter-link">skinny</a></div>
-                                    <div class="filter-item"><a href="/t/slim" class="filter-link">slim</a></div>
-                                    <div class="filter-item"><a href="/t/thin" class="filter-link">thin</a></div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio7" name="photo-radio-group">
+                                        <label for="photoradio7">baby</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio8" name="photo-radio-group">
+                                        <label for="photoradio8">child</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio9" name="photo-radio-group">
+                                        <label for="photoradio9">elderly</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio10" name="photo-radio-group">
+                                        <label for="photoradio10">kid</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio11" name="photo-radio-group">
+                                        <label for="photoradio11">mature</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio12" name="photo-radio-group">
+                                        <label for="photoradio12">middle-aged</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio13" name="photo-radio-group">
+                                        <label for="photoradio13">old</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio14" name="photo-radio-group">
+                                        <label for="photoradio14">senior</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio15" name="photo-radio-group">
+                                        <label for="photoradio15">teenager</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio16" name="photo-radio-group">
+                                        <label for="photoradio16">toddler</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio17" name="photo-radio-group">
+                                        <label for="photoradio17">young</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="details filter">
                             <button class="summary"><span class="arrow"></span><span>special features</span></button>
-                            <div class="details-content" style="display: none;">
+                            <div class="details-content">
                                 <div class="filter-list">
-                                    <div class="filter-item"><a href="/t/beard" class="filter-link">beard</a></div>
-                                    <div class="filter-item"><a href="/t/freckles" class="filter-link">freckles</a>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio6" name="photo-radio-group">
+                                        <label for="photoradio6">adult</label>
                                     </div>
-                                    <div class="filter-item"><a href="/t/tattoo" class="filter-link">tattoo</a></div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio7" name="photo-radio-group">
+                                        <label for="photoradio7">baby</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio8" name="photo-radio-group">
+                                        <label for="photoradio8">child</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio9" name="photo-radio-group">
+                                        <label for="photoradio9">elderly</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio10" name="photo-radio-group">
+                                        <label for="photoradio10">kid</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio11" name="photo-radio-group">
+                                        <label for="photoradio11">mature</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio12" name="photo-radio-group">
+                                        <label for="photoradio12">middle-aged</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio13" name="photo-radio-group">
+                                        <label for="photoradio13">old</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio14" name="photo-radio-group">
+                                        <label for="photoradio14">senior</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio15" name="photo-radio-group">
+                                        <label for="photoradio15">teenager</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio16" name="photo-radio-group">
+                                        <label for="photoradio16">toddler</label>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="radio" id="photoradio17" name="photo-radio-group">
+                                        <label for="photoradio17">young</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -266,12 +483,13 @@
                             <div class="card-image">
                                 <img src="https://photo-cdn.icons8.com/assets/previews/371/616455a6-3afa-47da-9e50-36f4b26fb342thumb-1x.jpg"
                                      alt="Young man crossing his fingers 'cause he's buying new car">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">1</span></button>
-                                </div>
+
+                            </div>
+                            <div class="card-control"><a
+                                        href=""
+                                        class="card-edit">Recompose</a>
+                                <button class="card-like"><span class="card-like-icon"></span><span
+                                            class="card-like-value">0</span></button>
                             </div>
                             <div class="card-caption">Young man crossing his fingers 'cause he's buying new car</div>
                         </div>
@@ -280,12 +498,7 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/995/febe25a8-4551-4045-84c7-8a8081749aa9thumb-1x.jpg"
                                         alt="Surprised office employee sitting in desert and looking on female robot ">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">1</span></button>
-                                </div>
+
                             </div>
                             <div class="card-caption">Surprised office employee sitting in desert and looking on female
                                 robot
@@ -296,12 +509,7 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/220/3f456142-01f9-42d9-a610-a61497e87c39thumb-1x.jpg"
                                         alt="A nice place for reading">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">0</span></button>
-                                </div>
+
                             </div>
                             <div class="card-caption">A nice place for reading</div>
                         </div>
@@ -310,28 +518,18 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/877/dae3e62b-20b2-42e6-8793-9dfe5a56ad99thumb-1x.jpg"
                                         alt="Collage">
-                                <div class="card-control"><a
-                                            href="https://photos.icons8.com/creator/photo/5ca4bbfaf0fed7002085cc3a?recompose=true"
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">4</span></button>
-                                </div>
+
                             </div>
-                            <!---->
+
                         </div>
                         <div class="card" data-toggle="modal" data-target=".bd-example-modal-xl">
                             <a href="/photos/5cb6f8aa264072001db93143" class="card-link"></a>
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/857/5c850a8d-f4ef-476c-a0df-4e4f3067508bthumb-1x.jpg"
                                         alt="Collage">
-                                <div class="card-control"><a
-                                            href="https://photos.icons8.com/creator/photo/5cb6c624f0fed70016d9de2a?recompose=true"
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">0</span></button>
-                                </div>
+
                             </div>
-                            <!---->
+
                         </div>
 
                     </div>
@@ -342,12 +540,7 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/495/bd5ba18e-f3d1-4e4c-afa4-6bd8aa220be8thumb-1x.jpg"
                                         alt="Hard choice between sports and disco">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">4</span></button>
-                                </div>
+
                             </div>
                             <div class="card-caption">Hard choice between sports and disco</div>
                         </div>
@@ -390,12 +583,7 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/760/a35eea45-1c6b-4618-a0c3-7f7a2be9e28cthumb-1x.jpg"
                                         alt="Escaped into cyberspace">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">4</span></button>
-                                </div>
+
                             </div>
                             <div class="card-caption">Escaped into cyberspace</div>
                         </div>
@@ -404,28 +592,18 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/502/0fb69543-2edb-4a07-b0bd-563307ba47f3thumb-1x.jpg"
                                         alt="Collage">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">1</span></button>
-                                </div>
+
                             </div>
-                            <!---->
+
                         </div>
                         <div class="card" data-toggle="modal" data-target=".bd-example-modal-xl">
                             <a href="" class="card-link"></a>
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/499/3d46f745-e306-4e53-8c94-9de81bd7b08athumb-1x.jpg"
                                         alt="Collage">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">2</span></button>
-                                </div>
+
                             </div>
-                            <!---->
+
                         </div>
 
                     </div>
@@ -453,12 +631,7 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/371/616455a6-3afa-47da-9e50-36f4b26fb342thumb-1x.jpg"
                                         alt="Young man crossing his fingers 'cause he's buying new car">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">1</span></button>
-                                </div>
+
                             </div>
                             <div class="card-caption">Young man crossing his fingers 'cause he's buying new car</div>
                         </div>
@@ -467,12 +640,7 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/995/febe25a8-4551-4045-84c7-8a8081749aa9thumb-1x.jpg"
                                         alt="Surprised office employee sitting in desert and looking on female robot ">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">1</span></button>
-                                </div>
+
                             </div>
                             <div class="card-caption">Surprised office employee sitting in desert and looking on female
                                 robot
@@ -483,12 +651,7 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/220/3f456142-01f9-42d9-a610-a61497e87c39thumb-1x.jpg"
                                         alt="A nice place for reading">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">0</span></button>
-                                </div>
+
                             </div>
                             <div class="card-caption">A nice place for reading</div>
                         </div>
@@ -497,28 +660,18 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/877/dae3e62b-20b2-42e6-8793-9dfe5a56ad99thumb-1x.jpg"
                                         alt="Collage">
-                                <div class="card-control"><a
-                                            href="https://photos.icons8.com/creator/photo/5ca4bbfaf0fed7002085cc3a?recompose=true"
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">4</span></button>
-                                </div>
+
                             </div>
-                            <!---->
+
                         </div>
                         <div class="card" data-toggle="modal" data-target=".bd-example-modal-xl">
                             <a href="/photos/5cb6f8aa264072001db93143" class="card-link"></a>
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/857/5c850a8d-f4ef-476c-a0df-4e4f3067508bthumb-1x.jpg"
                                         alt="Collage">
-                                <div class="card-control"><a
-                                            href="https://photos.icons8.com/creator/photo/5cb6c624f0fed70016d9de2a?recompose=true"
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">0</span></button>
-                                </div>
+
                             </div>
-                            <!---->
+
                         </div>
 
                     </div>
@@ -529,12 +682,7 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/495/bd5ba18e-f3d1-4e4c-afa4-6bd8aa220be8thumb-1x.jpg"
                                         alt="Hard choice between sports and disco">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">4</span></button>
-                                </div>
+
                             </div>
                             <div class="card-caption">Hard choice between sports and disco</div>
                         </div>
@@ -577,12 +725,7 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/760/a35eea45-1c6b-4618-a0c3-7f7a2be9e28cthumb-1x.jpg"
                                         alt="Escaped into cyberspace">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">4</span></button>
-                                </div>
+
                             </div>
                             <div class="card-caption">Escaped into cyberspace</div>
                         </div>
@@ -591,28 +734,18 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/502/0fb69543-2edb-4a07-b0bd-563307ba47f3thumb-1x.jpg"
                                         alt="Collage">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">1</span></button>
-                                </div>
+
                             </div>
-                            <!---->
+
                         </div>
                         <div class="card" data-toggle="modal" data-target=".bd-example-modal-xl">
                             <a href="" class="card-link"></a>
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/499/3d46f745-e306-4e53-8c94-9de81bd7b08athumb-1x.jpg"
                                         alt="Collage">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">2</span></button>
-                                </div>
+
                             </div>
-                            <!---->
+
                         </div>
 
                     </div>
@@ -623,12 +756,7 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/495/bd5ba18e-f3d1-4e4c-afa4-6bd8aa220be8thumb-1x.jpg"
                                         alt="Hard choice between sports and disco">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">4</span></button>
-                                </div>
+
                             </div>
                             <div class="card-caption">Hard choice between sports and disco</div>
                         </div>
@@ -671,12 +799,7 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/760/a35eea45-1c6b-4618-a0c3-7f7a2be9e28cthumb-1x.jpg"
                                         alt="Escaped into cyberspace">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">4</span></button>
-                                </div>
+
                             </div>
                             <div class="card-caption">Escaped into cyberspace</div>
                         </div>
@@ -685,28 +808,24 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/502/0fb69543-2edb-4a07-b0bd-563307ba47f3thumb-1x.jpg"
                                         alt="Collage">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">1</span></button>
-                                </div>
+
                             </div>
-                            <!---->
+
                         </div>
                         <div class="card" data-toggle="modal" data-target=".bd-example-modal-xl">
                             <a href="" class="card-link"></a>
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/499/3d46f745-e306-4e53-8c94-9de81bd7b08athumb-1x.jpg"
                                         alt="Collage">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">2</span></button>
+                                <div class="card-control">
+                                    <a href="" class="card-edit">Recompose</a>
+                                    <button class="card-like">
+                                        <span class="card-like-icon"></span>
+                                        <span class="card-like-value">2</span>
+                                    </button>
                                 </div>
                             </div>
-                            <!---->
+
                         </div>
 
                     </div>
@@ -714,6 +833,8 @@
             </div>
         </div>
     </div>
+
+
     <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
          aria-hidden="true">
         <div class="modal-dialog modal-xl">
@@ -748,13 +869,12 @@
                                 </div>
                             </div>
                             <div class="photo-details">
-                                <div class="details is-expand">
+                                <div class="details ">
                                     <button class="summary"><span class="arrow"></span><span>Titles</span></button>
                                     <div class="details-content">
                                         <h1 class="photo-title">The Art Of Teaching Ballet</h1>
                                         <h2 class="photo-subtitle">Proud Of Her Pupil's Success</h2>
-                                        <h2 class="photo-subtitle">Dance Teacher Looking Proudly At Her Little
-                                            Apprentice</h2></div>
+                                        <h2 class="photo-subtitle">Dance Teacher Looking Proudly At Her Little Apprentice</h2></div>
                                 </div>
                                 <div class="details">
                                     <button class="summary"><span class="arrow"></span><span>Credits</span></button>
@@ -763,14 +883,14 @@
                                             <dt>Photographer:</dt>
                                             <dd><a href="/photographers/alexey-sokolov" class="details-link">Alexey
                                                     Sokolov</a>
-                                                <!---->
+
                                             </dd>
                                         </dl>
                                         <dl class="credits">
                                             <dt>Models:</dt>
                                             <dd><a href="/models/anna" class="details-link">Anna</a><span>, </span><a
                                                         href="/models/vilena" class="details-link">Vilena</a>
-                                                <!---->
+
                                             </dd>
                                         </dl>
                                     </div>
@@ -805,12 +925,7 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/371/616455a6-3afa-47da-9e50-36f4b26fb342thumb-1x.jpg"
                                         alt="Young man crossing his fingers 'cause he's buying new car">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">1</span></button>
-                                </div>
+
                             </div>
                             <div class="card-caption">Young man crossing his fingers 'cause he's buying new car</div>
                         </div>
@@ -819,12 +934,7 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/995/febe25a8-4551-4045-84c7-8a8081749aa9thumb-1x.jpg"
                                         alt="Surprised office employee sitting in desert and looking on female robot ">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">1</span></button>
-                                </div>
+
                             </div>
                             <div class="card-caption">Surprised office employee sitting in desert and looking on female
                                 robot
@@ -835,12 +945,7 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/220/3f456142-01f9-42d9-a610-a61497e87c39thumb-1x.jpg"
                                         alt="A nice place for reading">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">0</span></button>
-                                </div>
+
                             </div>
                             <div class="card-caption">A nice place for reading</div>
                         </div>
@@ -849,28 +954,18 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/877/dae3e62b-20b2-42e6-8793-9dfe5a56ad99thumb-1x.jpg"
                                         alt="Collage">
-                                <div class="card-control"><a
-                                            href="https://photos.icons8.com/creator/photo/5ca4bbfaf0fed7002085cc3a?recompose=true"
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">4</span></button>
-                                </div>
+
                             </div>
-                            <!---->
+
                         </div>
                         <div class="card">
                             <a href="/photos/5cb6f8aa264072001db93143" class="card-link"></a>
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/857/5c850a8d-f4ef-476c-a0df-4e4f3067508bthumb-1x.jpg"
                                         alt="Collage">
-                                <div class="card-control"><a
-                                            href="https://photos.icons8.com/creator/photo/5cb6c624f0fed70016d9de2a?recompose=true"
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">0</span></button>
-                                </div>
+
                             </div>
-                            <!---->
+
                         </div>
 
                     </div>
@@ -881,12 +976,7 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/495/bd5ba18e-f3d1-4e4c-afa4-6bd8aa220be8thumb-1x.jpg"
                                         alt="Hard choice between sports and disco">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">4</span></button>
-                                </div>
+
                             </div>
                             <div class="card-caption">Hard choice between sports and disco</div>
                         </div>
@@ -929,12 +1019,7 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/760/a35eea45-1c6b-4618-a0c3-7f7a2be9e28cthumb-1x.jpg"
                                         alt="Escaped into cyberspace">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">4</span></button>
-                                </div>
+
                             </div>
                             <div class="card-caption">Escaped into cyberspace</div>
                         </div>
@@ -943,28 +1028,18 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/502/0fb69543-2edb-4a07-b0bd-563307ba47f3thumb-1x.jpg"
                                         alt="Collage">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">1</span></button>
-                                </div>
+
                             </div>
-                            <!---->
+
                         </div>
                         <div class="card">
                             <a href="" class="card-link"></a>
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/499/3d46f745-e306-4e53-8c94-9de81bd7b08athumb-1x.jpg"
                                         alt="Collage">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">2</span></button>
-                                </div>
+
                             </div>
-                            <!---->
+
                         </div>
 
                     </div>
@@ -992,12 +1067,7 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/371/616455a6-3afa-47da-9e50-36f4b26fb342thumb-1x.jpg"
                                         alt="Young man crossing his fingers 'cause he's buying new car">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">1</span></button>
-                                </div>
+
                             </div>
                             <div class="card-caption">Young man crossing his fingers 'cause he's buying new car</div>
                         </div>
@@ -1006,12 +1076,7 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/995/febe25a8-4551-4045-84c7-8a8081749aa9thumb-1x.jpg"
                                         alt="Surprised office employee sitting in desert and looking on female robot ">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">1</span></button>
-                                </div>
+
                             </div>
                             <div class="card-caption">Surprised office employee sitting in desert and looking on female
                                 robot
@@ -1022,12 +1087,7 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/220/3f456142-01f9-42d9-a610-a61497e87c39thumb-1x.jpg"
                                         alt="A nice place for reading">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">0</span></button>
-                                </div>
+
                             </div>
                             <div class="card-caption">A nice place for reading</div>
                         </div>
@@ -1036,28 +1096,18 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/877/dae3e62b-20b2-42e6-8793-9dfe5a56ad99thumb-1x.jpg"
                                         alt="Collage">
-                                <div class="card-control"><a
-                                            href="https://photos.icons8.com/creator/photo/5ca4bbfaf0fed7002085cc3a?recompose=true"
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">4</span></button>
-                                </div>
+
                             </div>
-                            <!---->
+
                         </div>
                         <div class="card">
                             <a href="/photos/5cb6f8aa264072001db93143" class="card-link"></a>
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/857/5c850a8d-f4ef-476c-a0df-4e4f3067508bthumb-1x.jpg"
                                         alt="Collage">
-                                <div class="card-control"><a
-                                            href="https://photos.icons8.com/creator/photo/5cb6c624f0fed70016d9de2a?recompose=true"
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">0</span></button>
-                                </div>
+
                             </div>
-                            <!---->
+
                         </div>
 
                     </div>
@@ -1068,12 +1118,7 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/495/bd5ba18e-f3d1-4e4c-afa4-6bd8aa220be8thumb-1x.jpg"
                                         alt="Hard choice between sports and disco">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">4</span></button>
-                                </div>
+
                             </div>
                             <div class="card-caption">Hard choice between sports and disco</div>
                         </div>
@@ -1116,12 +1161,7 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/760/a35eea45-1c6b-4618-a0c3-7f7a2be9e28cthumb-1x.jpg"
                                         alt="Escaped into cyberspace">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">4</span></button>
-                                </div>
+
                             </div>
                             <div class="card-caption">Escaped into cyberspace</div>
                         </div>
@@ -1130,28 +1170,18 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/502/0fb69543-2edb-4a07-b0bd-563307ba47f3thumb-1x.jpg"
                                         alt="Collage">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">1</span></button>
-                                </div>
+
                             </div>
-                            <!---->
+
                         </div>
                         <div class="card">
                             <a href="" class="card-link"></a>
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/499/3d46f745-e306-4e53-8c94-9de81bd7b08athumb-1x.jpg"
                                         alt="Collage">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">2</span></button>
-                                </div>
+
                             </div>
-                            <!---->
+
                         </div>
 
                     </div>
@@ -1162,12 +1192,7 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/495/bd5ba18e-f3d1-4e4c-afa4-6bd8aa220be8thumb-1x.jpg"
                                         alt="Hard choice between sports and disco">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">4</span></button>
-                                </div>
+
                             </div>
                             <div class="card-caption">Hard choice between sports and disco</div>
                         </div>
@@ -1210,12 +1235,7 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/760/a35eea45-1c6b-4618-a0c3-7f7a2be9e28cthumb-1x.jpg"
                                         alt="Escaped into cyberspace">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">4</span></button>
-                                </div>
+
                             </div>
                             <div class="card-caption">Escaped into cyberspace</div>
                         </div>
@@ -1224,28 +1244,18 @@
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/502/0fb69543-2edb-4a07-b0bd-563307ba47f3thumb-1x.jpg"
                                         alt="Collage">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">1</span></button>
-                                </div>
+
                             </div>
-                            <!---->
+
                         </div>
                         <div class="card">
                             <a href="" class="card-link"></a>
                             <div class="card-image"><img
                                         src="https://photo-cdn.icons8.com/assets/previews/499/3d46f745-e306-4e53-8c94-9de81bd7b08athumb-1x.jpg"
                                         alt="Collage">
-                                <div class="card-control"><a
-                                            href=""
-                                            class="card-edit">Recompose</a>
-                                    <button class="card-like"><span class="card-like-icon"></span><span
-                                                class="card-like-value">2</span></button>
-                                </div>
+
                             </div>
-                            <!---->
+
                         </div>
 
                     </div>
@@ -1352,7 +1362,8 @@
 
 <!-- wow js -->
 
-
+<!-- Owl carousel -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/simplebar/4.1.0/simplebar.min.js"></script>
 
 <script src="js/app.min.js"></script>

@@ -20,6 +20,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplebar/4.1.0/simplebar.min.css">
 
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css">
+
     <link rel="stylesheet" href="{{asset('css/Frontend/icofont/icofont.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/Frontend/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/Frontend/responsive.css')}}">
@@ -194,7 +198,7 @@
 <div class="icons-page">
     <div class="hero">
         <header class="header">
-            <a href="" class="logo">
+            <a href="{{route('index')}}" class="logo">
                 <img src="http://www.iconhot.com/icon/png/wood-social-networking/512/blinklist-logo-webtreatsetc.png"
                      alt="">
             </a>
@@ -203,21 +207,21 @@
                 <nav>
                     <ul class="nav-list">
 
-                        <li><a class="nav-link" href="icons.blade.php">Icons</a></li>
+                        <li><a class="nav-link" href="{{route('icons-index')}}">Icons</a></li>
                         <li class="nav-item has-dropdown">
                             <a class="nav-link" href="javascript:void(0)">Photos &nbsp;<i class="icofont-thin-down"></i></a>
                             <div class="nav-dropdown">
                                 <ul>
-                                    <li><a href="photocreator/index.html">Photo Creator</a></li>
-                                    <li><a href="../photo-index.html">Photo library</a></li>
+                                    <li><a href="{{route('pixel')}}">Photo Creator</a></li>
+                                    <li><a href="{{route('photo')}}">Photo library</a></li>
                                 </ul>
                             </div>
                         </li>
-                        <li><a class="nav-link" href="">Vectors</a></li>
-                        <li><a class="nav-link" href="">Music</a></li>
-                        <li><a class="nav-link" href="../videos-page.html">Videos</a></li>
+                        <li><a class="nav-link" href="{{route('vector')}}">Vectors</a></li>
+                        <li><a class="nav-link" href="{{route('music')}}">Music</a></li>
+                        <li><a class="nav-link" href="{{route('video')}}">Videos</a></li>
 
-                        <li class="is-pull-right"><a class="nav-link " href="../forum-index.html">Forum</a></li>
+                        <li class="is-pull-right"><a class="nav-link " href="{{route('forum-index')}}">Forum</a></li>
                         <li><a class="nav-link" href="">Resources</a></li>
 
 
@@ -285,7 +289,7 @@
 
                                 <div class="icon">
                                     <div class="app-icon is-doodle"><img alt="" style="height:48px;width:48px;"
-                                                                         src="{{asset('images/icons/icon_upload/'.$packs->image)}}">
+                                                                         src="{{asset('storage/WebContent/icons/icon_upload/'.$packs->image)}}">
                                     </div>
                                 </div>
                             @endforeach
@@ -398,6 +402,7 @@
 
 <!-- wow js -->
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/simplebar/4.1.0/simplebar.min.js"></script>
 

@@ -18,6 +18,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplebar/4.1.0/simplebar.min.css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css">
+
+
 
     <link rel="stylesheet" href="{{asset('css/Frontend/icofont/icofont.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/Frontend/style.css')}}">
@@ -212,9 +216,9 @@
                         </ul>
                     </div>
                 </li>
-                <li><a class="nav-link" href="">Vectors</a></li>
+                <li><a class="nav-link" href="{{route('vector')}}">Vectors</a></li>
                 <li><a class="nav-link" href="{{route('music')}}">Music</a></li>
-                <li><a class="nav-link" href="videos-page.html">Videos</a></li>
+                <li><a class="nav-link" href="{{route('video')}}">Videos</a></li>
 
                 <li class="is-pull-right"><a class="nav-link " href="{{route('forum-index')}}">Forum</a></li>
                 <li><a class="nav-link" href="">Resources</a></li>
@@ -596,7 +600,8 @@
         crossorigin="anonymous"></script>
 
 <!-- wow js -->
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/simplebar/4.1.0/simplebar.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/simplebar/4.1.0/simplebar.min.js"></script>
 

@@ -6,7 +6,7 @@
                     <div class="photo-img" style="min-width: 280px; max-width: calc((600px - 10%) * 1.50015);">
                         <div class="image-container" style="padding-bottom: 66.66%;">
                             <img
-                                    id="image"  src="{{asset('images/photo_upload/'.$image->image)}}"
+                                    id="image" src="{{asset('images/photo_upload/'.$image->image)}}"
                                     alt="The art of teaching ballet">
                         </div>
                     </div>
@@ -21,10 +21,13 @@
                     </div>
                     @if($image->image_type==0)
                         <div class="photo-controls">
-                            <a href="{{route('download',$image->id)}}" class="btn is-download">Download</a>
-                            <div class="btn is-like">
-                                <span href="{{route('editor')}}">Recompose</span>
-                            </div>
+                            <a href="{{route('photo-download',$image->id)}}" class="btn is-download">Download</a>
+                            <a id="button" class="btn is-like" href="{{route('editor',$image->id)}}">
+                                    <span class="btn-icon">
+                                    <i class="icofont-heart"></i>
+                                </span>
+                                Recompose
+                            </a>
                         </div>
                     @elseif($image->image_type==1)
                         <form method="post" action="{{route('paypal')}}">
@@ -44,16 +47,25 @@
                                         Now</a>
                                 @endif
 
-                                <div class="btn is-like">
-                                <span class="btn-icon">
+                                <a id="button" class="btn is-like" href="{{route('editor',$image->id)}}">
+                                    <span class="btn-icon">
                                     <i class="icofont-heart"></i>
                                 </span>
-                                    <a id="button" href="{{route('editor',$image->id)}}">Recompose</a>
-                                </div>
+                                    Recompose
+                                </a>
+                                @if(!\Illuminate\Support\Facades\Auth::check())
+                                    <button data-dismiss="modal" onclick="$('#loginModal').modal('show');" href=""
+                                            data-toggle="modal" data-target="#loginModal" name="amount"
+                                            value="{{$image->cost}}" type="submit" class="btn btn-primary">Pay
+                                        with PayPal
+                                    </button>
+                                @else
+                                    <button name="amount" value="{{$image->cost}}" type="submit"
+                                            class="btn btn-primary">Pay
+                                        with PayPal
+                                    </button>
+                                @endif
 
-                                <button name="amount" value="{{$image->cost}}" type="submit" class="btn btn-primary">Pay
-                                    with PayPal
-                                </button>
 
                             </div>
                         </form>
@@ -134,6 +146,14 @@
     </div>
 </div>
 
+<div class="modal fade bd-example-modal-xl" id="exampleModalLong" tabindex="-1" role="dialog"
+     aria-labelledby="myExtraLargeModalLabel"
+     aria-hidden="true" data-dismiss="modal">
+
+
+</div>
+
+
 <script src="{{asset('js/toastr.min.js')}}"></script>
 
 <script>
@@ -197,7 +217,21 @@
         }
     });
     //open pixie on button click
-    document.querySelector('#button').addEventListener('click', function() {
+    document.querySelector('#button').addEventListener('click', function () {
         pixie.openEditorWithImage(document.querySelector('#image'));
+    });
+</script>
+<script>
+    var $modal = $('#exampleModalLong');
+    $(document).ready(function () {
+        $('.display').click(function (e) {
+            e.preventDefault();
+            var id = $(this).attr('data-id');
+            var tempEditUrl = "{{route('modal',':id')}}";
+            tempEditUrl = tempEditUrl.replace(':id', id);
+            $modal.load(tempEditUrl, function (response) {
+                $modal.modal({show: true});
+            });
+        });
     });
 </script>

@@ -197,7 +197,7 @@
 
 <div class="forum_layout">
     <header class="header">
-        <a href="forum-index.html" class="logo">
+        <a href="{{route('index')}}" class="logo">
             <img src="http://www.iconhot.com/icon/png/wood-social-networking/512/blinklist-logo-webtreatsetc.png"
                  alt="">
         </a>
