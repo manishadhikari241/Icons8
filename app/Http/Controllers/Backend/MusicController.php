@@ -302,7 +302,6 @@ class MusicController extends BackendController
             foreach ($request->moods as $value) {
                 DB::table('music_mood')->insert(['music_id' => $create->id, 'mood_id' => $value]);
             }
-            dd($data);
             if ($create) {
                 Session::flash('success', 'Music uploaded');
                 return redirect()->back();

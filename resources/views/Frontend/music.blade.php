@@ -23,7 +23,8 @@
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css">
 
-
+    <link rel="stylesheet" type="text/css" href="{{asset('css/Frontend/jquery.mCustomScrollbar.css')}}" media="all"/><!-- playlist scroll -->
+    <link rel="stylesheet" type="text/css" href="{{asset('css/Frontend/playlist.css')}}"/>
 
     <link rel="stylesheet" href="{{url('css/Frontend/icofont/icofont.min.css')}}">
     <link rel="stylesheet" href="{{url('css/Frontend/style.css')}}">
@@ -510,6 +511,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/simplebar/4.1.0/simplebar.min.js"></script>
 
 <script src="{{asset('js/Frontend/app.min.js')}}"></script>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/new.js"></script><!-- main plugin js -->
 
 <script>
     $(document).ready(function () {
