@@ -29,15 +29,15 @@
                                     </div>
 
                                     @if($style->parent_id != 0)
-                                    <div class="form-group mb-none">
-                                        <label for="name" class="control-label">Select Parent Category</label>
-                                        <select name="parent_id" id="parent" class="form-control select2">
-                                        @foreach($parent as $value)
-                                                <option @if($style->parent_id==$value->id)selected
-                                                        @endif value="{{$value->id}}">{{$value->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                        <div class="form-group mb-none">
+                                            <label for="name" class="control-label">Select Parent Category</label>
+                                            <select name="parent_id" id="parent" class="form-control select2">
+                                                @foreach($parent as $value)
+                                                    <option @if($style->parent_id==$value->id)selected
+                                                            @endif value="{{$value->id}}">{{$value->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     @endif
 
                                     <div class="form-group ">
@@ -48,7 +48,7 @@
                                     </div>
                                     <div class="form-group ">
                                         <label for="name" class="control-label">Image</label>
-                                        <img src="{{asset('images/icons/styles/'.$style->image)}}" width="80px">
+                                        <img src="{{asset('storage/WebContent/icons/styles/'.$style->image)}}" width="80px">
                                         <hr>
                                         <input class="form-control" name="image" type="file" id="name">
                                     </div>
@@ -63,7 +63,7 @@
                 </div>
 
             </div>
-                <!-- /.box -->
+            <!-- /.box -->
         </form>
     </div>
 @stop

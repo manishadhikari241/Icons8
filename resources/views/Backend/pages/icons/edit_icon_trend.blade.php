@@ -32,7 +32,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group ">
                                         <label for="name" class="control-label">Current Image:</label>
-                                        <img src="{{asset('images/icons/trends/'.$trend->image)}}" width="80px"><hr>
+                                        <img src="{{asset('storage/WebContent/icons/trends/'.$trend->image)}}" width="80px"><hr>
                                         <input class="form-control" name="image" type="file" id="name">
                                     </div>
                                 </div>

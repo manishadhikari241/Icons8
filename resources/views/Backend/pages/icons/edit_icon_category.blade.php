@@ -1,9 +1,8 @@
 @extends('voyager::master')
 @section('css')
     <meta name="csrf-token" content="{{ csrf_token() }}">
-@stop@section('content')
-
 @stop
+
 
 @section('content')
     <div class="col-md-12">
@@ -35,7 +34,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group ">
                                         <label for="name" class="control-label">Current Image:</label>
-                                        <img src="{{asset('images/icons/category/'.$icon->image)}}" width="80px">
+                                        <img src="{{asset('storage/WebContent/icons/category/'.$icon->image)}}" width="80px">
                                         <hr>
                                         <input class="form-control" name="image" type="file" id="name">
                                     </div>

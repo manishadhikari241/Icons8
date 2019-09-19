@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 
 class IconController extends BackendController
@@ -44,7 +45,7 @@ class IconController extends BackendController
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = public_path('/images/icons/styles/');
+                $destinationPath =storage_path('app/public/WebContent/icons/styles/');
                 $image->move($destinationPath, $name);
                 $data['image'] = $name;
             }
@@ -62,7 +63,7 @@ class IconController extends BackendController
             $this->data('style', $id);
             $all = IconStyle::all();
             $this->data('parent', $all);
-            return view($this->backendiconPath . 'edit_icon_style',$this->data);
+            return view($this->backendiconPath . 'edit_icon_style', $this->data);
 
         }
         if ($request->isMethod('post')) {
@@ -77,7 +78,7 @@ class IconController extends BackendController
                 $this->delete_img($id);
                 $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = public_path('/images/icons/styles/');
+                $destinationPath = storage_path('app/public/WebContent/icons/styles/');
                 $image->move($destinationPath, $name);
                 $data['image'] = $name;
             }
@@ -94,7 +95,7 @@ class IconController extends BackendController
     {
         $findData = IconStyle::findorfail($id);
         $fileName = $findData->image;
-        $deletePath = public_path('images/icons/styles/' . $fileName);
+        $deletePath = storage_path('app/public/WebContent/icons/styles/'.$fileName);
         if (file_exists($deletePath) && is_file($deletePath)) {
             unlink($deletePath);
         }
@@ -111,6 +112,7 @@ class IconController extends BackendController
             Session::flash('success', 'Icon styles deleted');
             return redirect()->back();
         }
+        return false;
     }
 
     public function category(Request $request)
@@ -133,7 +135,7 @@ class IconController extends BackendController
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = public_path('/images/icons/category/');
+                $destinationPath = storage_path('app/public/WebContent/icons/category/');
                 $image->move($destinationPath, $name);
                 $data['image'] = $name;
             }
@@ -166,7 +168,7 @@ class IconController extends BackendController
                 $this->delete_file($id);
                 $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = public_path('/images/icons/category/');
+                $destinationPath = storage_path('app/public/WebContent/icons/category/');
                 $image->move($destinationPath, $name);
                 $data['image'] = $name;
             }
@@ -205,7 +207,7 @@ class IconController extends BackendController
             $trend = IconTrend::all();
             $this->data('trend', $trend);
 
-            return view($this->backendiconPath . 'trends',  $this->data);
+            return view($this->backendiconPath . 'trends', $this->data);
         }
         if ($request->isMethod('post')) {
             $request->validate([
@@ -218,7 +220,7 @@ class IconController extends BackendController
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = public_path('/images/icons/trends/');
+                $destinationPath = storage_path('app/public/WebContent/icons/trends/');
                 $image->move($destinationPath, $name);
                 $data['image'] = $name;
             }
@@ -248,7 +250,8 @@ class IconController extends BackendController
                 $this->delete_image($id);
                 $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = public_path('/images/icons/trends/');
+                $destinationPath = storage_path('app/public/WebContent/icons/trends/')
+                ;
                 $image->move($destinationPath, $name);
                 $data['image'] = $name;
             }
@@ -416,19 +419,20 @@ class IconController extends BackendController
 
     public function delete_icon_upload($id)
     {
-        $del=IconUpload::findorfail($id);
-        if ($this->delete_icon($id) && $del->delete())
-        {
+        $del = IconUpload::findorfail($id);
+        if ($this->delete_icon($id) && $del->delete()) {
             Session::flash('success', 'Icon deleted');
             return redirect()->back();
         }
     }
 
-    public function getCategory(){
+    public function getCategory()
+    {
         $categories = IconStyle::where('parent_id', 0)->take(12)->get();
         $categories = $this->addRelation($categories);
         return $categories;
     }
+
     public function addRelation($categories)
     {
 
@@ -444,6 +448,7 @@ class IconController extends BackendController
 
         return $categories;
     }
+
     public function selectChild($id)
     {
         $categories = IconStyle::where('parent_id', $id)->get(); //rooney

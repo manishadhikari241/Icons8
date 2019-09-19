@@ -52,7 +52,6 @@
                                 </div>
 
 
-
                                 <!-- /.box-body -->
                             </div>
                             <!-- /.box -->
@@ -90,7 +89,8 @@
                             @foreach($cat as $key => $value)
                                 <tr>
                                     <td>{{++$key}}</td>
-                                    <td><img src="{{asset('images/icons/category/'.$value->image)}}" width="80px"></td>
+                                    <td><img src="{{asset('storage/WebContent/icons/category/'.$value->image)}}"
+                                             width="80px"></td>
                                     <td>{{$value->title}}</td>
                                     <td>{!! $value->description !!}</td>
                                     <td>

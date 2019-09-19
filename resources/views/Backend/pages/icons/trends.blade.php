@@ -87,7 +87,7 @@
                             @foreach($trend as $key => $value)
                                 <tr>
                                     <td>{{++$key}}</td>
-                                    <td><img src="{{asset('images/icons/trends/'.$value->image)}}" width="80px"></td>
+                                    <td><img src="{{asset('storage/WebContent/icons/trends/'.$value->image)}}" width="80px"></td>
                                     <td>{{$value->category}}</td>
                                     <td>{!! $value->description !!}</td>
                                     <td>

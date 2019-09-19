@@ -30,8 +30,8 @@
                                     <div class="form-group mb-none">
                                         <label for="name" class="control-label">Select Parent Category</label>
                                         <select name="parent_id" id="parent" class="form-control select2">
-                                        @foreach($styles as $value)
-                                            <option selected value="0">-Please select--</option>
+                                            @foreach($styles as $value)
+                                                <option selected value="0">-Please select--</option>
                                                 <option value="{{$value->id}}">{{$value->name}}</option>
                                                 @include('Backend.pages.icons.category_dropdown',['category'=>$value])
                                             @endforeach
@@ -87,14 +87,15 @@
                                 <td>{{$value->name}}</td>
                                 <td>{{App\Model\IconStyle::where('id','=',$value->parent_id)->first() ? App\Model\IconStyle::where('id','=',$value->parent_id)->first()->name : '-'}}</td>
                                 <td>{!! $value->description !!}</td>
-                                <td><img src="{{asset('images/icons/styles/'.$value->image)}} " width="80px"></td>
+                                <td><img src="{{asset('storage/WebContent/icons/styles/'.$value->image)}} "
+                                         width="80px"></td>
                                 <td>
                                     <a class="btn btn-danger confirm"
-                                    href="{{route('icon-style-delete',$value->id)}}"
-                                    onclick="return confirm('Delete all categories?')"><i
-                                    class="fa fa fa-trash"></i></a>
+                                       href="{{route('icon-style-delete',$value->id)}}"
+                                       onclick="return confirm('Delete all categories?')"><i
+                                                class="fa fa fa-trash"></i></a>
                                     <a class="btn btn-outline-primary confirm"
-                                    href="{{route('edit-icon-style',$value->id)}}"
+                                       href="{{route('edit-icon-style',$value->id)}}"
                                     ><i class="fa fa fa-edit"></i></a>
                                 </td>
                                 </tbody>
