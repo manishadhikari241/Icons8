@@ -14,7 +14,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <form method="POST" action="{{route('music-upload')}}"
+                        <form id="form"
                               accept-charset="UTF-8" class=""
                               enctype="multipart/form-data">
                             @csrf
@@ -26,7 +26,6 @@
                                             <label for="name" class="control-label">Music Title*</label>
                                             <input class="form-control" name="name" type="text" id="name">
                                         </div>
-
 
                                         <div class="form-group mb-none">
                                             <label for="name" class="control-label">Thumbnail</label>
@@ -54,7 +53,6 @@
 
                                         </div>
                                     </div>
-
 
                                     <!-- /.box-header -->
                                     <div class="box-body">
@@ -122,7 +120,7 @@
                                         </div>
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary">Upload Music</button>
+                                    <button type="submit" id="upload" class="btn btn-primary">Upload Music</button>
 
                                 </div>
                             </div>
@@ -136,7 +134,56 @@
 
     </div>
 
+    <img id='loading' src='{{asset('images/loader.gif')}}'
+         style="visibility: hidden; display: block">
     <!-- /.col -->
-
-
 @endsection
+
+@push('javascript')
+    <script>
+        $(document).ready(function () {
+            function showLoading() {
+                document.getElementById("loading").style = "visibility: visible";
+            }
+
+            function hideLoading() {
+                document.getElementById("loading").style = "visibility: hidden";
+            }
+
+            $("#upload").click(function (e) {
+                let myform = document.getElementById('form');
+                let formdata = new FormData(myform);
+                e.preventDefault();
+                //call show loading function here
+                showLoading();
+                $.ajax({
+                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    type: "POST",
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                    contentType: false,
+                    url: "{{route('music-upload')}}",
+                    data: formdata,
+
+                    success: function (data) {
+                        jQuery.each(data.errors, function (key, value) {
+                            toastr.warning(value);
+                            hideLoading();
+
+                        });
+                        if (data.status == 'success') {
+                            toastr.success(data.message);
+
+                        }
+                        hideLoading();
+                    },
+                    error: function (a) {//if an error occurs
+                        hideLoading();
+                        alert("An error occured while uploading data.\n error code : "+a.statusText);
+                    }
+                });
+            });
+        });
+    </script>
+
+@endpush

@@ -25,6 +25,7 @@
 
     <link rel="stylesheet" type="text/css" href="{{asset('css/Frontend/jquery.mCustomScrollbar.css')}}" media="all"/><!-- playlist scroll -->
     <link rel="stylesheet" type="text/css" href="{{asset('css/Frontend/playlist.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('css/Frontend/flat.css')}}"/>
 
     <link rel="stylesheet" href="{{url('css/Frontend/icofont/icofont.min.css')}}">
     <link rel="stylesheet" href="{{url('css/Frontend/style.css')}}">
@@ -243,6 +244,37 @@
             </aside>
 
             <section class="music-col">
+                {{--@foreach($theme->first()->musics as $value)--}}
+                {{--<div class="mvp-playlist-item" data-type="audio" data-path='[{"quality": "default", "mp3": "{{asset('images/music/'.$value->audio)}}", "wav": "media/audio/wav/01.wav"},{"quality": "320kbps", "mp3": "media/audio/02_320kbps.mp3"}]' data-quality="320kbps" data-poster="{{asset('images/music/'.$value->image)}}" data-download="media/audio/01.mp3" data-share="http://www.google.com">--}}
+
+                    {{--<div class="mvp-playlist-thumb">--}}
+                        {{--<img class="mvp-thumbimg" src="{{asset('images/music/'.$value->image)}}" alt="">--}}
+                    {{--</div>--}}
+
+                    {{--<div class="mvp-playlist-info">--}}
+                        {{--<span class="mvp-playlist-title">Audio title goes here</span>--}}
+                        {{--<span class="mvp-playlist-description">Self hosted audio. Commodo vitae, tempor eu, urna eu mi hendrerit. Maecenas eu erat condimentum.</span>--}}
+                    {{--</div>--}}
+
+
+                {{--</div>--}}
+              {{--@endforeach--}}
+                    <div id="wrapper" class="mvp-outer">
+                        <div class="mvp-playlist-item" data-type="audio" data-path='[{"quality": "default", "mp3": "{{asset('images/music/'.$theme->first()->musics->first()->audio)}}", "wav": "media/audio/wav/01.wav"},{"quality": "320kbps", "mp3": "media/audio/02_320kbps.mp3"}]' data-quality="320kbps" data-poster="{{asset('images/music/'.$theme->first()->musics->first()->image)}}" data-download="media/audio/01.mp3" data-share="http://www.google.com">
+
+                            <div class="mvp-playlist-thumb">
+                                <img class="mvp-thumbimg" src="{{asset('images/music/'.$theme->first()->musics->first()->image)}}" alt="">
+                            </div>
+
+                            <div class="mvp-playlist-info">
+                                <span class="mvp-playlist-title">Audio title goes here</span>
+                                <span class="mvp-playlist-description">Self hosted audio. Commodo vitae, tempor eu, urna eu mi hendrerit. Maecenas eu erat condimentum.</span>
+                            </div>
+
+
+                        </div>
+
+                    </div>
                 <div>
                     <div class="app-tracks" id="filter_id">
                         @if(!isset($main_search) && !isset($empty_search))
@@ -406,7 +438,13 @@
             </section>
         </div>
     </div>
-
+    <div class="playlist-youtube-3">
+        <div class="mvp-playlist-item" data-type="youtube_playlist" data-path="PLFgquLnL59alCl_2TQvOiD5Vgm1hCaGSI" data-limit="10">
+            <div class="mvp-custom-playlist-item-content">
+                <div class="foo">This div will be copied!</div>
+            </div>
+        </div>
+    </div>
 
     <footer class="footer">
         <div class="container">
@@ -511,8 +549,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/simplebar/4.1.0/simplebar.min.js"></script>
 
 <script src="{{asset('js/Frontend/app.min.js')}}"></script>
-<script src="js/jquery-3.2.1.min.js"></script>
-<script src="js/new.js"></script><!-- main plugin js -->
+wr<script src="{{asset('js/Frontend/new.js')}}"></script><!-- main plugin js -->
+<script>
+    $(document).ready(function($) {
+        var settings = {
+            autoPlay:true,
+            aspectRatio:0,
+        };
+        $("#wrapper").mvp(settings);
+    });
+</script>
 
 <script>
     $(document).ready(function () {

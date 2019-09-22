@@ -10,11 +10,13 @@ use App\Model\MusicSlider;
 use App\Model\MusicTag;
 use App\Model\Tag;
 use App\Model\Theme;
+use App\Model\Video;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\WebmasterSection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 
 class MusicController extends BackendController
@@ -25,7 +27,7 @@ class MusicController extends BackendController
         if ($request->isMethod('get')) {
             $tags = MusicTag::all();
             $this->data('tags', $tags);
-            return view($this->backendtagPath .'music_tags', $this->data);
+            return view($this->backendtagPath . 'music_tags', $this->data);
         }
         if ($request->isMethod('post')) {
             $request->validate([
@@ -234,9 +236,8 @@ class MusicController extends BackendController
     public function delete_artist($id)
     {
         $del = Artist::findorfail($id);
-        if(DB::table('musics')->where('artist_id',$id)->get()->isNotEmpty())
-        {
-            return redirect()->back()->with('error','Please delete related music first');
+        if (DB::table('musics')->where('artist_id', $id)->get()->isNotEmpty()) {
+            return redirect()->back()->with('error', 'Please delete related music first');
 
         }
         if ($del->delete()) {
@@ -262,8 +263,8 @@ class MusicController extends BackendController
             $this->data('artist', $art);
             return view($this->backendmusicPath . 'music', compact('GeneralWebmasterSections'), $this->data);
         }
-        if ($request->isMethod('post')) {
-            $request->validate([
+        if ($request->ajax()) {
+            $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'image' => 'required',
                 'themes' => 'required',
@@ -272,6 +273,12 @@ class MusicController extends BackendController
                 'moods' => 'required',
                 'audio' => 'required',
             ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'errors' => $validator->errors()->all()
+                ]);
+            }
             $data['name'] = $request->name;
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
@@ -302,13 +309,17 @@ class MusicController extends BackendController
             foreach ($request->moods as $value) {
                 DB::table('music_mood')->insert(['music_id' => $create->id, 'mood_id' => $value]);
             }
-            if ($create) {
-                Session::flash('success', 'Music uploaded');
-                return redirect()->back();
-            }
-
         }
+        if ($create) {
+           return response()->json([
+               'message'=>'Music uploaded successfully',
+                   'status'=>'success'
+               ]);
+        }
+
     }
+
+
 
     public function show_music(Request $request)
     {
@@ -316,7 +327,7 @@ class MusicController extends BackendController
 
             $music = Music::all();
             $this->data('music', $music);
-            return view($this->backendmusicPath . 'show_music', compact('GeneralWebmasterSections'), $this->data);
+            return view($this->backendmusicPath . 'show_music', $this->data);
 
         }
     }
@@ -344,11 +355,10 @@ class MusicController extends BackendController
 
     public function delete_mp3($id)
     {
-        $find=Music::findorfail($id);
-        $file=$find->audio;
-        $deletePath=public_path('music/',$file);
-        if (file_exists($deletePath)&& is_file($deletePath))
-        {
+        $find = Music::findorfail($id);
+        $file = $find->audio;
+        $deletePath = public_path('music/', $file);
+        if (file_exists($deletePath) && is_file($deletePath)) {
             unlink($deletePath);
         }
         return true;
@@ -401,12 +411,12 @@ class MusicController extends BackendController
             $data['artist_id'] = $request->artist;
             $find = Music::findorfail($id);
             $tags = $find->tags()->sync($request->tag);
-            $themes=$find->themes()->sync($request->themes);
-            $moods=$find->moods()->sync($request->moods);
-            $genres=$find->genres()->sync($request->genres);
+            $themes = $find->themes()->sync($request->themes);
+            $moods = $find->moods()->sync($request->moods);
+            $genres = $find->genres()->sync($request->genres);
 
             if ($find->update($data)) {
-                Session::flash('success','Music updated');
+                Session::flash('success', 'Music updated');
                 return redirect()->back();
             }
 
@@ -415,10 +425,9 @@ class MusicController extends BackendController
 
     public function music_slider(Request $request)
     {
-        if ($request->isMethod('get'))
-        {
-            $slide=MusicSlider::all();
-            $this->data('slide',$slide);
+        if ($request->isMethod('get')) {
+            $slide = MusicSlider::all();
+            $this->data('slide', $slide);
             return view($this->backendmusicPath . 'music_slider', $this->data);
         }
         if ($request->isMethod('post')) {
@@ -446,12 +455,11 @@ class MusicController extends BackendController
 
     public function edit_slide(Request $request)
     {
-        if ($request->isMethod('get'))
-        {
+        if ($request->isMethod('get')) {
             $id = $request->id;
             $edit = MusicSlider::where('id', '=', $id)->first();
             $this->data('slide', $edit);
-            return view($this->backendmusicPath. 'edit_slide', $this->data);
+            return view($this->backendmusicPath . 'edit_slide', $this->data);
         }
         if ($request->isMethod('post')) {
             $id = $request->id;
@@ -475,10 +483,9 @@ class MusicController extends BackendController
 
     public function slider_delete($id)
     {
-        $find=MusicSlider::findorfail($id);
-        if ($this->delete_slide($id) && $find->delete())
-        {
-            Session::flash('success','Slider deleted successfully');
+        $find = MusicSlider::findorfail($id);
+        if ($this->delete_slide($id) && $find->delete()) {
+            Session::flash('success', 'Slider deleted successfully');
             return redirect()->back();
         }
     }
@@ -505,6 +512,173 @@ class MusicController extends BackendController
         return response()->download($path, $mus
             ->original_filename, $headers);
     }
+
+
+    public function video(Request $request)
+    {
+        if ($request->isMethod('get')) {
+            $tags = MusicTag::all();
+            $this->data('tag', $tags);
+            $theme = Theme::all();
+            $this->data('theme', $theme);
+            $genre = Genre::all();
+            $this->data('genre', $genre);
+            $mood = Mood::all();
+            $this->data('mood', $mood);
+            $art = Artist::all();
+            $this->data('artist', $art);
+            return view($this->backendmusicPath . 'video', $this->data);
+        }
+
+        if ($request->ajax()) {
+            $validator = Validator::make($request->all(), [
+                'name' => 'required',
+                'image' => 'required',
+                'themes' => 'required',
+                'tag' => 'required',
+                'genres' => 'required',
+                'moods' => 'required',
+                'video' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'errors' => $validator->errors()->all()
+                ]);
+            }
+            $data['name'] = $request->name;
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $name = time() . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('/images/video/');
+                $image->move($destinationPath, $name);
+                $data['image'] = $name;
+            }
+            if ($request->hasFile('video')) {
+                $audio = $request->file('video');
+                $file = time() . '.' . $audio->getClientOriginalExtension();
+                $destinationPath = public_path('/video/');
+                $audio->move($destinationPath, $file);
+                $data['video'] = $file;
+            }
+            $data['artist_id'] = $request->artist;
+            $create = Video::create($data);
+            $taag = $create->tags()->attach($request->tag);
+            $thems = $create->themes()->attach($request->themes);
+            $gens = $create->genres()->attach($request->genres);
+            $mod = $create->moods()->attach($request->moods);
+        }
+
+        if ($create) {
+            return response()->json([
+                'status'=>'success',
+                'message' => 'Video uploaded'
+            ]);
+        }
+
+    }
+
+    public function show_video(Request $request)
+    {
+        if ($request->isMethod('get')) {
+            $video = Video::all();
+            $this->data('video', $video);
+            return view($this->backendmusicPath . 'show_video', $this->data);
+        }
+    }
+
+    public function edit_video(Request $request)
+    {
+        if ($request->isMethod('get')) {
+
+            $video = Video::where('id', '=', $request->id)->first();
+            $this->data('video', $video);
+            $art = Artist::all();
+            $this->data('artist', $art);
+            $tag = MusicTag::all();
+            $this->data('tag', $tag);
+            $theme = Theme::all();
+            $this->data('theme', $theme);
+            $genre = Genre::all();
+            $this->data('genre', $genre);
+            $mood = Mood::all();
+            $this->data('mood', $mood);
+            return view($this->backendmusicPath . 'edit_video', $this->data);
+        }
+        if ($request->isMethod('post')) {
+            $request->validate([
+                'name' => 'required',
+                'themes' => 'required',
+                'tag' => 'required',
+                'genres' => 'required',
+                'moods' => 'required'
+            ]);
+            $data['name'] = $request->name;
+            $id = $request->id;
+            if ($request->hasFile('image')) {
+                $this->delete_img($id);
+                $image = $request->file('image');
+                $name = time() . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('/images/video/');
+                $image->move($destinationPath, $name);
+                $data['image'] = $name;
+            }
+            if ($request->hasFile('video')) {
+                $this->delete_video($id);
+                $audio = $request->file('video');
+                $name = time() . '.' . $audio->getClientOriginalExtension();
+                $destinationPath = public_path('/video/');
+                $audio->move($destinationPath, $name);
+                $data['video'] = $name;
+            }
+            $data['artist_id'] = $request->artist;
+            $find = Video::findorfail($id);
+            $tags = $find->tags()->sync($request->tag);
+            $themes = $find->themes()->sync($request->themes);
+            $moods = $find->moods()->sync($request->moods);
+            $genres = $find->genres()->sync($request->genres);
+
+            if ($find->update($data)) {
+                Session::flash('success', 'Video updated');
+                return redirect()->back();
+            }
+
+        }
+    }
+
+    public function delete_img($id)
+    {
+        $findData = Video::findorfail($id);
+        $fileName = $findData->image;
+        $deletePath = public_path('images/video/' . $fileName);
+        if (file_exists($deletePath) && is_file($deletePath)) {
+            unlink($deletePath);
+        }
+        return true;
+    }
+
+    public function delete_video($id)
+    {
+        $find = Video::findorfail($id);
+        $file = $find->video;
+        $deletePath = public_path('video/', $file);
+        if (file_exists($deletePath) && is_file($deletePath)) {
+            unlink($deletePath);
+        }
+        return true;
+    }
+
+    public function delete_videos(Request $request)
+    {
+        $id = $request->id;
+        $find = Video::findorfail($id);
+        if ($this->delete_img($id) && $this->delete_video($id) && $find->delete()) {
+            Session::flash('success', 'Video deleted');
+            return redirect()->back();
+        }
+    }
+
+
 }
 
 

@@ -49,9 +49,6 @@
     });
 </script>
 
-=======
-        }, 50);
-    </script>
 </pixie-editor>
 <script src="{{asset('pixie/scripts.min.js')}}"></script>
 
@@ -81,8 +78,5 @@ window.postMessage('pixieLoaded', '*');
 });
 </script>
 
-
-
->>>>>>> 1f34cd35ea106f834e8818a5cfe6834073a6719e
 </body>
 </html>
