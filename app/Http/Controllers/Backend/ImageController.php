@@ -36,7 +36,7 @@ class ImageController extends BackendController
         if ($request->isMethod('get')) {
             $cat = ImageCategory::all();
             $this->data('cat', $cat);
-            return view($this->backendcategoryPath . 'category', compact('GeneralWebmasterSections'), $this->data);
+            return view($this->backendcategoryPath . 'category', $this->data);
         }
 
         if ($request->isMethod('post')) {
@@ -189,7 +189,7 @@ class ImageController extends BackendController
         if ($request->isMethod('get')) {
             $age = Age::all();
             $this->data('age', $age);
-            return view($this->backendagePath . 'age',$this->data);
+            return view($this->backendagePath . 'age', $this->data);
         }
         if ($request->isMethod('post')) {
             $request->validate([
@@ -234,7 +234,7 @@ class ImageController extends BackendController
         if ($request->isMethod('get')) {
             $hair = Hair::all();
             $this->data('hair', $hair);
-            return view($this->backendhairPath . 'hair',$this->data);
+            return view($this->backendhairPath . 'hair', $this->data);
         }
         if ($request->isMethod('post')) {
             $request->validate([
@@ -279,7 +279,7 @@ class ImageController extends BackendController
         if ($request->isMethod('get')) {
             $body = BodyType::all();
             $this->data('body', $body);
-            return view($this->backendbodytypePath . 'body_type',$this->data);
+            return view($this->backendbodytypePath . 'body_type', $this->data);
         }
         if ($request->isMethod('post')) {
             $request->validate([
@@ -323,7 +323,7 @@ class ImageController extends BackendController
         if ($request->isMethod('get')) {
             $special = SpecialFeature::all();
             $this->data('special', $special);
-            return view($this->backendspecialPath . 'special_features',$this->data);
+            return view($this->backendspecialPath . 'special_features', $this->data);
         }
         if ($request->isMethod('post')) {
             $request->validate([
@@ -368,7 +368,7 @@ class ImageController extends BackendController
         if ($request->isMethod('get')) {
             $tags = Tag::all();
             $this->data('tags', $tags);
-            return view($this->backendtagPath . 'tags',$this->data);
+            return view($this->backendtagPath . 'tags', $this->data);
         }
         if ($request->isMethod('post')) {
             $request->validate([
@@ -501,7 +501,7 @@ class ImageController extends BackendController
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = public_path('/images/photo_upload/');
+                $destinationPath = storage_path('app/public/WebContent/photo_upload/');
                 $image->move($destinationPath, $name);
                 $data['image'] = $name;
             }
@@ -561,7 +561,7 @@ class ImageController extends BackendController
 
             $image = Image::all();
             $this->data('image', $image);
-            return view($this->backendimagePath . 'show_image',$this->data);
+            return view($this->backendimagePath . 'show_image', $this->data);
 
         }
     }
@@ -609,7 +609,7 @@ class ImageController extends BackendController
                 $this->delete_file($id);
                 $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = public_path('/images/photo_upload/');
+                $destinationPath = storage_path('app/public/WebContent/photo_upload/');
                 $image->move($destinationPath, $name);
                 $data['image'] = $name;
             }

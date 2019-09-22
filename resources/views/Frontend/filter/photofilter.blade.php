@@ -1,23 +1,23 @@
 @foreach($image as $value)
     <div class="column">
-            <div class="filler card"
-                 data-id="{{$value->id}}">
-                <a href="" class="card-link"></a>
-                <div class="card-image">
-                    <img src="{{asset('images/photo_upload/'.$value->image)}}"
-                         alt="{!! $value->description  !!}">
-                    <div class="card-control">
-                        <a href="" class="card-edit">Recompose</a>
-                        <button class="card-like">
+        <div class="filler card"
+             data-id="{{$value->id}}">
+            <a href="" class="card-link"></a>
+            <div class="card-image">
+                <img src="{{asset('storage/WebContent/photo_upload/'.$value->image)}}"
+                     alt="{!! $value->description  !!}">
+                <div class="card-control">
+                    <a href="" class="card-edit">Recompose</a>
+                    <button class="card-like">
                                     <span class="card-like-icon">
                                         <svg width="100%" height="100%"><use xlink:href="#heart"></use></svg>
                                     </span>
-                            <span class="card-like-value">2</span>
-                        </button>
-                    </div>
+                        <span class="card-like-value">2</span>
+                    </button>
                 </div>
-                <div class="card-caption">{{$value->title}} </div>
             </div>
+            <div class="card-caption">{{$value->title}} </div>
+        </div>
     </div>
 
 
@@ -39,5 +39,6 @@
             $modal.load(tempEditUrl, function (response) {
                 $modal.modal({show: true});
             });
-        });});
+        });
+    });
 </script>

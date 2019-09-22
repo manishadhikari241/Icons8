@@ -71,11 +71,12 @@
                                                     </div>
 
                                                     @if($img->image_type==1)
-                                                    <div class="premium form-group">
-                                                    <label for="formGroupExampleInput">Price:</label>
-                                                    <input type="text" name="price" class="form-control" value="{{$img->cost}}"
-                                                    id="formGroupExampleInput">
-                                                    </div>
+                                                        <div class="premium form-group">
+                                                            <label for="formGroupExampleInput">Price:</label>
+                                                            <input type="text" name="price" class="form-control"
+                                                                   value="{{$img->cost}}"
+                                                                   id="formGroupExampleInput">
+                                                        </div>
                                                     @endif
 
                                                     <div class="form-group">
@@ -86,7 +87,7 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="formGroupExampleInput">Current Image:</label>
-                                                        <img src="{{asset('images/photo_upload/'.$img->image)}}"
+                                                        <img src="{{asset('storage/WebContent/photo_upload/'.$img->image)}}"
                                                              width="100px">
                                                         <input type="file" name="image" class="form-control"
                                                                id="formGroupExampleInput">

@@ -6,7 +6,7 @@
                     <div class="photo-img" style="min-width: 280px; max-width: calc((600px - 10%) * 1.50015);">
                         <div class="image-container" style="padding-bottom: 66.66%;">
                             <img
-                                    id="image" src="{{asset('images/photo_upload/'.$image->image)}}"
+                                    id="image" src="{{asset('storage/WebContent/photo_upload/'.$image->image)}}"
                                     alt="The art of teaching ballet">
                         </div>
                     </div>
@@ -124,7 +124,7 @@
                                  data-id="{{$value->id}}">
                                 <a href="" class="card-link"></a>
                                 <div class="card-image">
-                                    <img src="{{asset('images/photo_upload/'.$value->image)}}"
+                                    <img src="{{asset('storage/WebContent/photo_upload/'.$value->image)}}"
                                          alt="{!! $value->description  !!}">
                                     <div class="card-control">
                                         <a href="" class="card-edit">Recompose</a>

@@ -256,7 +256,7 @@ class PageController extends Controller
     {
         $image = Image::where('id', '=', $id)->first();
         $this->data('image', $image);
-        $img = Image::orderBy('created_at')->get();
+        $img = Image::inRandomOrder()->take(10)->get();
         $this->data('img', $img);
         return view('Frontend.modal', $this->data);
     }

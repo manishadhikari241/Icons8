@@ -330,7 +330,7 @@
 
                                                 <div class="tracks-item-row">
                                                     <div class="tracks-item-col tracks-item-cover">
-                                                        <img src="{{asset('images/music/'.$value->image)}}"
+                                                        <img src="{{asset('storage/WebContent/music/'.$value->image)}}"
                                                              alt="Delirix - Welcome To The Jungle"
                                                              class="tracks-item-cover-img">
                                                     </div>

@@ -330,7 +330,7 @@
                                     @if(\Gloudemans\Shoppingcart\Facades\Cart::content()->isnotEmpty())
                                         @foreach(\Gloudemans\Shoppingcart\Facades\Cart::content() as $value)
                                             <img class="download" alt="Mongrol icon" style="height: 32px; width: 32px;"
-                                                 src="{{asset('images/icons/icon_upload/'.\App\Model\IconUpload::where('id',$value->id)->first()->image)}}">
+                                                 src="{{asset('storage/WebContent/icons/icon_upload/'.\App\Model\IconUpload::where('id',$value->id)->first()->image)}}">
                                         @endforeach
                                     @endif
                                     <div class="wrap-icon">
@@ -383,7 +383,7 @@
                                                 <div class="preview-icons-item">
                                                     <div class="app-icon is-ios7"><img data-id="{{$value->id}}" alt=""
                                                                                        style="height: 50px; width: 50px;"
-                                                                                       src="{{asset('images/icons/icon_upload/'.$icons->image)}}">
+                                                                                       src="{{asset('storage/Webcontent/icons/icon_upload/'.$icons->image)}}">
                                                     </div>
                                                 </div>
                                             @endforeach
