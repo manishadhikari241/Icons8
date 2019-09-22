@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers\Frontend;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Config;
@@ -19,9 +21,11 @@ use PayPal\Api\RedirectUrls;
 use PayPal\Api\Transaction;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
+
 class PaypalController extends Controller
 {
     private $_api_context;
+
     public function __construct()
     {
         /** PayPal api context **/
@@ -32,6 +36,7 @@ class PaypalController extends Controller
         );
         $this->_api_context->setConfig($paypal_conf['settings']);
     }
+
     public function payWithpaypal(Request $request)
     {
         if (!Auth::check()) {
@@ -89,6 +94,7 @@ class PaypalController extends Controller
         Session::put('error', 'Unknown error occurred');
         return Redirect::to('/');
     }
+
     public
     function getPaymentStatus()
     {

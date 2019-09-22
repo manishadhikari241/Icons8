@@ -92,29 +92,36 @@ Route::group(['namespace' => 'Backend'], function () {
         Route::any('delete-icon-upload/{id?}', 'IconController@delete_icon_upload')->name('icon-upload-delete');
     });
     Route::Group(['prefix' => 'Music'], function () {
-        Route::any('/music-tags', 'MusicController@tags')->name('music-tags');
+        Route::any('/media-tags', 'MusicController@tags')->name('music-tags');
         Route::any('edit-tags/{id?}', 'MusicController@edit_tags')->name('music-tags-edit');
         Route::get('delete-tags/{id}', 'MusicController@delete_tags')->name('music-tags-delete');
-        Route::any('/music-themes', 'MusicController@themes')->name('theme');
+        Route::any('/media-themes', 'MusicController@themes')->name('theme');
         Route::any('edit-music-theme/{id?}', 'MusicController@edit_theme')->name('edit-music-theme');
         Route::any('delete-music-theme/{id?}', 'MusicController@delete_theme')->name('delete-music-theme');
-        Route::any('/music-genre', 'MusicController@genre')->name('genre');
+        Route::any('/media-genre', 'MusicController@genre')->name('genre');
         Route::any('edit-music-genre/{id?}', 'MusicController@edit_genre')->name('edit-music-genre');
         Route::any('delete-music-genre/{id?}', 'MusicController@delete_genre')->name('delete-music-genre');
-        Route::any('/music-mood', 'MusicController@mood')->name('mood');
+        Route::any('/media-mood', 'MusicController@mood')->name('mood');
         Route::any('edit-music-mood/{id?}', 'MusicController@edit_mood')->name('edit-music-mood');
         Route::any('delete-music-mood/{id?}', 'MusicController@delete_mood')->name('delete-music-mood');
-        Route::any('/music-artist', 'MusicController@artist')->name('artist');
+        Route::any('/media-artist', 'MusicController@artist')->name('artist');
         Route::any('edit-music-artist/{id?}', 'MusicController@edit_artist')->name('edit-music-artist');
         Route::any('delete-music-artist/{id?}', 'MusicController@delete_artist')->name('delete-music-artist');
         Route::any('/music-upload', 'MusicController@music')->name('music-upload');
         Route::any('edit-music-upload/{id?}', 'MusicController@edit_music')->name('edit-music');
-        Route::any('delete-music-upload/{id?}', 'MusicController@delete_music')->name('delete-music');
+        Route::any('delete-music/{id?}', 'MusicController@delete_music')->name('delete-music');
+
         Route::any('/show-music', 'MusicController@show_music')->name('show-music');
         Route::any('/music-slider', 'MusicController@music_slider')->name('music-slider');
         Route::any('edit-slider/{id?}', 'MusicController@edit_slide')->name('slide-edit');
         Route::any('delete-slider/{id?}', 'MusicController@slider_delete')->name('slide-delete');
         Route::any('music_download/{id?}', 'MusicController@music_download')->name('music_download');
+        Route::any('/video-upload', 'MusicController@video')->name('video-upload');
+        Route::any('/show-video', 'MusicController@show_video')->name('show-video');
+        Route::any('edit-video-upload/{id?}', 'MusicController@edit_video')->name('edit-video');
+        Route::any('delete-music-upload/{id?}', 'MusicController@delete_videos')->name('delete-video');
+
+
 
     });
     Route::Group(['prefix' => 'Photos'], function () {
