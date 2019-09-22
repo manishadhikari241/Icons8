@@ -71,7 +71,7 @@ class MusicController extends BackendController
         if ($request->isMethod('get')) {
             $themes = Theme::all();
             $this->data('theme', $themes);
-            return view($this->backendmusicPath . 'themes', compact('GeneralWebmasterSections'), $this->data);
+            return view($this->backendmusicPath . 'themes', $this->data);
         }
         if ($request->isMethod('post')) {
             $request->validate([
@@ -115,7 +115,7 @@ class MusicController extends BackendController
         if ($request->isMethod('get')) {
             $gen = Genre::all();
             $this->data('genre', $gen);
-            return view($this->backendmusicPath . 'genres', compact('GeneralWebmasterSections'), $this->data);
+            return view($this->backendmusicPath . 'genres',$this->data);
         }
         if ($request->isMethod('post')) {
             $request->validate([
@@ -159,7 +159,7 @@ class MusicController extends BackendController
         if ($request->isMethod('get')) {
             $mood = Mood::all();
             $this->data('mood', $mood);
-            return view($this->backendmusicPath . 'moods', compact('GeneralWebmasterSections'), $this->data);
+            return view($this->backendmusicPath . 'moods', $this->data);
         }
         if ($request->isMethod('post')) {
             $request->validate([
@@ -203,7 +203,7 @@ class MusicController extends BackendController
         if ($request->isMethod('get')) {
             $art = Artist::all();
             $this->data('artist', $art);
-            return view($this->backendmusicPath . 'artist', compact('GeneralWebmasterSections'), $this->data);
+            return view($this->backendmusicPath . 'artist', $this->data);
         }
         if ($request->isMethod('post')) {
             $request->validate([
@@ -261,7 +261,7 @@ class MusicController extends BackendController
             $this->data('mood', $mood);
             $art = Artist::all();
             $this->data('artist', $art);
-            return view($this->backendmusicPath . 'music', compact('GeneralWebmasterSections'), $this->data);
+            return view($this->backendmusicPath . 'music',  $this->data);
         }
         if ($request->ajax()) {
             $validator = Validator::make($request->all(), [
