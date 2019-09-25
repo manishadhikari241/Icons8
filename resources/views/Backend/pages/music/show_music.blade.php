@@ -35,11 +35,11 @@
                                     @foreach($music as $key=>$value)
                                         <tr>
                                             <td>{{++$key}}</td>
-                                            <td><img src="{{asset('images/music/'.$value->image)}}" width="60px">
+                                            <td><img src="{{asset('storage/WebContent/images/music/'.$value->image)}}" width="60px">
                                             </td>
                                             <td width="5px">
                                                 <audio controls>
-                                                    <source src="{{asset('/music/'.$value->audio)}}" autoplay>
+                                                    <source src="{{asset('storage/WebContent/music/'.$value->audio)}}" autoplay>
                                                 </audio>
                                             </td>
                                             <td>{{$value->name}}</td>

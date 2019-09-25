@@ -403,7 +403,6 @@ class MusicController extends BackendController
                 $data['image'] = $name;
             }
             if ($request->hasFile('audio')) {
-                dd('ok');
                 $this->delete_mp3($id);
                 $audio = $request->file('audio');
                 $name = time() . '.' . $audio->getClientOriginalExtension();
