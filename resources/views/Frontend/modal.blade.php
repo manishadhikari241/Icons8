@@ -6,7 +6,7 @@
                     <div class="photo-img" style="min-width: 280px; max-width: calc((600px - 10%) * 1.50015);">
                         <div class="image-container" style="padding-bottom: 66.66%;">
                             <img
-                                    id="image" src="{{asset('images/photo_upload/'.$image->image)}}"
+                                    id="image" src="{{asset('storage/WebContent/photo_upload/'.$image->image)}}"
                                     alt="The art of teaching ballet">
                         </div>
                     </div>
@@ -22,11 +22,18 @@
                     @if($image->image_type==0)
                         <div class="photo-controls">
                             <a href="{{route('photo-download',$image->id)}}" class="btn is-download">Download</a>
+                            <a class="btn is-like">
+                            <span class="btn-icon">
+                            <i class="icofont-heart"></i>
+                            </span>
+                            </a>
+                        </div>
+                        <div class="photo-controls">
                             <a id="button" class="btn is-like" href="{{route('editor',$image->id)}}">
-                                    <span class="btn-icon">
-                                    <i class="icofont-heart"></i>
-                                </span>
                                 Recompose
+                                <span class="btn-icon">
+                                    <i class="icofont-arrow-right"></i>
+                                </span>
                             </a>
                         </div>
                     @elseif($image->image_type==1)
@@ -39,6 +46,11 @@
                                         <span class="btn-icon">
                                     <i class="icofont-dollar">{{$image->cost}}</i>
                                 </span>
+                                        <a class="btn is-like">
+                            <span class="btn-icon">
+                            <i class="icofont-heart"></i>
+                            </span>
+                                        </a>
 
                                     </a>
                                 @else
@@ -47,12 +59,15 @@
                                         Now</a>
                                 @endif
 
-                                <a id="button" class="btn is-like" href="{{route('editor',$image->id)}}">
-                                    <span class="btn-icon">
-                                    <i class="icofont-heart"></i>
+                            </div>
+                                <div class="photo-controls">
+                                    <a id="button" class="btn is-like" href="{{route('editor',$image->id)}}">
+                                        Recompose
+                                        <span class="btn-icon">
+                                    <i class="icofont-arrow-right"></i>
                                 </span>
-                                    Recompose
-                                </a>
+                                    </a>
+                                </div>
                                 @if(!\Illuminate\Support\Facades\Auth::check())
                                     <button data-dismiss="modal" onclick="$('#loginModal').modal('show');" href=""
                                             data-toggle="modal" data-target="#loginModal" name="amount"
@@ -60,14 +75,13 @@
                                         with PayPal
                                     </button>
                                 @else
+                                    <div class="photo-controls">
                                     <button name="amount" value="{{$image->cost}}" type="submit"
                                             class="btn btn-primary">Pay
                                         with PayPal
                                     </button>
+                                    </div>
                                 @endif
-
-
-                            </div>
                         </form>
 
                     @endif
@@ -124,7 +138,7 @@
                                  data-id="{{$value->id}}">
                                 <a href="" class="card-link"></a>
                                 <div class="card-image">
-                                    <img src="{{asset('images/photo_upload/'.$value->image)}}"
+                                    <img src="{{asset('storage/WebContent/photo_upload/'.$value->image)}}"
                                          alt="{!! $value->description  !!}">
                                     <div class="card-control">
                                         <a href="" class="card-edit">Recompose</a>

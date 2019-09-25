@@ -115,6 +115,7 @@ class MusicController extends BackendController
         if ($request->isMethod('get')) {
             $gen = Genre::all();
             $this->data('genre', $gen);
+
             return view($this->backendmusicPath . 'genres',$this->data);
         }
         if ($request->isMethod('post')) {
@@ -261,6 +262,7 @@ class MusicController extends BackendController
             $this->data('mood', $mood);
             $art = Artist::all();
             $this->data('artist', $art);
+
             return view($this->backendmusicPath . 'music',  $this->data);
         }
         if ($request->ajax()) {

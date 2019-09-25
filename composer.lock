@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6517c1116208003043d6194675f0494b",
+    "content-hash": "1dffbb0fca5a2dddf097e26a41e343a5",
     "packages": [
         {
             "name": "arrilot/laravel-widgets",
@@ -5893,8 +5893,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "The PHP Unit Testing framework.",

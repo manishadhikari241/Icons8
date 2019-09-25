@@ -254,7 +254,7 @@
         <div class="platforms container">
             @foreach($iconstyle as $value)
                 <a href="{{route('inner-icons',$value->slug)}}" class="platform">
-                    <div class="icon-preview"><img src="{{asset('images/icons/styles/'.$value->image)}}"></div>
+                    <div class="icon-preview"><img src="{{asset('storage/WebContent/icons/styles/'.$value->image)}}"></div>
                     <div class="platform-title">{{$value->name}}</div>
                 </a>
             @endforeach
@@ -283,13 +283,14 @@
                            ->where('icons_category.category_id',$value->id)
                        ->first();
                     @endphp
-                    <a href="{{isset($category->slug)?route('inner-icons',isset($category->slug)? $category->slug:''):'#'}}" class="pack">
+                    <a href="{{isset($category->slug)?route('inner-icons',isset($category->slug)? $category->slug:''):'#'}}"
+                       class="pack">
                         <div class="icons-grid">
                             @foreach($value->icons->take(8) as $packs)
 
                                 <div class="icon">
                                     <div class="app-icon is-doodle"><img alt="" style="height:48px;width:48px;"
-                                                                         src="{{asset('images/icons/icon_upload/'.$packs->image)}}">
+                                                                         src="{{asset('storage/WebContent/icons/icon_upload/'.$packs->image)}}">
                                     </div>
                                 </div>
                             @endforeach

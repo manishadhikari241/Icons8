@@ -280,7 +280,7 @@
                                      data-id="{{$value->id}}">
                                     <a href="" class="card-link"></a>
                                     <div class="card-image">
-                                        <img src="{{asset('images/photo_upload/'.$value->image)}}"
+                                        <img src="{{asset('storage/WebContent/photo_upload/'.$value->image)}}"
                                              alt="{!! $value->description  !!}">
                                         <div class="card-control">
                                             <a href="" class="card-edit">Recompose</a>

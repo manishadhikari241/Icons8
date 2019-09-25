@@ -366,7 +366,6 @@
         <div class="app-tabs-content">
             <div class="app-slider">
                 <div class="images is-material">
-                    {{$allicon}}
                     <a href="" class="image" style="width: 32px;">
                         <img src="https://img.icons8.com/material/4ac144/256/facebook.png" alt="facebook">
                     </a>

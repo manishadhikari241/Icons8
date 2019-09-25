@@ -34,8 +34,7 @@
                                     @foreach($img as $key=>$value)
                                         <tr>
                                             <td>{{++$key}}</td>
-                                            <td><img src="{{asset('images/photo_upload/'.$value->image)}}" width="60px">
-                                            </td>
+                                            <td><img src="{{asset('storage/WebContent/photo_upload/'.$value->image)}}" width="60px"></td>
                                             <td>{{$value->title}}</td>
                                             <td>{{$value->uploader}}</td>
                                             <td>{!! $value->description !!}</td>

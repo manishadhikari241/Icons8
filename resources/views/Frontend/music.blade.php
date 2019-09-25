@@ -69,10 +69,29 @@
             </div>
         </div>
 
-        <ul class="nav-actions">
-            <li class="has-auth"><a href="" data-toggle="modal" data-target="#loginModal">Login</a></li>
-        </ul>
+        @if(\Illuminate\Support\Facades\Auth::check())
+            <ul class="nav-actions">
+                <li class="has-auth"><a
+                            href="{{route('voyager.dashboard')}}">{{\Illuminate\Support\Facades\Auth::user()->name}}</a>
+                    <div class="logout-link">
+                        <form method="post" action="{{route('logout')}}">
+                            @csrf
+                            <ul class="menu-links">
+                                <li>
+                                    <button type="submit"><a title="logout">logout
+                                        </a></button>
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        @else
+            <ul class="nav-actions">
+                <li class="has-auth"><a href="" data-toggle="modal" data-target="#loginModal">Login</a></li>
 
+            </ul>
+        @endif
     </header>
     <div class="modal fade app-modal" id="loginModal" tabindex="-1" role="dialog"
          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -362,7 +381,7 @@
 
                                                 <div class="tracks-item-row">
                                                     <div class="tracks-item-col tracks-item-cover">
-                                                        <img src="{{asset('images/music/'.$value->image)}}"
+                                                        <img src="{{asset('storage/WebContent/music/'.$value->image)}}"
                                                              alt="Delirix - Welcome To The Jungle"
                                                              class="tracks-item-cover-img">
                                                     </div>

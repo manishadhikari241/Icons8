@@ -16,7 +16,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <table id="example1" class="table table-striped table-bordered" style="width:100%">
+                                <table id="example_2" class="table table-striped table-bordered table-responsive" style="width:100%">
                                     <thead>
                                     <tr>
                                         <th>#</th>
@@ -36,7 +36,7 @@
                                     @foreach($image as $key=>$value)
                                         <tr>
                                             <td>{{++$key}}</td>
-                                            <td><img src="{{asset('images/photo_upload/'.$value->image)}}" width="60px">
+                                            <td><img src="{{asset('storage/WebContent/photo_upload/'.$value->image)}}" width="60px">
                                             </td>
                                             <td>{{$value->title}}</td>
                                             <td>
