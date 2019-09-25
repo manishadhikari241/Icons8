@@ -132,7 +132,7 @@
             <div class="jumbotrons-head">
                 <div class="jumbotrons-preview">
                     @if($slide->last() != null)
-                        <img src="{{asset('images/sliders/'.$slide->last()->music_slider)}}"
+                        <img src="{{asset('storage/WebContent/images/sliders/'.$slide->last()->music_slider)}}"
                              alt="Music for your videos. Free." class="jumbotrons-preview-image">
                     @endif
                 </div>
@@ -266,7 +266,8 @@
                         <div class="mvp-playlist-item" data-type="audio" data-path='[{"quality": "default", "mp3": "{{asset('images/music/'.$theme->first()->musics->first()->audio)}}", "wav": "media/audio/wav/01.wav"},{"quality": "320kbps", "mp3": "media/audio/02_320kbps.mp3"}]' data-quality="320kbps" data-poster="{{asset('images/music/'.$theme->first()->musics->first()->image)}}" data-download="media/audio/01.mp3" data-share="http://www.google.com">
 
                             <div class="mvp-playlist-thumb">
-                                <img class="mvp-thumbimg" src="{{asset('images/music/'.$theme->first()->musics->first()->image)}}" alt="">
+
+                                <img class="mvp-thumbimg" src="{{asset('storage/WebContent/images/music/'.$theme->first()->musics->first()->image)}}" alt="">
                             </div>
 
                             <div class="mvp-playlist-info">
@@ -292,7 +293,7 @@
 
                                                     <div class="tracks-item-row">
                                                         <div class="tracks-item-col tracks-item-cover">
-                                                            <img src="{{asset('images/music/'.$value->image)}}"
+                                                            <img src="{{asset('storage/WebContent/images/music/'.$value->image)}}"
                                                                  alt="Delirix - Welcome To The Jungle"
                                                                  class="tracks-item-cover-img">
                                                         </div>

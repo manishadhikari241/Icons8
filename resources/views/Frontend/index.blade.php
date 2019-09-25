@@ -495,13 +495,13 @@
 
 <section class="banners">
     <div class="banners-wrap">
-        <a href="" class="banners-item is-wide is-photo-creator"
-           style="background: linear-gradient(rgb(231, 157, 167), rgb(213, 133, 144));"></a>
-        <a href="" class="banners-item is-stratos"
-           style="    background-image: linear-gradient(225deg,#00001c,#00004c);"></a>
-        <a href="" class="banners-item is-cherry"
-           style="    background-image: linear-gradient(45deg,#ff5c4c,#cd23a4 49.4%,#7e46fb);"></a>
-        <a href="" class="banners-item is-wide is-photos"></a>
+        <a href="{{route('pixel')}}" class="banners-item is-wide is-photo-creator"
+           style="background: linear-gradient(rgb(231, 157, 167), rgb(213, 133, 144));"><img src="{{asset('images/creator.jpg')}}">PHOTO CREATOR</a>
+        <a href="{{route('icons-index')}}" class="banners-item is-stratos"
+           style="    background-image: linear-gradient(225deg,#00001c,#00004c);">ICONS OFFLINE</a>
+        <a href="{{route('music')}}" class="banners-item is-cherry"
+           style="background-image: linear-gradient(45deg,#ff5c4c,#cd23a4 49.4%,#7e46fb);">MUSIC. FUGUE.</a>
+        <a href="{{route('photo')}}" class="banners-item is-wide is-photos">PHOTOS. MOOSE.</a>
     </div>
 </section>
 

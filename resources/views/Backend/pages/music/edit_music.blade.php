@@ -31,7 +31,7 @@
 
                                         <div class="form-group mb-none">
                                             <label for="name" class="control-label">Current Image:</label>
-                                            <img src="{{asset('images/music/'.$music->image)}}" width="80px">
+                                            <img src="{{asset('storage/WebContent/images/music/'.$music->image)}}" width="80px">
                                             <hr>
                                             <label for="name" class="control-label">Thumbnail</label>
                                             <input class="form-control" name="image" type="file" id="name">
@@ -41,7 +41,7 @@
                                     <div class="form-group mb-none">
                                         <label for="name" class="control-label">Current Music:</label>
                                         <audio controls>
-                                            <source src="{{asset('/music/'.$music->audio)}}">
+                                            <source src="{{asset('storage/WebContent/music/'.$music->audio)}}">
                                         </audio>
                                         <hr>
                                         <label for="name" class="control-label">Music</label>

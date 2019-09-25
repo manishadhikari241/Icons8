@@ -15,77 +15,6 @@ Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 
 });
-Route::group(['namespace' => 'Frontend'], function () {
-
-
-    Route::get('/', 'PageController@index')->name('index');
-    Route::get('/musics', 'PageController@music')->name('music');
-    Route::get('/photos', 'PageController@photo')->name('photo');
-    Route::get('/vectors', 'PageController@vector')->name('vector');
-    Route::get('/videos', 'PageController@video')->name('video');
-    Route::get('/pixie-editor/{id?}', 'PageController@editor')->name('editor');
-    Route::get('/editor', 'PageController@pixel')->name('pixel');
-    Route::get('/my-editor', 'PageController@my_editor')->name('my-editor');
-    Route::Post('main-search', 'MainSearchController@main_search')->name('main-search');
-
-    Route::get('/filtered-modal/{id?}', 'PageController@filtered_modal')->name('filtered-modal');
-    Route::get('/modal/{id?}', 'PageController@modal')->name('modal');
-    Route::any('/search', 'PageController@search_results')->name('search-result');
-    Route::get('/download/{id}', 'PageController@download')->name('photo-download');
-    Route::get('/music-download/{id}', 'PageController@music_download')->name('music-download');
-
-    Route::post('/orders', 'PageController@image_orders')->name('photo-order');
-    Route::post('/photo-filter', 'PageController@photo_filter')->name('photo-filter');
-
-    // route for processing payment
-    Route::any('paypal/{amount?}', 'PaypalController@payWithpaypal')->name('paypal');
-// route for check status of the payment
-    Route::get('status', 'PaypalController@getPaymentStatus');
-
-    Route::group(['namespace' => 'Forum'], function () {
-        Route::any('/forum', 'ForumController@index')->name('forum-index');
-        Route::post('new-topic', 'ForumController@new_topic')->name('new-topic');
-        Route::get('topic-filter', 'ForumController@topic_filter')->name('topic-filter');
-        Route::get('latest-filter', 'ForumController@latest_filter')->name('latest-filter');
-        Route::get('category-filter', 'ForumController@category_filter')->name('category-filter');
-        Route::any('forum-inner/{slug?}', 'ForumController@forum_inner')->name('forum-inner');
-        Route::get('top-filter', 'ForumController@top_filter')->name('top-filter');
-        Route::any('forum-inner/{slug}', 'ForumController@forum_inner')->name('forum-inner');
-        Route::post('topic-comment', 'TopicCommentController@comment')->name('topic-comment');
-        Route::post('like-topic', 'LikeController@like_topic')->name('like-topic');
-        Route::post('like-coment', 'LikeController@like_comment')->name('like-comment');
-        Route::get('forum-autosuggest', 'SearchController@autosuggest')->name('forum-autosuggest');
-    });
-
-    Route::group(['namespace' => 'Icons'], function () {
-
-        Route::group(['prefix' => '/', 'namespace' => 'Placeholder'], function () {
-
-            Route::get('icon-editor', [
-                'as' => 'ROUTE_FRONT_PLACEHOLDER_INDEX',
-                'uses' => 'PlaceholderController@getIndex'
-            ]);
-
-            Route::get('{size}/{background?}/{color?}/{icon?}', [
-                    'as' => 'ROUTE_FRONT_PLACEHOLDER_IMAGE',
-                    'uses' => 'PlaceholderController@getImage'
-                ]
-            );
-
-
-
-        });
-
-        Route::get('/icons', 'IconsController@index')->name('icons-index');
-        Route::get('inner-icons/{slug}', 'IconsController@inner_icons')->name('inner-icons');
-        Route::get('category-click-icons', 'IconsController@category_click_icons')->name('category-click-icons');
-        Route::post('add-to-collection-icons', 'CartControllerIcons@add_to_collection_icons')->name('add-to-collection-icons');
-        Route::get('trend-filter', 'IconsController@trend_filter')->name('trend-filter');
-        Route::get('icons-search', 'IconSearchController@autocomplete')->name('icons-search');
-        Route::get('pack-page/{category_slug}', 'IconsController@pack_page')->name('pack-page');
-    });
-});
-
 Route::group(['namespace' => 'Backend'], function () {
     Route::Group(['prefix' => 'Forum'], function () {
         Route::any('all-topics', 'ForumController@all_topics')->name('all-topics');
@@ -200,3 +129,76 @@ Route::group(['namespace' => 'Backend'], function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['namespace' => 'Frontend'], function () {
+
+
+    Route::get('/', 'PageController@index')->name('index');
+    Route::get('/musics', 'PageController@music')->name('music');
+    Route::get('/photos', 'PageController@photo')->name('photo');
+    Route::get('/vectors', 'PageController@vector')->name('vector');
+    Route::get('/videos', 'PageController@video')->name('video');
+    Route::get('/pixie-editor/{id?}', 'PageController@editor')->name('editor');
+    Route::get('/editor', 'PageController@pixel')->name('pixel');
+    Route::get('/my-editor', 'PageController@my_editor')->name('my-editor');
+    Route::Post('main-search', 'MainSearchController@main_search')->name('main-search');
+
+    Route::get('/filtered-modal/{id?}', 'PageController@filtered_modal')->name('filtered-modal');
+    Route::get('/modal/{id?}', 'PageController@modal')->name('modal');
+    Route::any('/search', 'PageController@search_results')->name('search-result');
+    Route::get('/download/{id}', 'PageController@download')->name('photo-download');
+    Route::get('/music-download/{id}', 'PageController@music_download')->name('music-download');
+
+    Route::post('/orders', 'PageController@image_orders')->name('photo-order');
+    Route::post('/photo-filter', 'PageController@photo_filter')->name('photo-filter');
+
+    // route for processing payment
+    Route::any('paypal/{amount?}', 'PaypalController@payWithpaypal')->name('paypal');
+// route for check status of the payment
+    Route::get('status', 'PaypalController@getPaymentStatus');
+
+    Route::group(['namespace' => 'Forum'], function () {
+        Route::any('/forum', 'ForumController@index')->name('forum-index');
+        Route::post('new-topic', 'ForumController@new_topic')->name('new-topic');
+        Route::get('topic-filter', 'ForumController@topic_filter')->name('topic-filter');
+        Route::get('latest-filter', 'ForumController@latest_filter')->name('latest-filter');
+        Route::get('category-filter', 'ForumController@category_filter')->name('category-filter');
+        Route::any('forum-inner/{slug?}', 'ForumController@forum_inner')->name('forum-inner');
+        Route::get('top-filter', 'ForumController@top_filter')->name('top-filter');
+        Route::any('forum-inner/{slug}', 'ForumController@forum_inner')->name('forum-inner');
+        Route::post('topic-comment', 'TopicCommentController@comment')->name('topic-comment');
+        Route::post('like-topic', 'LikeController@like_topic')->name('like-topic');
+        Route::post('like-coment', 'LikeController@like_comment')->name('like-comment');
+        Route::get('forum-autosuggest', 'SearchController@autosuggest')->name('forum-autosuggest');
+    });
+
+    Route::group(['namespace' => 'Icons'], function () {
+
+
+        Route::get('/icons', 'IconsController@index')->name('icons-index');
+        Route::get('inner-icons/{slug}', 'IconsController@inner_icons')->name('inner-icons');
+        Route::get('category-click-icons', 'IconsController@category_click_icons')->name('category-click-icons');
+        Route::post('add-to-collection-icons', 'CartControllerIcons@add_to_collection_icons')->name('add-to-collection-icons');
+        Route::get('trend-filter', 'IconsController@trend_filter')->name('trend-filter');
+        Route::get('icons-search', 'IconSearchController@autocomplete')->name('icons-search');
+        Route::get('pack-page/{category_slug}', 'IconsController@pack_page')->name('pack-page');
+
+        Route::group(['prefix' => '/', 'namespace' => 'Placeholder'], function () {
+
+            Route::get('icon-editor', [
+                'as' => 'ROUTE_FRONT_PLACEHOLDER_INDEX',
+                'uses' => 'PlaceholderController@getIndex'
+            ]);
+
+            Route::get('{size}/{background?}/{color?}/{icon?}', [
+                    'as' => 'ROUTE_FRONT_PLACEHOLDER_IMAGE',
+                    'uses' => 'PlaceholderController@getImage'
+                ]
+            );
+
+
+        });
+
+    });
+});
+
+

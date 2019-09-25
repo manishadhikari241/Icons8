@@ -36,7 +36,7 @@
     <script>setTimeout(function() {
             var spinner = document.querySelector('.global-spinner');
             if (spinner) spinner.style.display = 'flex';
-        }, 50);</script>
+        }, 10);</script>
 </pixie-editor>
 <script src="{{asset('js/Frontend/scripts.min.js')}}"></script>
 
@@ -73,10 +73,34 @@
 var pixie = new Pixie({
 watermarkText: '',
 onLoad: function() {
-window.postMessage('pixieLoaded', '*');
+    var filterTool = pixie.getTool('filter');
+    filterTool.apply(filterTool.getByName('grayscale'));
+    window.postMessage('pixieLoaded', '*');
 },
+    ui: {
+        openImageDialog: {
+            show: true,
+            sampleImages: [
+                {
+                    url: '{{asset('pixie/assets/images/samples/sample1.jpg')}}',
+                    thumbnail: '{{asset('pixie/assets/images/samples/sample1_thumbnail.jpg')}}',
+                },
+                {
+                    url: '{{asset('pixie/assets/images/samples/sample2.jpg')}}',
+                    thumbnail:'{{asset('pixie/assets/images/samples/sample2.jpg')}}',
+                },
+                {
+                    url: '{{asset('pixie/assets/images/samples/sample3.jpg')}}',
+                    thumbnail: '{{asset('pixie/assets/images/samples/sample3_thumbnail.jpg')}}',
+                },
+            ]
+        }
+    },
+
+
 });
 </script>
+
 
 </body>
 </html>

@@ -116,7 +116,7 @@ class MusicController extends BackendController
             $gen = Genre::all();
             $this->data('genre', $gen);
 
-            return view($this->backendmusicPath . 'genres',$this->data);
+            return view($this->backendmusicPath . 'genres', $this->data);
         }
         if ($request->isMethod('post')) {
             $request->validate([
@@ -263,9 +263,10 @@ class MusicController extends BackendController
             $art = Artist::all();
             $this->data('artist', $art);
 
-            return view($this->backendmusicPath . 'music',  $this->data);
+            return view($this->backendmusicPath . 'music', $this->data);
         }
         if ($request->ajax()) {
+//            dd($request->all());
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'image' => 'required',
@@ -285,14 +286,14 @@ class MusicController extends BackendController
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = public_path('/images/music/');
+                $destinationPath = storage_path('app/public/WebContent/images/music/');
                 $image->move($destinationPath, $name);
                 $data['image'] = $name;
             }
             if ($request->hasFile('audio')) {
                 $audio = $request->file('audio');
                 $file = time() . '.' . $audio->getClientOriginalExtension();
-                $destinationPath = public_path('/music/');
+                $destinationPath = storage_path('app/public/WebContent/music/');
                 $audio->move($destinationPath, $file);
                 $data['audio'] = $file;
             }
@@ -313,14 +314,13 @@ class MusicController extends BackendController
             }
         }
         if ($create) {
-           return response()->json([
-               'message'=>'Music uploaded successfully',
-                   'status'=>'success'
-               ]);
+            return response()->json([
+                'message' => 'Music uploaded successfully',
+                'status' => 'success'
+            ]);
         }
 
     }
-
 
 
     public function show_music(Request $request)
@@ -348,7 +348,7 @@ class MusicController extends BackendController
     {
         $findData = Music::findorfail($id);
         $fileName = $findData->image;
-        $deletePath = public_path('images/music/' . $fileName);
+        $deletePath = storage_path('app/public/WebContent/images/music/' . $fileName);
         if (file_exists($deletePath) && is_file($deletePath)) {
             unlink($deletePath);
         }
@@ -359,7 +359,7 @@ class MusicController extends BackendController
     {
         $find = Music::findorfail($id);
         $file = $find->audio;
-        $deletePath = public_path('music/', $file);
+        $deletePath = storage_path('app/public/WebContent/music/' . $file);
         if (file_exists($deletePath) && is_file($deletePath)) {
             unlink($deletePath);
         }
@@ -398,15 +398,16 @@ class MusicController extends BackendController
                 $this->delete_file($id);
                 $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = public_path('/images/music/');
+                $destinationPath = storage_path('app/public/WebContent/images/music/');
                 $image->move($destinationPath, $name);
                 $data['image'] = $name;
             }
             if ($request->hasFile('audio')) {
+                dd('ok');
                 $this->delete_mp3($id);
                 $audio = $request->file('audio');
                 $name = time() . '.' . $audio->getClientOriginalExtension();
-                $destinationPath = public_path('/music/');
+                $destinationPath = storage_path('app/public/WebContent/music/');
                 $audio->move($destinationPath, $name);
                 $data['audio'] = $name;
             }
@@ -441,7 +442,7 @@ class MusicController extends BackendController
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = public_path('/images/sliders/');
+                $destinationPath = storage_path('app/public/WebContent/images/sliders/musicpage/');
                 $image->move($destinationPath, $name);
                 $data['music_slider'] = $name;
             }
@@ -470,7 +471,7 @@ class MusicController extends BackendController
                 $this->delete_slide($id);
                 $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = public_path('/images/sliders/');
+                $destinationPath = storage_path('app/public/WebContent/images/sliders/musicpage/');
                 $image->move($destinationPath, $name);
                 $data['music_slider'] = $name;
             }
@@ -496,7 +497,7 @@ class MusicController extends BackendController
     {
         $findData = MusicSlider::findorfail($id);
         $fileName = $findData->music_slider;
-        $deletePath = public_path('images/sliders/' . $fileName);
+        $deletePath = storage_path('app/public/WebContent/images/sliders/musicpage/' . $fileName);
         if (file_exists($deletePath) && is_file($deletePath)) {
             unlink($deletePath);
         }
@@ -506,8 +507,7 @@ class MusicController extends BackendController
     public function music_download($id)
     {
         $mus = Music::where('id', $id)->firstOrFail();
-        dd($mus->image);
-        $path = public_path('music/' . $mus->audio);
+        $path = storage_path('app/public/WebContent/music/' . $mus->image);
         $headers = array(
             'Content-Type:audio/mp3',
         );
@@ -573,7 +573,7 @@ class MusicController extends BackendController
 
         if ($create) {
             return response()->json([
-                'status'=>'success',
+                'status' => 'success',
                 'message' => 'Video uploaded'
             ]);
         }
