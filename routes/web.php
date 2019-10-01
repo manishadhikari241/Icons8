@@ -182,9 +182,9 @@ Route::group(['namespace' => 'Frontend'], function () {
         Route::get('icons-search', 'IconSearchController@autocomplete')->name('icons-search');
         Route::get('pack-page/{category_slug}', 'IconsController@pack_page')->name('pack-page');
 
-        Route::group(['prefix' => '/', 'namespace' => 'Placeholder'], function () {
+        Route::group(['prefix' => 'icon-editor', 'namespace' => 'Placeholder'], function () {
 
-            Route::get('icon-editor', [
+            Route::get('/{id?}', [
                 'as' => 'ROUTE_FRONT_PLACEHOLDER_INDEX',
                 'uses' => 'PlaceholderController@getIndex'
             ]);

@@ -69,6 +69,7 @@ class ForumController extends Controller
     public function forum_inner(Request $request)
     {
         $forum = ForumTopic::where('status', 1)->where('slug', $request->slug)->first();
+//        dd($forum);
         $check = TopicVisit::where('topic_id', $forum->id)->first();
         if (!$check) {
             $viewcount = TopicVisit::updateorcreate(['topic_id' => $forum->id], [
@@ -112,7 +113,7 @@ class ForumController extends Controller
         $this->data('lastreply', $lastreply);
         $this->data('comment', $comment);
 
-        $suggested = ForumTopic::where('category_id', $forum->category_id)->where('id', '!=', $forum->id)->get();
+        $suggested = ForumTopic::where('category_id', $forum->category_id)->where('status',1)->where('id', '!=', $forum->id)->get();
         $this->data('suggested', $suggested);
         return view('Frontend.forum.forum-inner', $this->data);
     }
@@ -154,6 +155,7 @@ class ForumController extends Controller
     {
         if ($request->ajax()) {
             $forum = ForumTopic::withCount('comments')
+                ->where('status',1)
                 ->orderBy('comments_count', 'desc');
 
             $final = $forum->get();

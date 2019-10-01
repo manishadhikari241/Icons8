@@ -25,37 +25,50 @@
     </div>
 
     <div class="tab-content">
-        <div class="tab-pane active" id="font_fa" ng-cloak>
-            <div class="icons-list">
-                @foreach($fontawesomes as $fontawesome)
-                    <div class="text-center icon-list" ng-click="iconClick('{{ $fontawesome }}')">
-                        <i class="fa {{ $fontawesome }}"></i>
-                        <div class="icon-label">{{ str_replace('fa-', '', $fontawesome) }}</div>
-                    </div>
-                @endforeach
-                <div class="clearfix"></div>
-            </div>
-        </div>
-        <div class="tab-pane active" id="font_inicons" ng-cloak>
-            <div class="icons-list">
-                @foreach($ionics as $ionic)
-                    <div class="text-center icon-list" ng-click="iconClick('{{ $ionic }}')">
-                        <i class="ion {{ $ionic }}"></i>
-                        <div class="icon-label">{{ str_replace('ion-', '', $ionic) }}</div>
-                    </div>
-                @endforeach
-                <div class="clearfix"></div>
-            </div>
-        </div>
+        {{--<div class="tab-pane active" id="font_fa" ng-cloak>--}}
+            {{--<div class="icons-list">--}}
+                {{--@foreach($fontawesomes as $fontawesome)--}}
+                    {{--<div class="text-center icon-list" ng-click="iconClick('{{ $fontawesome }}')">--}}
+                        {{--<i class="fa {{ $fontawesome }}"></i>--}}
+                        {{--<div class="icon-label">{{ str_replace('fa-', '', $fontawesome) }}</div>--}}
+                    {{--</div>--}}
+                {{--@endforeach--}}
+                {{--<div class="clearfix"></div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+        {{--<div class="tab-pane active" id="font_inicons" ng-cloak>--}}
+            {{--<div class="icons-list">--}}
+                {{--@foreach($ionics as $ionic)--}}
+                    {{--<div class="text-center icon-list" ng-click="iconClick('{{ $ionic }}')">--}}
+                        {{--<i class="ion {{ $ionic }}"></i>--}}
+                        {{--<div class="icon-label">{{ str_replace('ion-', '', $ionic) }}</div>--}}
+                    {{--</div>--}}
+                {{--@endforeach--}}
+                {{--<div class="clearfix"></div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
 
         <div class="tab-pane active" id="font_glyphicons" ng-cloak>
             <div class="icons-list">
+
                 @foreach($glyphicons as $glyphicon)
+                    {{$glyphicon}}
                     <div class="text-center icon-list" ng-click="iconClick('{{ $glyphicon }}')">
                         <i class="glyphicon {{ $glyphicon }}"></i>
                         <div class="icon-label">{{ str_replace('glyphicon-', '', $glyphicon) }}</div>
                     </div>
                 @endforeach
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="tab-pane active" id="font_fa" ng-cloak>
+            <div class="icons-list">
+                {{--@foreach($icon as $value)--}}
+                    <div class="text-center icon-list" ng-click="iconClick('{{ json_encode( asset('/storage/WebContent/icons/icon_upload/'.$icon->image))}}')">
+                        {{--<i class="fa {{ $fontawesome }}"></i>--}}
+                        {{--<div class="icon-label">{{ str_replace('fa-', '', $fontawesome) }}</div>--}}
+                    </div>
+                {{--@endforeach--}}
                 <div class="clearfix"></div>
             </div>
         </div>

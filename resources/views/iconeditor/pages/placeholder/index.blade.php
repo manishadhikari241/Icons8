@@ -46,12 +46,13 @@
 @section('js')
     <script>
         window.Vars = {
-            Url          : '{{ url('') }}',
-            Fonts        : JSON.parse($('#json_fonts').val()),
+            Url: '{{ url('') }}',
+            Fonts: JSON.parse($('#json_fonts').val()),
         }
         window.Routes = {
-            GetImage    : "{{ route('ROUTE_FRONT_PLACEHOLDER_INDEX') }}",
+            GetImage: "{{ route('ROUTE_FRONT_PLACEHOLDER_INDEX') }}",
         }
+        console.log(window.Routes.GetImage);
     </script>
     <script type="text/javascript" src="{{ asset('imageeditor/js/ng-imgholdr.js') }}"></script>
 

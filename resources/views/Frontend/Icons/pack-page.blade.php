@@ -378,7 +378,7 @@
                                     <div class="set is-labels-shown">
                                         @foreach($icons as $value)
                                             <div class="icon">
-                                                <a href="" class="icons-link">
+                                                <a href="{{route('ROUTE_FRONT_PLACEHOLDER_INDEX',$value->id)}}" class="icons-link">
                                                     <div class="app-icon"><img alt=""
                                                                                data-id="{{$value->id}}"
                                                                                src="{{asset('images/icons/icon_upload/'.$value->image)}}"
